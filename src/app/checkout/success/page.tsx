@@ -108,7 +108,7 @@ export default function OrderSuccessPage() {
               )}
 
               <div>
-                <h4 className="font-medium mb-2">What's Next?</h4>
+                <h4 className="font-medium mb-2">What&apos;s Next?</h4>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">

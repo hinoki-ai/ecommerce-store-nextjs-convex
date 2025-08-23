@@ -14,6 +14,9 @@ if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL)
 
 export default function ConvexClientProvider({ children }: { children: ReactNode }) {
+  // useAuth must be called at the top level, not conditionally
+  const auth = useAuth()
+
   // Check if we should skip authentication (for development/testing)
   const skipAuth = process.env.SKIP_AUTH === 'true'
 
@@ -31,7 +34,7 @@ export default function ConvexClientProvider({ children }: { children: ReactNode
   // Normal mode with Clerk authentication
   return (
     <ConvexErrorBoundary>
-      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+      <ConvexProviderWithClerk client={convex} useAuth={auth}>
         {children}
       </ConvexProviderWithClerk>
     </ConvexErrorBoundary>

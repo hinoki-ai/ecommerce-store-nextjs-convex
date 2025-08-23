@@ -1,10 +1,13 @@
 /**
- * Internationalization - Chunked Architecture (Legacy Compatibility)
+ * Internationalization - LEGACY COMPATIBILITY WRAPPER ONLY
  *
- * This file provides backward compatibility for the existing monolithic i18n system
- * while delegating to the new chunked language provider architecture.
+ * ⚠️  WARNING: This is a legacy compatibility wrapper only
+ * ⚠️  DO NOT MODIFY this file beyond delegation to chunked system
+ * ⚠️  For new implementations, use './i18n-chunked' directly
+ * ⚠️  See I18N-RULES.md for mandatory guidelines
  *
- * For new implementations, use the chunked system from './i18n-chunked'
+ * This file provides backward compatibility while delegating to the
+ * unified chunked language provider architecture.
  */
 
 // Re-export everything from the new chunked system

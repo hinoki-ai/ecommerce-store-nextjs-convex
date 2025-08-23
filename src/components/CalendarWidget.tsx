@@ -6,6 +6,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -124,10 +125,10 @@ export function CalendarWidget({
         </CardHeader>
         <CardContent>
           <Button variant="outline" asChild className="w-full">
-            <a href="/calendario">
+            <Link href="/calendario">
               Ver Calendario Completo
               <ArrowRightIcon className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </CardContent>
       </Card>
@@ -157,10 +158,10 @@ export function CalendarWidget({
 
         <div className="mt-4 pt-4 border-t">
           <Button variant="outline" asChild className="w-full">
-            <a href="/calendario">
+            <Link href="/calendario">
               Ver Todos los Eventos
               <ArrowRightIcon className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
         </div>
       </CardContent>

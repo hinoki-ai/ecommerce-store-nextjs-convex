@@ -97,12 +97,12 @@ export interface EmptyState {
 export interface SearchState {
   query: string;
   isSearching: boolean;
-  results: any[];
+  results: unknown[];
   hasMore: boolean;
 }
 
 export interface FilterState {
-  activeFilters: Record<string, any>;
+  activeFilters: Record<string, unknown>;
   availableFilters: FilterOption[];
 }
 
@@ -142,17 +142,17 @@ export interface TableColumn {
   sortable?: boolean;
   width?: number;
   align?: 'left' | 'center' | 'right';
-  render?: (value: any, row: any) => React.ReactNode;
+  render?: (value: unknown, row: unknown) => React.ReactNode;
 }
 
 export interface TableProps {
   columns: TableColumn[];
-  data: any[];
+  data: unknown[];
   loading?: boolean;
   emptyMessage?: string;
   onSort?: (field: string, direction: 'asc' | 'desc') => void;
-  onRowClick?: (row: any) => void;
+  onRowClick?: (row: unknown) => void;
   selectable?: boolean;
-  selectedRows?: any[];
-  onSelectionChange?: (selectedRows: any[]) => void;
+  selectedRows?: unknown[];
+  onSelectionChange?: (selectedRows: unknown[]) => void;
 }

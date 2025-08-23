@@ -172,7 +172,7 @@ export function validatePassword(password: string): FieldValidationResult {
 }
 
 // Generic form validation
-export function validateForm<T extends Record<string, any>>(
+export function validateForm<T extends Record<string, unknown>>(
   data: T,
   rules: Record<keyof T, ValidationRule[]>
 ): ValidationResult {
@@ -198,7 +198,7 @@ export function validateForm<T extends Record<string, any>>(
 }
 
 // Validation rule type
-export type ValidationRule = (value: any, fieldName: string) => FieldValidationResult;
+export type ValidationRule = (value: unknown, fieldName: string) => FieldValidationResult;
 
 // Common validation rules
 export const validationRules = {

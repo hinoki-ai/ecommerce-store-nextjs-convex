@@ -89,6 +89,8 @@ export class ArabicLanguageProvider extends BaseLanguageProvider {
         cart: {
           title: 'سلة التسوق',
           empty: 'سلة التسوق فارغة',
+          emptyMessage: 'يبدو أنك لم تضع شيئاً في سلة التسوق بعد.',
+          emptyAction: 'ابدأ التسوق',
           subtotal: 'المجموع الفرعي',
           tax: 'الضرائب',
           shipping: 'الشحن',
@@ -96,7 +98,58 @@ export class ArabicLanguageProvider extends BaseLanguageProvider {
           checkout: 'الدفع',
           continueShopping: 'متابعة التسوق',
           removeItem: 'إزالة المنتج',
-          updateQuantity: 'تحديث الكمية'
+          updateQuantity: 'تحديث الكمية',
+          clearCart: 'إفراغ السلة',
+          quantity: 'الكمية',
+          price: 'السعر',
+          totalPrice: 'السعر الإجمالي',
+          itemRemoved: 'تم إزالة المنتج من السلة',
+          cartCleared: 'تم إفراغ السلة',
+          quantityUpdated: 'تم تحديث الكمية',
+          failedToUpdate: 'فشل في تحديث الكمية',
+          failedToRemove: 'فشل في إزالة المنتج',
+          failedToClear: 'فشل في إفراغ السلة',
+          loading: 'جارٍ تحميل السلة...',
+          items: 'منتجات',
+          item: 'منتج',
+          inCart: 'في سلة التسوق',
+          each: 'كل',
+          orderSummary: 'ملخص الطلب',
+          free: 'مجاني',
+          whyShopWithUs: 'لماذا تتسوق معنا؟',
+          securePayment: 'دفع آمن',
+          sslEncryption: 'تشفير SSL 256 بت',
+          freeShipping: 'شحن مجاني',
+          freeShippingDesc: 'شحن مجاني للطلبات فوق 50 دولار',
+          easyReturns: 'إرجاع سهل',
+          easyReturnsDesc: 'سياسة إرجاع لمدة 30 يوم',
+          searchProducts: 'البحث عن منتجات...',
+          allCategories: 'جميع الفئات',
+          sortBy: 'ترتيب حسب',
+          newest: 'الأحدث',
+          priceLow: 'السعر: من الأقل للأعلى',
+          priceHigh: 'السعر: من الأعلى للأقل',
+          nameAZ: 'الاسم: أ إلى ي',
+          filterByPrice: 'تصفية حسب السعر',
+          filterByCategory: 'تصفية حسب الفئة',
+          showing: 'عرض',
+          of: 'من',
+          products: 'منتجات',
+          noProductsFound: 'لم يتم العثور على منتجات',
+          tryDifferentSearch: 'جرب تعديل البحث أو الفلاتر',
+          clearFilters: 'مسح جميع الفلاتر',
+          loadMore: 'تحميل المزيد',
+          filters: 'فلاتر',
+          priceRange: 'نطاق السعر',
+          activeFilters: 'الفلاتر النشطة',
+          success: {
+            addedToCart: 'تمت الإضافة للسلة'
+          },
+          forms: {
+            placeholder: {
+              search: 'البحث عن منتجات...'
+            }
+          }
         },
 
         // User account
@@ -214,7 +267,12 @@ export class ArabicLanguageProvider extends BaseLanguageProvider {
           termsOfService: 'شروط الخدمة',
           shippingInfo: 'معلومات الشحن',
           returnPolicy: 'سياسة الإرجاع',
-          faq: 'الأسئلة الشائعة'
+          faq: 'الأسئلة الشائعة',
+          quickLinks: 'روابط سريعة',
+          contactInfo: 'معلومات الاتصال',
+          helpCenter: 'مركز المساعدة',
+          returnsExchanges: 'الإرجاع والتبديل',
+          sizeGuide: 'دليل المقاسات'
         },
 
         // Additional form elements
@@ -361,23 +419,7 @@ export class ArabicLanguageProvider extends BaseLanguageProvider {
           months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
         },
 
-        // Footer specific
-        footer: {
-          quickLinks: 'روابط سريعة',
-          customerService: 'خدمة العملاء',
-          contactInfo: 'معلومات الاتصال',
-          helpCenter: 'مركز المساعدة',
-          shippingInfo: 'معلومات الشحن',
-          returnsExchanges: 'الإرجاع والتبديل',
-          sizeGuide: 'دليل المقاسات',
-          privacyPolicy: 'سياسة الخصوصية',
-          termsOfService: 'شروط الخدمة',
-          cookiePolicy: 'سياسة ملفات تعريف الارتباط',
-          allRightsReserved: 'جميع الحقوق محفوظة.',
-          address: '123 شارع التجارة، المدينة، الدولة',
-          phone: '+966 11 234 5678',
-          email: 'support@luxurystore.sa'
-        },
+
 
         // Product specific
         productCard: {

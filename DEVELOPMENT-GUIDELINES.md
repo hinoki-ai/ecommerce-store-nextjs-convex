@@ -13,6 +13,7 @@
 ## 🚀 AI EXECUTION WORKFLOWS (REQUIRED)
 
 ### 1. AI Development Environment Setup
+
 ```bash
 # 🎯 AI EXECUTION: Navigate to AI-optimized project directory
 cd /home/kuromatsu/Documents/ΛRΛMΛC/Websites/store
@@ -26,19 +27,29 @@ npx prisma generate && npx prisma db push
 # 🚀 AI EXECUTION: Start AI-optimized development server
 npm run dev
 # 🎯 AI RESULT: Server accessible at http://localhost:3000
+
 ```
 
 ### 2. AI Essential Access Points
+
 - **🎯 SEO Dashboard**: `http://localhost:3000/admin/seo-dashboard` (AI optimization interface)
+
 - **🛍️ Product Management**: `http://localhost:3000/admin/products` (AI product CRUD)
+
 - **📝 Content Management**: `http://localhost:3000/admin/content` (AI content creation)
+
 - **🚀 API Routes**: `/api/seo/`, `/api/products`, `/api/collections` (AI endpoints)
 
 ### 3. AI Technical Standards
+
 - ✅ **Spanish-First**: All user-facing content in Spanish (AI requirement)
+
 - ✅ **Modular Architecture**: Prefer chunked systems over monolithic code (AI mandate)
+
 - ✅ **TypeScript Strict**: Full type safety and error prevention (AI standard)
+
 - ✅ **Performance Optimization**: Lazy loading and chunked loading (AI critical)
+
 - ✅ **SEO Focus**: Every feature optimized for search engines (AI requirement)
 
 ---
@@ -67,6 +78,7 @@ const optimizeProductSEO = async (
 
 // ❌ Avoid: Any types without proper justification
 const processData = (data: any) => { ... };
+
 ```
 
 ### 2. React Component Patterns
@@ -94,6 +106,7 @@ const useProductSEO = (productId: string) => {
   // Hook implementation
   return { seoData, loading };
 };
+
 ```
 
 ### 3. File and Folder Organization
@@ -111,19 +124,26 @@ const useProductSEO = (productId: string) => {
 ├── lib/                   # Utilities and configurations
 │   ├── ai/                # AI-related utilities
 │   ├── seo/               # SEO utilities
-│   └── i18n/              # Internationalization
+│   └── i18n/              # Internationalization (UNIFIED CHUNKED SYSTEM ONLY)
 ├── hooks/                 # Custom React hooks
 ├── services/              # Business logic services
 ├── types/                 # TypeScript type definitions
 └── utils/                 # Helper functions
+
 ```
 
 ### 4. Naming Conventions
+
 - **Components**: PascalCase (`ProductCard`, `SEOOptimizer`)
+
 - **Files**: kebab-case (`product-card.tsx`, `seo-optimizer.ts`)
+
 - **Functions/Variables**: camelCase (`optimizeProduct`, `generateTags`)
+
 - **Types/Interfaces**: PascalCase (`ProductData`, `SEOOptions`)
+
 - **Constants**: SCREAMING_SNAKE_CASE (`MAX_TAGS_COUNT`)
+
 - **Folders**: kebab-case (`seo-dashboard`, `product-management`)
 
 ---
@@ -157,6 +177,7 @@ export async function POST(request: Request) {
     );
   }
 }
+
 ```
 
 ### 2. Service Layer Pattern
@@ -182,6 +203,7 @@ class SEOService {
 // Usage in API routes
 const seoService = new SEOService();
 const optimized = await seoService.optimizeProduct(productData);
+
 ```
 
 ### 3. Chunked Loading Pattern
@@ -201,6 +223,7 @@ const loadLanguageChunk = async (language: string) => {
   const chunk = await import(`@/lib/chunks/${language}.chunk.ts`);
   return chunk.default;
 };
+
 ```
 
 ---
@@ -232,6 +255,7 @@ const loadLanguageChunk = async (language: string) => {
 // - Update documentation
 // - Optimize performance
 // - Add error handling
+
 ```
 
 ### 2. Database Migration Workflow
@@ -252,6 +276,7 @@ npx prisma generate
 // - Test new features with existing data
 // - Validate data integrity
 // - Test rollback if needed
+
 ```
 
 ### 3. SEO Implementation Workflow
@@ -273,6 +298,7 @@ npx prisma generate
 // - Validate structured data
 // - Check page speed
 // - Monitor search console
+
 ```
 
 ---
@@ -280,9 +306,13 @@ npx prisma generate
 ## 🎨 UI/UX Guidelines
 
 ### 1. Design System
+
 - **Primary Colors**: Follow established color palette
+
 - **Typography**: Professional, accessible fonts
+
 - **Spacing**: Consistent spacing system (Tailwind classes)
+
 - **Components**: Use established component library
 
 ### 2. Spanish Language Guidelines
@@ -298,6 +328,7 @@ const messages = {
 
 // ✅ Correct: Accessible language
 const productDescription = 'Producto de alta calidad, perfecto para su hogar';
+
 ```
 
 ### 3. Accessibility Standards
@@ -328,6 +359,7 @@ const AccessibleForm = () => (
     />
   </form>
 );
+
 ```
 
 ---
@@ -345,6 +377,7 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
 // ✅ Correct: Tree shaking friendly imports
 import { optimizeProduct } from '@/lib/ai/seo'; // Specific import
 // Avoid: import * as SEO from '@/lib/ai/seo'; // Bundle everything
+
 ```
 
 ### 2. Image Optimization
@@ -364,9 +397,11 @@ const OptimizedImage = ({ src, alt }) => (
     blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ..."
   />
 );
+
 ```
 
 ### 3. Database Performance
+
 ```typescript
 // ✅ Correct: Indexed queries
 const getOptimizedProducts = async () => {
@@ -383,6 +418,7 @@ const getOptimizedProducts = async () => {
     }
   });
 };
+
 ```
 
 ---
@@ -390,6 +426,7 @@ const getOptimizedProducts = async () => {
 ## 🔒 Security Guidelines
 
 ### 1. Input Validation
+
 ```typescript
 // ✅ Correct: Input validation with Zod
 import { z } from 'zod';
@@ -419,9 +456,11 @@ export async function POST(request: Request) {
     // Handle other errors
   }
 }
+
 ```
 
 ### 2. API Security
+
 ```typescript
 // ✅ Correct: Rate limiting
 import rateLimit from '@/lib/rate-limit';
@@ -445,9 +484,11 @@ export async function POST(request: Request) {
     );
   }
 }
+
 ```
 
 ### 3. Authentication & Authorization
+
 ```typescript
 // ✅ Correct: Protected routes
 import { getCurrentUser } from '@/lib/auth';
@@ -464,6 +505,7 @@ export async function POST(request: Request) {
 
   // Admin-only logic
 }
+
 ```
 
 ---
@@ -471,6 +513,7 @@ export async function POST(request: Request) {
 ## 🧪 Testing Guidelines
 
 ### 1. Unit Testing
+
 ```typescript
 // ✅ Correct: Component testing
 import { render, screen } from '@testing-library/react';
@@ -490,9 +533,11 @@ describe('ProductCard', () => {
     expect(screen.getByText('$99.99')).toBeInTheDocument();
   });
 });
+
 ```
 
 ### 2. API Testing
+
 ```typescript
 // ✅ Correct: API route testing
 import { POST } from './route';
@@ -514,6 +559,7 @@ describe('/api/seo/optimize-product', () => {
     expect(result.success).toBe(true);
   });
 });
+
 ```
 
 ---
@@ -521,6 +567,7 @@ describe('/api/seo/optimize-product', () => {
 ## 📊 SEO Guidelines
 
 ### 1. Meta Tags Implementation
+
 ```typescript
 // ✅ Correct: SEO-optimized meta tags
 export const metadata: Metadata = {
@@ -533,9 +580,11 @@ export const metadata: Metadata = {
     images: [{ url: '/og-image.jpg' }]
   }
 };
+
 ```
 
 ### 2. Structured Data
+
 ```typescript
 // ✅ Correct: JSON-LD structured data
 const productStructuredData = {
@@ -552,9 +601,11 @@ const productStructuredData = {
     'availability': 'https://schema.org/InStock'
   }
 };
+
 ```
 
 ### 3. Internal Linking Strategy
+
 ```typescript
 // ✅ Correct: SEO-friendly internal links
 const ProductLinks = ({ relatedProducts }) => (
@@ -571,6 +622,7 @@ const ProductLinks = ({ relatedProducts }) => (
     ))}
   </div>
 );
+
 ```
 
 ---
@@ -578,6 +630,7 @@ const ProductLinks = ({ relatedProducts }) => (
 ## 🚨 Error Handling and Logging
 
 ### 1. Error Boundaries
+
 ```typescript
 // ✅ Correct: Error boundary component
 class ErrorBoundary extends React.Component {
@@ -602,9 +655,11 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
 ```
 
 ### 2. API Error Handling
+
 ```typescript
 // ✅ Correct: Comprehensive API error handling
 export async function POST(request: Request) {
@@ -641,9 +696,11 @@ export async function POST(request: Request) {
     );
   }
 }
+
 ```
 
 ### 3. User-Friendly Error Messages
+
 ```typescript
 // ✅ Correct: User-friendly error messages
 const errorMessages = {
@@ -653,6 +710,7 @@ const errorMessages = {
   UNAUTHORIZED: 'No tienes permisos para realizar esta acción.',
   NOT_FOUND: 'El recurso solicitado no fue encontrado.'
 };
+
 ```
 
 ---
@@ -660,11 +718,15 @@ const errorMessages = {
 ## 📈 Performance Monitoring
 
 ### 1. Core Web Vitals
+
 - **LCP (Largest Contentful Paint)**: Target < 2.5s
+
 - **FID (First Input Delay)**: Target < 100ms
+
 - **CLS (Cumulative Layout Shift)**: Target < 0.1
 
 ### 2. Performance Tracking
+
 ```typescript
 // ✅ Correct: Performance monitoring
 const trackPerformance = () => {
@@ -677,6 +739,7 @@ const trackPerformance = () => {
     });
   }
 };
+
 ```
 
 ---
@@ -684,38 +747,63 @@ const trackPerformance = () => {
 ## 🎯 Best Practices Summary
 
 ### Code Quality
+
 - ✅ Use TypeScript with strict typing
+
 - ✅ Follow established naming conventions
+
 - ✅ Implement comprehensive error handling
+
 - ✅ Write unit tests for critical functionality
+
 - ✅ Use ESLint and follow its recommendations
 
 ### Performance
+
 - ✅ Implement code splitting and lazy loading
+
 - ✅ Optimize images and assets
+
 - ✅ Use caching strategies appropriately
+
 - ✅ Monitor and optimize Core Web Vitals
+
 - ✅ Minimize bundle size
 
 ### SEO & Accessibility
+
 - ✅ Implement proper meta tags and structured data
+
 - ✅ Ensure accessibility compliance
+
 - ✅ Use semantic HTML
+
 - ✅ Optimize for search engines
+
 - ✅ Test with screen readers
 
 ### Security
+
 - ✅ Validate all inputs
+
 - ✅ Implement proper authentication
+
 - ✅ Use HTTPS and security headers
+
 - ✅ Sanitize user inputs
+
 - ✅ Follow OWASP guidelines
 
 ### User Experience
+
 - ✅ Maintain consistent Spanish language
+
 - ✅ Provide clear error messages
+
 - ✅ Implement loading states
+
 - ✅ Ensure mobile responsiveness
+
 - ✅ Test with target audience
 
 ---
@@ -723,24 +811,39 @@ const trackPerformance = () => {
 ## 🛠️ AI DEVELOPMENT AUTOMATION (REQUIRED)
 
 ### 🤖 AI Pre-Development Checklist
+
 - [ ] **🎯 AI CONTEXT**: Review current project state and AI requirements
+
 - [ ] **📋 AI TODO**: Check for any existing AI TODO comments or issues
+
 - [ ] **🚀 AI ENVIRONMENT**: Validate AI development environment is running
+
 - [ ] **📚 AI GUIDELINES**: Review AI context and guidelines in documentation
+
 - [ ] **🧪 AI LINTING**: Check for any linting or type errors automatically
 
 ### 🛠️ AI Code Implementation Process
+
 1. **🎯 AI PLAN**: Review AI requirements and existing patterns
+
 2. **📋 AI IMPLEMENT**: Follow established modular architecture
+
 3. **🧪 AI TEST**: Validate functionality and performance with AI
+
 4. **⚡ AI OPTIMIZE**: Ensure SEO and performance standards with AI
+
 5. **📝 AI DOCUMENT**: Auto-update relevant AI documentation
 
 ### 🧪 AI Quality Assurance Steps
+
 - [ ] **🛡️ AI TYPESCRIPT**: TypeScript compilation passes (AI requirement)
+
 - [ ] **📋 AI LINTING**: ESLint checks pass (AI code quality)
+
 - [ ] **🔍 AI SEO**: SEO validation for any content changes (AI critical)
+
 - [ ] **⚡ AI PERFORMANCE**: Performance testing (Core Web Vitals) with AI
+
 - [ ] **🌐 AI COMPATIBILITY**: Cross-browser compatibility check with AI
 
 ---
@@ -754,7 +857,7 @@ const trackPerformance = () => {
 || **Database** | SQLite + Prisma ORM | AI-safe database operations |
 || **AI Integration** | OpenAI GPT-4 | AI content optimization and generation |
 || **Styling** | Tailwind CSS + Custom Design System | AI-responsive UI with color tokenization |
-|| **Internationalization** | Chunked i18n System | AI Spanish-first multi-language support |
+|| **Internationalization** | UNIFIED Chunked i18n System ONLY | AI Spanish-first (See I18N-RULES.md) |
 || **UI Components** | Custom Component Library | AI-reusable, accessible components |
 || **TypeScript** | Strict Mode Configuration | AI-full type safety and intellisense |
 || **State Management** | React Hooks + Custom Providers | AI-predictable state management |
@@ -774,16 +877,25 @@ const trackPerformance = () => {
 ## ⚡ AI PERFORMANCE OPTIMIZATION (REQUIRED)
 
 ### 🤖 AI Performance Standards
+
 - **LCP (Largest Contentful Paint)**: Target < 2.5s (AI critical)
+
 - **FID (First Input Delay)**: Target < 100ms (AI requirement)
+
 - **CLS (Cumulative Layout Shift)**: Target < 0.1 (AI mandate)
+
 - **Core Web Vitals**: 90%+ compliance (AI SEO requirement)
 
 ### 🚀 AI Optimization Techniques
+
 - ✅ **Lazy Loading**: Dynamic imports for AI component optimization
+
 - ✅ **Code Splitting**: Chunked loading for AI performance
+
 - ✅ **Image Optimization**: Next.js Image component with AI alt text
+
 - ✅ **Caching Strategy**: AI-optimized caching for content
+
 - ✅ **Bundle Analysis**: AI-driven bundle size optimization
 
 ---
@@ -791,17 +903,27 @@ const trackPerformance = () => {
 ## 🧪 AI TESTING & VALIDATION (REQUIRED)
 
 ### 🎯 AI Content Validation
+
 - ✅ **SEO Score Validation**: 80%+ threshold for AI content
+
 - ✅ **Language Quality**: Spanish-first content verification
+
 - ✅ **Internal Linking**: 3-5 links per AI-generated content
+
 - ✅ **Keyword Integration**: AI keyword optimization validation
+
 - ✅ **Content Uniqueness**: AI duplicate content detection
 
 ### 🧪 AI Technical Testing
+
 - ✅ **TypeScript Compilation**: 100% success rate (AI requirement)
+
 - ✅ **ESLint Validation**: Zero linting errors (AI standard)
+
 - ✅ **Performance Testing**: Core Web Vitals compliance
+
 - ✅ **Cross-browser Testing**: AI compatibility validation
+
 - ✅ **Mobile Responsiveness**: AI mobile-first testing
 
 ---
@@ -809,17 +931,27 @@ const trackPerformance = () => {
 ## 📚 AI RESOURCE REFERENCES (REQUIRED)
 
 ### 🎯 AI Documentation Hierarchy
+
 - **📋 README.md**: AI project overview and execution workflows
+
 - **🚀 AI-WORKFLOW-GUIDE.md**: AI task-specific workflows and automation
+
 - **🛠️ DEVELOPMENT-GUIDELINES.md**: AI technical standards and patterns
+
 - **📝 CODE-TODO-GUIDE.md**: AI implementation guidance and priorities
+
 - **🌍 src/lib/README-chunked-i18n.md**: AI i18n system documentation
 
 ### 🔧 AI Essential References
+
 - **🤖 AI Context**: Always review AI ASSISTANT CONTEXT sections
+
 - **🚀 AI Workflows**: Follow established AI EXECUTION WORKFLOWS
+
 - **📋 AI Patterns**: Use AI IMPLEMENTATION PATTERNS for consistency
+
 - **🧪 AI Validation**: Apply AI TESTING & VALIDATION procedures
+
 - **⚡ AI Optimization**: Implement AI PERFORMANCE OPTIMIZATION standards
 
 ---

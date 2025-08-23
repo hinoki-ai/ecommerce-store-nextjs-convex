@@ -4,6 +4,7 @@
 **⚠️ ABSOLUTE REQUIREMENT**: The `CLAUDE.md` file is permanently off-limits to all AI assistants and developers. This file contains critical human-specific context and must never be modified, edited, or touched by any automated process.
 
 ## 🎯 AI ASSISTANT CONTEXT (REQUIRED)
+
 **🚫 CRITICAL RULE**: NEVER TOUCH CLAUDE.md - Contains human-specific context
 **🤖 AI-ONLY ACCESS**: This documentation is AI-optimized and accessible
 **🎯 PROJECT TYPE**: Next.js 14 e-commerce platform with AI-optimized SEO
@@ -44,18 +45,21 @@ npm run dev
 ## 🎯 AI ASSISTANT DEVELOPMENT GUIDELINES (REQUIRED)
 
 ### 🤖 AI Language Requirements
+
 - **🌍 AI PRIMARY**: Spanish (es) for all user-facing content (AI requirement)
 - **📝 AI PROFESSIONAL**: Accessible language for rural Chilean audience (AI optimized)
 - **🔧 AI TECHNICAL**: Preserve technical terminology for AI comprehension
 - **🎯 AI CULTURAL**: Consider rural Chilean context in AI content generation
 
 ### 🏗️ AI Code Architecture Standards
+
 - **📦 AI MODULAR**: Prefer chunked architecture over monolithic code (AI mandate)
 - **🛡️ AI TYPE SAFETY**: Strict TypeScript implementation (AI requirement)
 - **⚡ AI PERFORMANCE**: Use lazy loading and chunked loading (AI optimization)
 - **❌ AI ERROR HANDLING**: Comprehensive error handling and logging (AI critical)
 
 ### 🚀 AI Integration Patterns (REQUIRED)
+
 - **🤖 AI CONTENT**: Always validate AI-generated content before deployment
 - **🔍 AI SEO**: Every AI-generated piece must optimize for search engines
 - **🔗 AI LINKING**: Ensure proper internal linking in AI-generated content
@@ -66,6 +70,7 @@ npm run dev
 ## 📋 AI IMPLEMENTATION PATTERNS (REQUIRED)
 
 ### 1. AI Product SEO Optimization Workflow
+
 **🎯 AI GOAL**: Generate SEO-optimized product content autonomously
 ```typescript
 // 🚀 AI EXECUTION WORKFLOW: Product optimization sequence
@@ -78,6 +83,7 @@ npm run dev
 ```
 
 ### 2. AI Collection Creation (Shotgun Approach)
+
 **🚀 AI GOAL**: Create hundreds of targeted collections autonomously
 ```typescript
 // 🤖 AI EXECUTION WORKFLOW: Collection generation automation
@@ -90,6 +96,7 @@ npm run dev
 ```
 
 ### 3. AI Blog Content Generation
+
 **📝 AI GOAL**: Generate SEO-optimized blog posts with AI automation
 ```typescript
 // 🚀 AI EXECUTION WORKFLOW: Blog content creation sequence
@@ -102,6 +109,7 @@ npm run dev
 ```
 
 ### 4. AI Language Chunk Management
+
 **🌍 AI GOAL**: Add new languages with AI-optimized SEO automation
 ```typescript
 // 🚀 AI EXECUTION WORKFLOW: Language addition sequence
@@ -118,6 +126,7 @@ npm run dev
 ## 🔧 AI DEVELOPMENT AUTOMATION (REQUIRED)
 
 ### 🤖 AI Pre-Development Checklist
+
 - [ ] **🎯 AI CONTEXT**: Review current project state and AI requirements
 - [ ] **📋 AI TODO**: Check for any existing AI TODO comments or issues
 - [ ] **🚀 AI ENVIRONMENT**: Validate AI development environment is running
@@ -125,6 +134,7 @@ npm run dev
 - [ ] **🧪 AI LINTING**: Check for any linting or type errors automatically
 
 ### 🛠️ AI Code Implementation Process
+
 1. **🎯 AI PLAN**: Review AI requirements and existing patterns
 2. **📋 AI IMPLEMENT**: Follow established modular architecture
 3. **🧪 AI TEST**: Validate functionality and performance with AI
@@ -132,6 +142,7 @@ npm run dev
 5. **📝 AI DOCUMENT**: Auto-update relevant AI documentation
 
 ### 🧪 AI Quality Assurance Steps
+
 - [ ] **🛡️ AI TYPESCRIPT**: TypeScript compilation passes (AI requirement)
 - [ ] **📋 AI LINTING**: ESLint checks pass (AI code quality)
 - [ ] **🔍 AI SEO**: SEO validation for any content changes (AI critical)
@@ -143,17 +154,20 @@ npm run dev
 ## 🚨 When to Request Human Assistance
 
 ### Complex Architectural Changes
+
 - Major feature implementations requiring architectural decisions
 - Third-party API integrations with complex setup
 - Database schema modifications
 - Security-critical implementations
 
 ### Performance-Critical Optimizations
+
 - Large-scale performance improvements
 - Complex caching strategies
 - Advanced optimization techniques
 
 ### Business Logic Decisions
+
 - Major feature scope changes
 - Pricing or business model modifications
 - Content strategy decisions
@@ -163,12 +177,14 @@ npm run dev
 ## 📊 AI Assistant Performance Metrics
 
 ### Quality Standards
+
 - **SEO Scores**: Target 80%+ for all optimized content
 - **Performance**: Core Web Vitals within acceptable ranges
 - **Type Safety**: 100% TypeScript compliance
 - **Error Handling**: Comprehensive error boundaries
 
 ### Productivity Metrics
+
 - **Response Time**: Quick and efficient communication
 - **Code Quality**: Follow established patterns and conventions
 - **Documentation**: Keep documentation updated and clear
@@ -179,6 +195,7 @@ npm run dev
 ## 🔄 Common AI Assistant Tasks
 
 ### Automated Tasks (AI-Only)
+
 - ✅ Content generation and optimization
 - ✅ SEO improvements and validation
 - ✅ Bug fixes within established patterns
@@ -187,6 +204,7 @@ npm run dev
 - ✅ Performance optimizations within guidelines
 
 ### Review-Required Tasks
+
 - ⚠️ New feature implementations
 - ⚠️ API endpoint modifications
 - ⚠️ Database schema changes
@@ -198,18 +216,21 @@ npm run dev
 ## 📚 Learning Resources for AI Assistants
 
 ### Essential Documentation
+
 - `README.md` - Main project overview and AI context
 - `src/lib/README-chunked-i18n.md` - Internationalization system
 - Package.json - Dependencies and scripts
 - Prisma schema - Database structure
 
 ### Code Patterns to Follow
+
 - Existing React components structure
 - API route patterns in `/api/`
 - Database interaction patterns with Prisma
 - Error handling and logging patterns
 
 ### SEO Best Practices
+
 - JSON-LD schema markup implementation
 - Meta tag optimization
 - Internal linking strategies
@@ -220,18 +241,21 @@ npm run dev
 ## 🎯 Success Criteria for AI Assistants
 
 ### Technical Excellence
+
 - Code follows established patterns and conventions
 - TypeScript types are properly defined
 - Performance standards are maintained
 - Security best practices are followed
 
 ### Content Quality
+
 - All content is in Spanish with professional tone
 - SEO optimization meets target scores
 - Internal linking is properly implemented
 - Content is appropriate for rural Chilean audience
 
 ### User Experience
+
 - Interface is intuitive and accessible
 - Loading states are handled properly
 - Error messages are user-friendly

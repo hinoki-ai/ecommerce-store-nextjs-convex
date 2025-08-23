@@ -1,8 +1,36 @@
 import { ID } from '../../domain/types';
 
+// Type definitions for external service data
+export interface PaymentMetadata {
+  orderId?: string;
+  customerId?: string;
+  userId?: string;
+  [key: string]: string | number | boolean | undefined;
+}
+
+export interface EmailTemplateData {
+  [key: string]: string | number | boolean | undefined;
+}
+
+export interface AnalyticsEventProperties {
+  [key: string]: string | number | boolean | undefined;
+}
+
+export interface NotificationData {
+  [key: string]: string | number | boolean | undefined;
+}
+
+export interface EmailNotificationData {
+  [key: string]: string | number | boolean | undefined;
+}
+
+export interface LogMetadata {
+  [key: string]: string | number | boolean | undefined;
+}
+
 // Payment service interface
 export interface IPaymentService {
-  createPaymentIntent(amount: number, currency: string, metadata: Record<string, any>): Promise<PaymentIntent>;
+  createPaymentIntent(amount: number, currency: string, metadata: PaymentMetadata): Promise<PaymentIntent>;
   confirmPayment(paymentIntentId: string): Promise<PaymentResult>;
   refundPayment(paymentIntentId: string, amount?: number): Promise<RefundResult>;
   getPaymentStatus(paymentIntentId: string): Promise<PaymentStatus>;
@@ -14,7 +42,7 @@ export interface PaymentIntent {
   amount: number;
   currency: string;
   status: 'requires_payment_method' | 'requires_confirmation' | 'processing' | 'succeeded' | 'canceled';
-  metadata: Record<string, any>;
+  metadata: PaymentMetadata;
 }
 
 export interface PaymentResult {
@@ -38,7 +66,7 @@ export interface PaymentStatus {
 
 // Email service interface
 export interface IEmailService {
-  sendEmail(to: string, subject: string, template: string, data: Record<string, any>): Promise<boolean>;
+  sendEmail(to: string, subject: string, template: string, data: EmailTemplateData): Promise<boolean>;
   sendOrderConfirmation(orderId: ID, customerEmail: string): Promise<boolean>;
   sendOrderStatusUpdate(orderId: ID, customerEmail: string): Promise<boolean>;
   sendPasswordReset(email: string, resetToken: string): Promise<boolean>;
@@ -95,7 +123,7 @@ export interface SeoOptimizationResult {
 
 // Analytics service interface
 export interface IAnalyticsService {
-  trackEvent(event: string, properties: Record<string, any>): Promise<void>;
+  trackEvent(event: string, properties: AnalyticsEventProperties): Promise<void>;
   trackPurchase(orderId: ID, amount: number, currency: string): Promise<void>;
   trackProductView(productId: ID, userId?: ID): Promise<void>;
   trackCartAction(action: string, productId: ID, userId?: ID): Promise<void>;
@@ -112,9 +140,9 @@ export interface ProductAnalytics {
 
 // Notification service interface
 export interface INotificationService {
-  sendPushNotification(userId: ID, title: string, message: string, data?: Record<string, any>): Promise<boolean>;
-  sendInAppNotification(userId: ID, type: string, title: string, message: string, data?: Record<string, any>): Promise<void>;
-  sendEmailNotification(email: string, subject: string, template: string, data: Record<string, any>): Promise<boolean>;
+  sendPushNotification(userId: ID, title: string, message: string, data?: NotificationData): Promise<boolean>;
+  sendInAppNotification(userId: ID, type: string, title: string, message: string, data?: NotificationData): Promise<void>;
+  sendEmailNotification(email: string, subject: string, template: string, data: EmailNotificationData): Promise<boolean>;
   sendSmsNotification(phoneNumber: string, message: string): Promise<boolean>;
 }
 
@@ -196,8 +224,8 @@ export interface IQueueService {
 
 // Logging service interface
 export interface ILoggingService {
-  info(message: string, meta?: Record<string, any>): void;
-  warn(message: string, meta?: Record<string, any>): void;
-  error(message: string, error?: Error, meta?: Record<string, any>): void;
-  debug(message: string, meta?: Record<string, any>): void;
+  info(message: string, meta?: LogMetadata): void;
+  warn(message: string, meta?: LogMetadata): void;
+  error(message: string, error?: Error, meta?: LogMetadata): void;
+  debug(message: string, meta?: LogMetadata): void;
 }

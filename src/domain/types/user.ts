@@ -21,6 +21,10 @@ export interface User {
   isActive: boolean;
   isEmailVerified?: boolean;
   isPhoneVerified?: boolean;
+  metadata?: {
+    segment?: string;
+    orderCount?: number;
+  };
   audit: {
     createdAt: Timestamp;
     updatedAt: Timestamp;

@@ -7,11 +7,26 @@ import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import { CartErrorBoundary } from "@/components/ErrorBoundary"
 
+interface ProductSummary {
+  id: Id<"products">
+  name: string
+  slug: string
+  price: number
+  images: { url: string; alt: string }[]
+  inventory: {
+    quantity: number
+    lowStockThreshold: number
+    trackInventory: boolean
+    allowBackorder: boolean
+  }
+}
+
 interface CartItem {
   productId: Id<"products">
   quantity: number
   price: number
   addedAt: number
+  product?: ProductSummary | null
 }
 
 interface Cart {

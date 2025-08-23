@@ -134,7 +134,7 @@ export class CartService {
       mergedCart.addItem(
         item.productId,
         item.quantity,
-        item.price.amount
+        item.price
       );
     });
 
@@ -150,7 +150,7 @@ export class CartService {
         mergedCart.addItem(
           sourceItem.productId,
           sourceItem.quantity,
-          sourceItem.price.amount
+          sourceItem.price
         );
       }
     });
@@ -164,9 +164,9 @@ export class CartService {
 
     cart.items.forEach(item => {
       if (productIds.includes(item.productId)) {
-        removedCart.addItem(item.productId, item.quantity, item.price.amount);
+        removedCart.addItem(item.productId, item.quantity, item.price);
       } else {
-        keptCart.addItem(item.productId, item.quantity, item.price.amount);
+        keptCart.addItem(item.productId, item.quantity, item.price);
       }
     });
 
@@ -197,7 +197,7 @@ export class CartService {
 
     // Add all items
     cart.items.forEach(item => {
-      newCart.addItem(item.productId, item.quantity, item.price.amount);
+      newCart.addItem(item.productId, item.quantity, item.price);
     });
 
     // Apply discount to total

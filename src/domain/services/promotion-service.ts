@@ -4,10 +4,19 @@ import { Product } from '../entities/product';
 import { User } from '../entities/user';
 import { Money } from '../value-objects/money';
 import { ID } from '../types';
+import { CartItem } from '../types/cart';
+
+export interface PromotionCartItem {
+  productId: string;
+  quantity: number;
+  price: Money;
+  categoryId?: string;
+  tags?: string[];
+}
 
 export interface CartAnalysis {
   subtotal: Money;
-  items: CartItem[];
+  items: PromotionCartItem[];
   categories: string[];
   productIds: string[];
   quantities: Record<string, number>;
@@ -16,13 +25,7 @@ export interface CartAnalysis {
   isFirstPurchase: boolean;
 }
 
-export interface CartItem {
-  productId: ID;
-  quantity: number;
-  price: number;
-  categoryId?: string;
-  tags?: string[];
-}
+
 
 export interface PromotionResult {
   promotion: Promotion;
@@ -159,8 +162,8 @@ export class PromotionService {
 
     const originalPrice = cart.pricing.total;
     const finalPrice = originalPrice.subtract(totalDiscount);
-    const savingsPercentage = originalPrice.isGreaterThan(Money.zero()) 
-      ? (totalDiscount.amount / originalPrice.amount) * 100 
+    const savingsPercentage = originalPrice.isGreaterThan(Money.zero())
+      ? (totalDiscount.amount / originalPrice.amount) * 100
       : 0;
 
     return {
@@ -187,7 +190,7 @@ export class PromotionService {
 
     // Add all items
     cart.items.forEach(item => {
-      discountedCart.addItem(item.productId, item.quantity, item.price.amount);
+      discountedCart.addItem(item.productId, item.quantity, item.price);
     });
 
     // Apply total discount
@@ -196,7 +199,8 @@ export class PromotionService {
       Money.zero()
     );
 
-    const newTotal = cart.pricing.total.subtract(totalDiscount);
+    const originalTotal = cart.pricing.total;
+    const newTotal = originalTotal.subtract(totalDiscount);
     discountedCart.updatePricing({
       total: Money.max(newTotal, Money.zero()),
       discount: totalDiscount
@@ -309,12 +313,12 @@ export class PromotionService {
     const items = cart.items.map(item => ({
       productId: item.productId,
       quantity: item.quantity,
-      price: item.price.amount,
+      price: item.price,
       categoryId: item.metadata?.categoryId,
       tags: item.metadata?.tags
     }));
 
-    const categories = [...new Set(items.map(item => item.categoryId).filter(Boolean))];
+    const categories = [...new Set(items.map(item => item.categoryId).filter((id): id is string => Boolean(id)))];
     const productIds = items.map(item => item.productId);
     const quantities = items.reduce((acc, item) => {
       acc[item.productId] = item.quantity;

@@ -89,6 +89,8 @@ export class EnglishLanguageProvider extends BaseLanguageProvider {
         cart: {
           title: 'Shopping Cart',
           empty: 'Your cart is empty',
+          emptyMessage: 'Looks like you haven\'t added anything to your cart yet.',
+          emptyAction: 'Start Shopping',
           subtotal: 'Subtotal',
           tax: 'Tax',
           shipping: 'Shipping',
@@ -96,7 +98,60 @@ export class EnglishLanguageProvider extends BaseLanguageProvider {
           checkout: 'Checkout',
           continueShopping: 'Continue Shopping',
           removeItem: 'Remove Item',
-          updateQuantity: 'Update Quantity'
+          updateQuantity: 'Update Quantity',
+          clearCart: 'Clear Cart',
+          quantity: 'Quantity',
+          price: 'Price',
+          totalPrice: 'Total Price',
+          itemRemoved: 'Item removed from cart',
+          cartCleared: 'Cart cleared',
+          quantityUpdated: 'Quantity updated',
+          failedToUpdate: 'Failed to update quantity',
+          failedToRemove: 'Failed to remove item',
+          failedToClear: 'Failed to clear cart',
+          loading: 'Loading cart...',
+          items: 'items',
+          item: 'item',
+          inCart: 'in your cart',
+          each: 'each',
+          orderSummary: 'Order Summary',
+          free: 'Free',
+          whyShopWithUs: 'Why shop with us?',
+          securePayment: 'Secure Payment',
+          sslEncryption: '256-bit SSL encryption',
+          freeShipping: 'Free Shipping',
+          freeShippingDesc: 'On orders over $50',
+          easyReturns: 'Easy Returns',
+          easyReturnsDesc: '30-day return policy',
+          noImage: 'No Image',
+          sku: 'SKU',
+          searchProducts: 'Search products...',
+          allCategories: 'All Categories',
+          sortBy: 'Sort by',
+          newest: 'Newest',
+          priceLow: 'Price: Low to High',
+          priceHigh: 'Price: High to Low',
+          nameAZ: 'Name: A to Z',
+          filterByPrice: 'Filter by price',
+          filterByCategory: 'Filter by category',
+          showing: 'Showing',
+          of: 'of',
+          products: 'products',
+          noProductsFound: 'No products found',
+          tryDifferentSearch: 'Try adjusting your search or filters',
+          clearFilters: 'Clear all filters',
+          loadMore: 'Load More',
+          filters: 'Filters',
+          priceRange: 'Price Range',
+          activeFilters: 'Active Filters',
+          success: {
+            addedToCart: 'added to cart'
+          },
+          forms: {
+            placeholder: {
+              search: 'Search products...'
+            }
+          }
         },
 
         // User account
@@ -213,6 +268,14 @@ export class EnglishLanguageProvider extends BaseLanguageProvider {
           privacyPolicy: 'Privacy Policy',
           termsOfService: 'Terms of Service',
           shippingInfo: 'Shipping Info',
+          quickLinks: 'Quick Links',
+          contactInfo: 'Contact Info',
+          helpCenter: 'Help Center',
+          returnsExchanges: 'Returns & Exchanges',
+          sizeGuide: 'Size Guide',
+          cookiePolicy: 'Cookie Policy',
+          address: '123 Commerce St, City, Country',
+          phone: '+1 (555) 123-4567',
           returnPolicy: 'Return Policy',
           faq: 'FAQ'
         },
@@ -368,23 +431,7 @@ export class EnglishLanguageProvider extends BaseLanguageProvider {
           months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         },
 
-        // Footer specific
-        footer: {
-          quickLinks: 'Quick Links',
-          customerService: 'Customer Service',
-          contactInfo: 'Contact Info',
-          helpCenter: 'Help Center',
-          shippingInfo: 'Shipping Info',
-          returnsExchanges: 'Returns & Exchanges',
-          sizeGuide: 'Size Guide',
-          privacyPolicy: 'Privacy Policy',
-          termsOfService: 'Terms of Service',
-          cookiePolicy: 'Cookie Policy',
-          allRightsReserved: 'All rights reserved.',
-          address: '123 Commerce St, City, Country',
-          phone: '+1 (555) 123-4567',
-          email: 'support@aramacbranfing.com'
-        },
+
 
         // Product specific
         productCard: {

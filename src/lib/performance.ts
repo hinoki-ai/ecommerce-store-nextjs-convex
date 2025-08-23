@@ -6,6 +6,8 @@
  * @security-level HIGH
  */
 
+import React from 'react';
+
 // Image optimization utilities
 export const imageOptimization = {
   // Preload critical images above the fold
@@ -117,7 +119,7 @@ export const memoryOptimization = {
     return ((...args: any[]) => {
       const later = () => {
         timeout = null;
-        if (!immediate) func.apply(null, args);
+        if (!immediate) func(...args);
       };
       
       const callNow = immediate && !timeout;
@@ -125,7 +127,7 @@ export const memoryOptimization = {
       if (timeout) clearTimeout(timeout);
       timeout = setTimeout(later, wait);
       
-      if (callNow) func.apply(null, args);
+      if (callNow) func(...args);
     }) as T;
   },
 
@@ -138,7 +140,7 @@ export const memoryOptimization = {
     
     return ((...args: any[]) => {
       if (!inThrottle) {
-        func.apply(null, args);
+        func(...args);
         inThrottle = true;
         setTimeout(() => inThrottle = false, limit);
       }
@@ -271,12 +273,11 @@ export const performanceMonitoring = {
   // Core Web Vitals measurement
   measureWebVitals: () => {
     if (typeof window !== 'undefined') {
-      import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-        getCLS(console.log);
-        getFID(console.log);
-        getFCP(console.log);
-        getLCP(console.log);
-        getTTFB(console.log);
+      import('web-vitals').then((webVitals) => {
+        webVitals.getCLS(console.log);
+        webVitals.getFCP(console.log);
+        webVitals.getLCP(console.log);
+        webVitals.getTTFB(console.log);
       }).catch(() => {
         // Fallback if web-vitals not available
         console.log('Web vitals monitoring not available');

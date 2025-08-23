@@ -89,6 +89,8 @@ export class GermanLanguageProvider extends BaseLanguageProvider {
         cart: {
           title: 'Warenkorb',
           empty: 'Ihr Warenkorb ist leer',
+          emptyMessage: 'Es sieht so aus, als hätten Sie noch nichts in Ihren Warenkorb gelegt.',
+          emptyAction: 'Einkaufen beginnen',
           subtotal: 'Zwischensumme',
           tax: 'Steuern',
           shipping: 'Versand',
@@ -96,7 +98,58 @@ export class GermanLanguageProvider extends BaseLanguageProvider {
           checkout: 'Zur Kasse',
           continueShopping: 'Einkauf fortsetzen',
           removeItem: 'Artikel entfernen',
-          updateQuantity: 'Menge aktualisieren'
+          updateQuantity: 'Menge aktualisieren',
+          clearCart: 'Warenkorb leeren',
+          quantity: 'Menge',
+          price: 'Preis',
+          totalPrice: 'Gesamtpreis',
+          itemRemoved: 'Artikel aus dem Warenkorb entfernt',
+          cartCleared: 'Warenkorb geleert',
+          quantityUpdated: 'Menge aktualisiert',
+          failedToUpdate: 'Fehler beim Aktualisieren der Menge',
+          failedToRemove: 'Fehler beim Entfernen des Artikels',
+          failedToClear: 'Fehler beim Leeren des Warenkorbs',
+          loading: 'Warenkorb wird geladen...',
+          items: 'Artikel',
+          item: 'Artikel',
+          inCart: 'in Ihrem Warenkorb',
+          each: 'je',
+          orderSummary: 'Bestellübersicht',
+          free: 'Kostenlos',
+          whyShopWithUs: 'Warum bei uns einkaufen?',
+          securePayment: 'Sichere Zahlung',
+          sslEncryption: '256-bit SSL-Verschlüsselung',
+          freeShipping: 'Kostenloser Versand',
+          freeShippingDesc: 'Kostenloser Versand ab 50€ Bestellwert',
+          easyReturns: 'Einfache Rückgabe',
+          easyReturnsDesc: '30-tägige Rückgabegarantie',
+          searchProducts: 'Produkte suchen...',
+          allCategories: 'Alle Kategorien',
+          sortBy: 'Sortieren nach',
+          newest: 'Neueste',
+          priceLow: 'Preis: Niedrig bis Hoch',
+          priceHigh: 'Preis: Hoch bis Niedrig',
+          nameAZ: 'Name: A bis Z',
+          filterByPrice: 'Nach Preis filtern',
+          filterByCategory: 'Nach Kategorie filtern',
+          showing: 'Zeige',
+          of: 'von',
+          products: 'Produkte',
+          noProductsFound: 'Keine Produkte gefunden',
+          tryDifferentSearch: 'Versuchen Sie, Ihre Suche oder Filter anzupassen',
+          clearFilters: 'Alle Filter löschen',
+          loadMore: 'Mehr laden',
+          filters: 'Filter',
+          priceRange: 'Preisbereich',
+          activeFilters: 'Aktive Filter',
+          success: {
+            addedToCart: 'zum Warenkorb hinzugefügt'
+          },
+          forms: {
+            placeholder: {
+              search: 'Produkte suchen...'
+            }
+          }
         },
 
         // User account
@@ -214,7 +267,12 @@ export class GermanLanguageProvider extends BaseLanguageProvider {
           termsOfService: 'Nutzungsbedingungen',
           shippingInfo: 'Versandinformationen',
           returnPolicy: 'Rückgaberichtlinien',
-          faq: 'FAQ'
+          faq: 'FAQ',
+          quickLinks: 'Schnellzugriff',
+          contactInfo: 'Kontaktinformationen',
+          helpCenter: 'Hilfe-Center',
+          returnsExchanges: 'Rückgaben & Umtausch',
+          sizeGuide: 'Größenberatung'
         },
 
         // Additional form elements
@@ -361,23 +419,7 @@ export class GermanLanguageProvider extends BaseLanguageProvider {
           months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
         },
 
-        // Footer specific
-        footer: {
-          quickLinks: 'Schnellzugriff',
-          customerService: 'Kundenservice',
-          contactInfo: 'Kontaktinformationen',
-          helpCenter: 'Hilfecenter',
-          shippingInfo: 'Versandinformationen',
-          returnsExchanges: 'Rückgaben & Umtausch',
-          sizeGuide: 'Größenberatung',
-          privacyPolicy: 'Datenschutz',
-          termsOfService: 'Nutzungsbedingungen',
-          cookiePolicy: 'Cookie-Richtlinie',
-          allRightsReserved: 'Alle Rechte vorbehalten.',
-          address: 'Musterstraße 123, Stadt, Land',
-          phone: '+49 (30) 123-4567',
-          email: 'support@luxusshop.de'
-        },
+
 
         // Product specific
         productCard: {

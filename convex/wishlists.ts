@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { mutation, query, internal } from "./_generated/server";
 import { v } from "convex/values";
 
 // Check for wishlist notifications (price drops, back in stock, etc.)
@@ -22,7 +22,7 @@ export const checkWishlistNotifications = mutation({
         .withIndex("byUserType", (q) =>
           q.eq("userId", args.userId).eq("type", "wishlist_price_drop")
         )
-        .filter((q) => q.exists(q.field("data.productId")))
+        .filter((q) => q.neq(q.field("data.productId"), undefined))
         .filter((q) => q.eq(q.field("data.productId"), product._id))
         .collect();
 
@@ -63,7 +63,7 @@ export const checkWishlistNotifications = mutation({
         .withIndex("byUserType", (q) =>
           q.eq("userId", args.userId).eq("type", "wishlist_back_in_stock")
         )
-        .filter((q) => q.exists(q.field("data.productId")))
+        .filter((q) => q.neq(q.field("data.productId"), undefined))
         .filter((q) => q.eq(q.field("data.productId"), product._id))
         .collect();
 
@@ -106,7 +106,7 @@ export const notifyPriceDrops = mutation({
       .query("products")
       .filter((q) => q.and(
         q.eq(q.field("isActive"), true),
-        q.exists(q.field("compareAtPrice")),
+        q.neq(q.field("compareAtPrice"), undefined),
         q.gt(q.field("compareAtPrice"), q.field("price"))
       ))
       .collect();
@@ -127,7 +127,7 @@ export const notifyPriceDrops = mutation({
           .withIndex("byUserType", (q) =>
             q.eq("userId", item.userId).eq("type", "wishlist_price_drop")
           )
-          .filter((q) => q.exists(q.field("data.productId")))
+          .filter((q) => q.neq(q.field("data.productId"), undefined))
           .filter((q) => q.eq(q.field("data.productId"), product._id))
           .collect();
 
@@ -199,7 +199,7 @@ export const notifyBackInStock = mutation({
           .withIndex("byUserType", (q) =>
             q.eq("userId", item.userId).eq("type", "low_stock_alert")
           )
-          .filter((q) => q.exists(q.field("data.productId")))
+          .filter((q) => q.neq(q.field("data.productId"), undefined))
           .filter((q) => q.eq(q.field("data.productId"), product._id))
           .collect();
 
@@ -215,7 +215,7 @@ export const notifyBackInStock = mutation({
             .withIndex("byUserType", (q) =>
               q.eq("userId", item.userId).eq("type", "wishlist_back_in_stock")
             )
-            .filter((q) => q.exists(q.field("data.productId")))
+            .filter((q) => q.neq(q.field("data.productId"), undefined))
             .filter((q) => q.eq(q.field("data.productId"), product._id))
             .collect();
 
@@ -300,7 +300,7 @@ export const getOrCreateDefaultWishlist = mutation({
       .first();
 
     if (!defaultWishlist) {
-      defaultWishlist = await ctx.runMutation("wishlists:createDefaultWishlist", {
+      defaultWishlist = await ctx.runMutation(internal.wishlists.createDefaultWishlist, {
         userId: args.userId,
       });
     }
@@ -350,7 +350,7 @@ export const addToWishlist = mutation({
 
     // If no wishlist specified, use default
     if (!wishlistId) {
-      const defaultWishlist = await ctx.runMutation("wishlists:getOrCreateDefaultWishlist", {
+      const defaultWishlist = await ctx.runMutation(internal.wishlists.getOrCreateDefaultWishlist, {
         userId: args.userId,
       });
       wishlistId = defaultWishlist._id;
@@ -388,7 +388,7 @@ export const removeFromWishlist = mutation({
     wishlistId: v.optional(v.id("wishlistLists")),
   },
   handler: async (ctx, args) => {
-    let wishlistId = args.wishlistId;
+    const wishlistId = args.wishlistId;
 
     // If no wishlist specified, find the item in any of user's wishlists
     if (!wishlistId) {

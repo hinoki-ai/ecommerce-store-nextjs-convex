@@ -3,13 +3,13 @@ export abstract class BaseError extends Error {
   public readonly code: string;
   public readonly statusCode: number;
   public readonly timestamp: number;
-  public readonly details?: Record<string, any>;
+  public readonly details?: Record<string, unknown>;
 
   constructor(
     message: string,
     code: string,
     statusCode: number = 500,
-    details?: Record<string, any>
+    details?: Record<string, unknown>
   ) {
     super(message);
     this.name = this.constructor.name;
@@ -24,7 +24,7 @@ export abstract class BaseError extends Error {
     }
   }
 
-  toJSON(): Record<string, any> {
+  toJSON(): Record<string, unknown> {
     return {
       name: this.name,
       message: this.message,

@@ -2,7 +2,7 @@ import { BaseError, ERROR_CODES } from './base-error';
 
 // Domain Layer Errors
 export class DomainError extends BaseError {
-  constructor(message: string, code: string, details?: Record<string, any>) {
+  constructor(message: string, code: string, details?: Record<string, unknown>) {
     super(message, code, 400, details);
   }
 }
@@ -170,7 +170,7 @@ export class CategoryHasChildrenError extends DomainError {
 
 // Business Rule Violations
 export class BusinessRuleViolationError extends DomainError {
-  constructor(rule: string, details?: Record<string, any>) {
+  constructor(rule: string, details?: Record<string, unknown>) {
     super(
       `Business rule violation: ${rule}`,
       ERROR_CODES.BUSINESS_RULE_VIOLATION,

@@ -7,7 +7,7 @@ import { useAuth } from "@clerk/nextjs"
 import { ProductCard } from "@/components/ProductCard"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+
 import { Label } from "@/components/ui/label"
 import {
   Select,
@@ -34,7 +34,8 @@ import {
   List,
   ArrowRight,
   Package,
-  TrendingUp
+  TrendingUp,
+  Star
 } from "lucide-react"
 import { api } from "@/convex/_generated/api"
 import { formatPrice } from "@/lib/utils"
@@ -226,7 +227,7 @@ export default function WishlistPage() {
             <Heart className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
             <h2 className="text-2xl font-bold mb-4">Your wishlist is empty</h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
-              Start browsing and add items you love to your wishlist. We'll keep them here for you!
+              Start browsing and add items you love to your wishlist. We&apos;ll keep them here for you!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
@@ -248,7 +249,7 @@ export default function WishlistPage() {
                 <div key={item._id} className="relative">
                   <ProductCard
                     product={{
-                      _id: item.product.id,
+                      _id: item.product._id,
                       name: item.product.name,
                       slug: item.product.slug,
                       description: "", // Could be added to wishlist item if needed

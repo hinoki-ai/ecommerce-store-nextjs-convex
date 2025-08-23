@@ -93,12 +93,10 @@ export interface AffiliatePayout {
   notes?: string
 }
 
-export type PayoutMethod = 
+export type PayoutMethod =
   | 'paypal'
-  | 'bank_transfer'
+  | 'bank'
   | 'stripe'
-  | 'crypto'
-  | 'store_credit'
 
 export type PayoutStatus =
   | 'requested'

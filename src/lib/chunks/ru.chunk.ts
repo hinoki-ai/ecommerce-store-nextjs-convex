@@ -89,6 +89,8 @@ export class RussianLanguageProvider extends BaseLanguageProvider {
         cart: {
           title: 'Корзина',
           empty: 'Ваша корзина пуста',
+          emptyMessage: 'Похоже, вы еще ничего не добавили в корзину.',
+          emptyAction: 'Начать покупки',
           subtotal: 'Промежуточный итог',
           tax: 'Налоги',
           shipping: 'Доставка',
@@ -96,7 +98,58 @@ export class RussianLanguageProvider extends BaseLanguageProvider {
           checkout: 'Оформить заказ',
           continueShopping: 'Продолжить покупки',
           removeItem: 'Удалить товар',
-          updateQuantity: 'Обновить количество'
+          updateQuantity: 'Обновить количество',
+          clearCart: 'Очистить корзину',
+          quantity: 'Количество',
+          price: 'Цена',
+          totalPrice: 'Общая цена',
+          itemRemoved: 'Товар удален из корзины',
+          cartCleared: 'Корзина очищена',
+          quantityUpdated: 'Количество обновлено',
+          failedToUpdate: 'Ошибка при обновлении количества',
+          failedToRemove: 'Ошибка при удалении товара',
+          failedToClear: 'Ошибка при очистке корзины',
+          loading: 'Загрузка корзины...',
+          items: 'товаров',
+          item: 'товар',
+          inCart: 'в вашей корзине',
+          each: 'каждый',
+          orderSummary: 'Сводка заказа',
+          free: 'Бесплатно',
+          whyShopWithUs: 'Почему выбирают нас?',
+          securePayment: 'Безопасная оплата',
+          sslEncryption: '256-битное SSL шифрование',
+          freeShipping: 'Бесплатная доставка',
+          freeShippingDesc: 'Бесплатная доставка на заказы от 50 долларов',
+          easyReturns: 'Легкий возврат',
+          easyReturnsDesc: '30-дневная политика возврата',
+          searchProducts: 'Поиск товаров...',
+          allCategories: 'Все категории',
+          sortBy: 'Сортировать по',
+          newest: 'Новейшие',
+          priceLow: 'Цена: по возрастанию',
+          priceHigh: 'Цена: по убыванию',
+          nameAZ: 'Имя: А-Я',
+          filterByPrice: 'Фильтр по цене',
+          filterByCategory: 'Фильтр по категории',
+          showing: 'Показано',
+          of: 'из',
+          products: 'товаров',
+          noProductsFound: 'Товары не найдены',
+          tryDifferentSearch: 'Попробуйте изменить поиск или фильтры',
+          clearFilters: 'Очистить все фильтры',
+          loadMore: 'Загрузить больше',
+          filters: 'Фильтры',
+          priceRange: 'Диапазон цен',
+          activeFilters: 'Активные фильтры',
+          success: {
+            addedToCart: 'добавлено в корзину'
+          },
+          forms: {
+            placeholder: {
+              search: 'Поиск товаров...'
+            }
+          }
         },
 
         // User account
@@ -214,7 +267,12 @@ export class RussianLanguageProvider extends BaseLanguageProvider {
           termsOfService: 'Условия использования',
           shippingInfo: 'Информация о доставке',
           returnPolicy: 'Политика возврата',
-          faq: 'Часто задаваемые вопросы'
+          faq: 'Часто задаваемые вопросы',
+          quickLinks: 'Быстрые ссылки',
+          contactInfo: 'Контактная информация',
+          helpCenter: 'Центр помощи',
+          returnsExchanges: 'Возвраты и обмены',
+          sizeGuide: 'Таблица размеров'
         },
 
         // Additional form elements
@@ -361,23 +419,7 @@ export class RussianLanguageProvider extends BaseLanguageProvider {
           months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
         },
 
-        // Footer specific
-        footer: {
-          quickLinks: 'Быстрые ссылки',
-          customerService: 'Служба поддержки',
-          contactInfo: 'Контактная информация',
-          helpCenter: 'Центр помощи',
-          shippingInfo: 'Информация о доставке',
-          returnsExchanges: 'Возвраты и обмен',
-          sizeGuide: 'Таблица размеров',
-          privacyPolicy: 'Политика конфиденциальности',
-          termsOfService: 'Условия использования',
-          cookiePolicy: 'Политика cookies',
-          allRightsReserved: 'Все права защищены.',
-          address: 'ул. Торговая, 123, Город, Страна',
-          phone: '+7 (495) 123-45-67',
-          email: 'support@luxurystore.ru'
-        },
+
 
         // Product specific
         productCard: {

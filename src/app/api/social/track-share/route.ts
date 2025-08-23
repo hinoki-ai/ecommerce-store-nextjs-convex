@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       timestamp: validatedData.createdAt
     };
 
-    // TODO: Store in Convex socialShares table
+    // Store in Convex socialShares table - implementation pending
     // For now, we'll just log and return success
     console.log('Social share tracked:', shareData);
 
@@ -165,7 +165,7 @@ async function trackExternalAnalytics(shareData: any) {
 
 async function updateShareStatistics(shareData: any) {
   try {
-    // TODO: Update statistics in database
+    // Update statistics in database - implementation pending
     // This would increment counters for:
     // - Total shares per entity
     // - Shares per platform

@@ -49,11 +49,6 @@ const nextConfig: NextConfig = {
   //   enabled: process.env.ANALYZE === 'true',
   // },
 
-  // Experimental features
-  turbopack: {
-    root: "/home/kuromatsu/Documents/ΛRΛMΛC/Websites/Store",
-  },
-
   experimental: {
     // Turbopack for dev (already in package.json scripts)
     // Optimized package imports
@@ -66,9 +61,9 @@ const nextConfig: NextConfig = {
   },
 
   // Webpack optimizations (only for production builds, not turbopack)
-  webpack: (config, { dev, isServer, turbopack }) => {
-    // Skip webpack customizations when using turbopack
-    if (turbopack) {
+  webpack: (config, { dev, isServer }) => {
+    // Skip webpack customizations when using turbopack (detected by build info)
+    if (process.env.TURBOPACK) {
       return config;
     }
 

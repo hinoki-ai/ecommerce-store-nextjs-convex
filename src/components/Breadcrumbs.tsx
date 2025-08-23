@@ -145,13 +145,14 @@ export function Breadcrumbs({
 // Specialized breadcrumb for products
 export function ProductBreadcrumbs({ productId }: { productId: string }) {
   const product = useQuery(api.products.getProductBySlug, { slug: productId })
+  const categories = useQuery(api.categories.getCategories)
 
   if (!product) {
     return <Breadcrumbs />
   }
 
   // For products, we need to get category information
-  const category = useQuery(api.categories.getCategories)?.find(
+  const category = categories?.find(
     cat => cat._id === product.categoryId
   )
 
@@ -178,7 +179,8 @@ export function ProductBreadcrumbs({ productId }: { productId: string }) {
 
 // Specialized breadcrumb for categories
 export function CategoryBreadcrumbs({ categoryId }: { categoryId: string }) {
-  const category = useQuery(api.categories.getCategories)?.find(
+  const categories = useQuery(api.categories.getCategories)
+  const category = categories?.find(
     cat => cat._id === categoryId
   )
 
@@ -193,7 +195,7 @@ export function CategoryBreadcrumbs({ categoryId }: { categoryId: string }) {
 
   // If this is a subcategory, add parent category
   if (category.parentId) {
-    const parentCategory = useQuery(api.categories.getCategories)?.find(
+    const parentCategory = categories?.find(
       cat => cat._id === category.parentId
     )
     if (parentCategory) {

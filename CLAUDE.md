@@ -48,6 +48,12 @@ npx convex deploy            # Deploy Convex functions
 npx convex codegen           # Generate TypeScript types from schema
 ```
 
+### Environment Validation
+```bash
+# Environment validation (runs automatically on build/start)
+npm run validate:env         # Validate required environment variables
+```
+
 ### AI SEO Operations
 ```bash
 # Access SEO dashboard for AI operations
@@ -70,6 +76,10 @@ The project uses two databases for optimal performance:
 
 **Convex Database (`convex/schema.ts`)**
 - Real-time e-commerce operations (products, orders, carts, users)
+- Comprehensive user management with Clerk integration and security features
+- Advanced features: wishlist management, reviews, notifications, promotions
+- Real-time features: cart sync, inventory tracking, push notifications
+- Security: audit logs, role-based permissions, rate limiting
 - Handles user interactions, inventory, reviews, notifications
 - Provides real-time subscriptions and optimistic updates
 - Used for dynamic content and user-facing operations
@@ -119,18 +129,24 @@ The project implements a sophisticated AI-driven SEO system:
    - Dynamic sitemap generation
 
 ### Multi-Language Support
-Implements chunked i18n system for optimal performance:
-- Spanish-first design for rural Chilean audience
-- Chunked language loading (`src/lib/chunks/`)
-- Professional, accessible tone maintenance
-- SEO-optimized multilingual content generation
+Implements **unified chunked i18n system** for optimal performance:
+- **Primary System**: `src/lib/i18n-chunked.ts` (ONLY system allowed)
+- **Languages**: ES (primary) → EN (secondary) → FR, DE, RU, AR
+- **Architecture**: Chunked loading (`src/lib/chunks/`) with provider pattern
+- **Spanish-first**: Design for rural Chilean audience
+- **SEO-optimized**: Multilingual content generation
+- **Performance**: Separate chunk files for optimal loading
+- **Rules**: See `I18N-RULES.md` for strict guidelines
 
 ### Real-Time Features
 - Shopping cart synchronization via Convex
-- Live inventory updates
-- Real-time order tracking
-- Dynamic product recommendations
-- Live chat widget integration
+- Live inventory updates and stock tracking
+- Real-time order tracking and status updates
+- Dynamic product recommendations based on user behavior
+- Push notifications system with subscription management
+- Real-time user activity tracking and personalization
+- Live pricing updates and promotion management
+- Affiliate system with real-time commission tracking
 
 ## Key Development Patterns
 
@@ -152,12 +168,14 @@ export async function POST(request: Request) {
 
 ### AI Service Integration
 AI services are centralized in `src/lib/ai-seo.ts` with proper error handling:
+
 - OpenAI GPT-4 integration for content optimization
 - Fallback strategies for API failures
 - Cost optimization through intelligent caching
 - Batch processing for bulk operations
 
 ### Component Architecture
+
 - Functional components with TypeScript interfaces
 - Radix UI primitives for accessibility
 - Custom hooks for business logic reuse
@@ -165,18 +183,26 @@ AI services are centralized in `src/lib/ai-seo.ts` with proper error handling:
 
 ### Database Access Patterns
 **Convex Queries/Mutations:**
-- Real-time queries for dynamic content
-- Optimistic updates for user interactions
+
+- Real-time queries for dynamic content (products, orders, carts)
+- Optimistic updates for user interactions (cart updates, wishlist changes)
 - Server-side validation and business rules
+- Real-time subscriptions for live data updates
+- Complex queries with multiple indexes for performance
+- Full-text search capabilities for products and collections
 
 **Prisma Operations:**
-- Complex SQL queries for SEO analytics
-- Batch operations for content generation
+
+- Complex SQL queries for SEO analytics and reporting
+- Batch operations for content generation and optimization
 - Migration management for schema evolution
+- Relational data modeling for SEO-focused content
+- AI-generated content storage with optimization tracking
 
 ## Environment Configuration
 
 Required environment variables:
+
 ```bash
 # AI Integration
 OPENAI_API_KEY=your_openai_api_key
@@ -193,12 +219,16 @@ CLERK_SECRET_KEY=your_clerk_secret
 
 # Application
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Note: Environment validation runs automatically via npm scripts
+# Use 'npm run validate:env' to manually check required variables
 ```
 
 ## SEO-Specific Features
 
 ### Automated SEO Dashboard
 Access comprehensive SEO management at `/admin/seo-dashboard`:
+
 - AI product optimization interface
 - Bulk collection generation (hundreds at once)
 - Blog content creation with internal linking
@@ -206,6 +236,7 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 - Performance monitoring dashboard
 
 ### Technical SEO Implementation
+
 - Dynamic sitemap generation (`app/sitemap.ts`)
 - Robots.txt automation (`app/robots.ts`)
 - JSON-LD structured data for all entities
@@ -213,6 +244,7 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 - Meta tag automation with AI-generated content
 
 ### Content Strategy
+
 - Strategic internal linking system
 - Long-tail keyword targeting through collections
 - Holiday and seasonal content automation
@@ -221,18 +253,21 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 ## Performance Considerations
 
 ### Code Splitting Strategy
+
 - Dynamic imports for heavy components
 - Route-based code splitting via Next.js App Router
 - Chunked language loading for i18n
 - Lazy loading for admin dashboard components
 
 ### Database Optimization
+
 - Indexed queries on frequently accessed fields
 - Pagination for large datasets
 - Caching strategies for AI-generated content
 - Connection pooling for concurrent requests
 
 ### AI Cost Management
+
 - Intelligent prompt engineering to minimize tokens
 - Response caching for repeated operations
 - Batch processing for bulk optimizations
@@ -241,6 +276,7 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 ## Testing Approach
 
 ### Key Testing Areas
+
 - AI content generation accuracy
 - SEO score validation (target: 80%+ after optimization)
 - Database integrity across dual-database operations
@@ -248,6 +284,7 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 - Multi-language content validation
 
 ### Performance Targets
+
 - Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1
 - AI response time: <5s for individual optimizations
 - Page load time: <3s on 3G networks
@@ -263,6 +300,7 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 ## Administrative Access
 
 Key admin routes for development and content management:
+
 - `/admin` - Main admin dashboard
 - `/admin/seo-dashboard` - AI SEO optimization interface
 - `/admin/products` - Product management

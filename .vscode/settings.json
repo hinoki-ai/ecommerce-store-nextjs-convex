@@ -1,0 +1,35 @@
+{
+  "files.associations": {
+    "I18N-RULES.md": "markdown"
+  },
+  "editor.rulers": [80, 120],
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "i18n-ally.localesPaths": [
+    "src/lib/chunks"
+  ],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.enabledParsers": ["ts"],
+  "i18n-ally.namespace": true,
+  "i18n-ally.defaultNamespace": "common",
+  "i18n-ally.sourceLanguage": "es",
+  "i18n-ally.displayLanguage": "es",
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME", 
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]",
+    "I18N-RULE"
+  ],
+  "todo-tree.highlights.customHighlight": {
+    "I18N-RULE": {
+      "icon": "globe",
+      "type": "tag",
+      "foreground": "#ffffff",
+      "background": "#ff6b6b",
+      "iconColour": "#ff6b6b"
+    }
+  }
+}

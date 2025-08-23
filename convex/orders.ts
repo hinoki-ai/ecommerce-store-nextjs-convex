@@ -179,7 +179,14 @@ export const updateOrderStatus = mutation({
   handler: async (ctx, args) => {
     const { orderId, status, paymentStatus, trackingNumber } = args;
 
-    const updates: any = {
+    const updates: {
+      status: typeof status;
+      updatedAt: number;
+      paymentStatus?: typeof paymentStatus;
+      trackingNumber?: string;
+      shippedAt?: number;
+      deliveredAt?: number;
+    } = {
       status,
       updatedAt: Date.now(),
     };

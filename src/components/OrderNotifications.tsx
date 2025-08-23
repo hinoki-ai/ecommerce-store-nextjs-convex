@@ -38,6 +38,37 @@ interface OrderNotificationsProps {
   maxItems?: number
 }
 
+// Helper functions
+const getNotificationIcon = (type: string) => {
+  switch (type) {
+    case "status_update":
+      return <CheckCircle className="h-4 w-4 text-green-600" />
+    case "shipping_update":
+      return <Info className="h-4 w-4 text-blue-600" />
+    case "delivery_update":
+      return <Info className="h-4 w-4 text-orange-600" />
+    case "issue":
+      return <AlertCircle className="h-4 w-4 text-red-600" />
+    case "info":
+    default:
+      return <Info className="h-4 w-4 text-gray-600" />
+  }
+}
+
+const getPriorityBadge = (priority: string) => {
+  const variants = {
+    high: "destructive",
+    medium: "secondary",
+    low: "outline"
+  } as const
+
+  return (
+    <Badge variant={variants[priority as keyof typeof variants]} className="text-xs">
+      {priority}
+    </Badge>
+  )
+}
+
 export function OrderNotifications({
   userId,
   onNotificationClick,
@@ -116,35 +147,7 @@ export function OrderNotifications({
     }, 1000)
   }, [])
 
-  const getNotificationIcon = (type: string) => {
-    switch (type) {
-      case "status_update":
-        return <CheckCircle className="h-4 w-4 text-green-600" />
-      case "shipping_update":
-        return <Info className="h-4 w-4 text-blue-600" />
-      case "delivery_update":
-        return <Info className="h-4 w-4 text-orange-600" />
-      case "issue":
-        return <AlertCircle className="h-4 w-4 text-red-600" />
-      case "info":
-      default:
-        return <Info className="h-4 w-4 text-gray-600" />
-    }
-  }
 
-  const getPriorityBadge = (priority: string) => {
-    const variants = {
-      high: "destructive",
-      medium: "secondary",
-      low: "outline"
-    } as const
-
-    return (
-      <Badge variant={variants[priority as keyof typeof variants]} className="text-xs">
-        {priority}
-      </Badge>
-    )
-  }
 
   const markAsRead = (notificationId: string) => {
     setNotifications(prev =>
@@ -310,7 +313,7 @@ export function OrderNotifications({
               <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">No notifications</h3>
               <p className="text-muted-foreground">
-                You'll receive notifications here when there are updates to your orders
+                You&apos;ll receive notifications here when there are updates to your orders
               </p>
             </div>
           ) : (

@@ -89,6 +89,8 @@ export class FrenchLanguageProvider extends BaseLanguageProvider {
         cart: {
           title: 'Panier d\'achats',
           empty: 'Votre panier est vide',
+          emptyMessage: 'Il semble que vous n\'ayez encore rien ajouté à votre panier.',
+          emptyAction: 'Commencer les achats',
           subtotal: 'Sous-total',
           tax: 'Taxes',
           shipping: 'Livraison',
@@ -96,7 +98,58 @@ export class FrenchLanguageProvider extends BaseLanguageProvider {
           checkout: 'Commander',
           continueShopping: 'Continuer les achats',
           removeItem: 'Retirer l\'article',
-          updateQuantity: 'Mettre à jour la quantité'
+          updateQuantity: 'Mettre à jour la quantité',
+          clearCart: 'Vider le panier',
+          quantity: 'Quantité',
+          price: 'Prix',
+          totalPrice: 'Prix total',
+          itemRemoved: 'Article retiré du panier',
+          cartCleared: 'Panier vidé',
+          quantityUpdated: 'Quantité mise à jour',
+          failedToUpdate: 'Erreur lors de la mise à jour de la quantité',
+          failedToRemove: 'Erreur lors de la suppression de l\'article',
+          failedToClear: 'Erreur lors de la vidange du panier',
+          loading: 'Chargement du panier...',
+          items: 'articles',
+          item: 'article',
+          inCart: 'dans votre panier',
+          each: 'chacun',
+          orderSummary: 'Résumé de commande',
+          free: 'Gratuit',
+          whyShopWithUs: 'Pourquoi acheter chez nous ?',
+          securePayment: 'Paiement sécurisé',
+          sslEncryption: 'Chiffrement SSL 256 bits',
+          freeShipping: 'Livraison gratuite',
+          freeShippingDesc: 'Livraison gratuite sur les commandes de plus de 50€',
+          easyReturns: 'Retours faciles',
+          easyReturnsDesc: 'Politique de retour de 30 jours',
+          searchProducts: 'Rechercher des produits...',
+          allCategories: 'Toutes les catégories',
+          sortBy: 'Trier par',
+          newest: 'Plus récents',
+          priceLow: 'Prix : Croissant',
+          priceHigh: 'Prix : Décroissant',
+          nameAZ: 'Nom : A à Z',
+          filterByPrice: 'Filtrer par prix',
+          filterByCategory: 'Filtrer par catégorie',
+          showing: 'Affichage',
+          of: 'sur',
+          products: 'produits',
+          noProductsFound: 'Aucun produit trouvé',
+          tryDifferentSearch: 'Essayez d\'ajuster votre recherche ou vos filtres',
+          clearFilters: 'Effacer tous les filtres',
+          loadMore: 'Charger plus',
+          filters: 'Filtres',
+          priceRange: 'Plage de prix',
+          activeFilters: 'Filtres actifs',
+          success: {
+            addedToCart: 'ajouté au panier'
+          },
+          forms: {
+            placeholder: {
+              search: 'Rechercher des produits...'
+            }
+          }
         },
 
         // User account
@@ -214,7 +267,12 @@ export class FrenchLanguageProvider extends BaseLanguageProvider {
           termsOfService: 'Conditions d\'utilisation',
           shippingInfo: 'Informations de livraison',
           returnPolicy: 'Politique de retour',
-          faq: 'FAQ'
+          faq: 'FAQ',
+          quickLinks: 'Liens rapides',
+          contactInfo: 'Informations de contact',
+          helpCenter: 'Centre d\'aide',
+          returnsExchanges: 'Retours & Échanges',
+          sizeGuide: 'Guide des tailles'
         },
 
         // Additional form elements
@@ -361,23 +419,7 @@ export class FrenchLanguageProvider extends BaseLanguageProvider {
           months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
         },
 
-        // Footer specific
-        footer: {
-          quickLinks: 'Liens rapides',
-          customerService: 'Service client',
-          contactInfo: 'Informations de contact',
-          helpCenter: 'Centre d\'aide',
-          shippingInfo: 'Informations de livraison',
-          returnsExchanges: 'Retours & Échanges',
-          sizeGuide: 'Guide des tailles',
-          privacyPolicy: 'Politique de confidentialité',
-          termsOfService: 'Conditions d\'utilisation',
-          cookiePolicy: 'Politique des cookies',
-          allRightsReserved: 'Tous droits réservés.',
-          address: '123 Rue du Commerce, Ville, Pays',
-          phone: '+33 1 23 45 67 89',
-          email: 'support@boutiquedeluxe.fr'
-        },
+
 
         // Product specific
         productCard: {

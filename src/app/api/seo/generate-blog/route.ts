@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     const blogContent = await AISEOService.generateBlogContent(topic, productData);
 
     // Generate unique slug
-    let slug = slugify(blogContent.title);
+    const slug = slugify(blogContent.title);
     let counter = 1;
     let uniqueSlug = slug;
 

@@ -56,7 +56,7 @@ export default function AdminUsersPage() {
   const updateUserRole = useMutation(api.users.updateUserRole)
 
   // Filter and sort users
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users.filter((user: typeof users[0]) => {
     // Search filter
     if (searchQuery && !(
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -96,7 +96,7 @@ export default function AdminUsersPage() {
     }
   }
 
-  const openRoleDialog = (user: any) => {
+  const openRoleDialog = (user: typeof users[0]) => {
     setSelectedUser(user)
     setShowRoleDialog(true)
   }
@@ -148,20 +148,20 @@ export default function AdminUsersPage() {
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold">{users.filter(u => u.role === "admin").length}</div>
+            <div className="text-2xl font-bold">{users.filter((u: typeof users[0]) => u.role === "admin").length}</div>
             <p className="text-sm text-muted-foreground">Admins</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold">{users.filter(u => u.role === "customer").length}</div>
+            <div className="text-2xl font-bold">{users.filter((u: typeof users[0]) => u.role === "customer").length}</div>
             <p className="text-sm text-muted-foreground">Customers</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold">
-              {users.length > 0 ? Math.round((users.filter(u => u.lastLoginAt).length / users.length) * 100) : 0}%
+              {users.length > 0 ? Math.round((users.filter((u: typeof users[0]) => u.lastLoginAt).length / users.length) * 100) : 0}%
             </div>
             <p className="text-sm text-muted-foreground">Active Users</p>
           </CardContent>
@@ -231,7 +231,7 @@ export default function AdminUsersPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {sortedUsers.map((user) => (
+                {sortedUsers.map((user: typeof users[0]) => (
                   <tr key={user._id} className="hover:bg-gray-50">
                     <td className="px-4 py-4">
                       <div className="flex items-center space-x-3">

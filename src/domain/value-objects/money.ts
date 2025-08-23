@@ -93,6 +93,14 @@ export class Money {
     return new Money(cents / 100, currency);
   }
 
+  static max(a: Money, b: Money): Money {
+    return a.isGreaterThan(b) ? a : b;
+  }
+
+  static min(a: Money, b: Money): Money {
+    return a.isLessThan(b) ? a : b;
+  }
+
   toCents(): number {
     return Math.round(this._amount * 100);
   }

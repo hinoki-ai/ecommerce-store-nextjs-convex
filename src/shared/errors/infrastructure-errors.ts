@@ -2,7 +2,7 @@ import { BaseError, ERROR_CODES } from './base-error';
 
 // Infrastructure Layer Errors
 export class InfrastructureError extends BaseError {
-  constructor(message: string, code: string, details?: Record<string, any>) {
+  constructor(message: string, code: string, details?: Record<string, unknown>) {
     super(message, code, 500, details);
   }
 }

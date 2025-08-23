@@ -2,14 +2,14 @@ import { BaseError, ERROR_CODES } from './base-error';
 
 // Application Layer Errors
 export class ApplicationError extends BaseError {
-  constructor(message: string, code: string, details?: Record<string, any>) {
+  constructor(message: string, code: string, details?: Record<string, unknown>) {
     super(message, code, 500, details);
   }
 }
 
 // Use Case Errors
 export class UseCaseError extends ApplicationError {
-  constructor(message: string, code: string, details?: Record<string, any>) {
+  constructor(message: string, code: string, details?: Record<string, unknown>) {
     super(message, code, details);
   }
 }
@@ -66,7 +66,7 @@ export class PaymentProcessingError extends UseCaseError {
 
 // Service Errors
 export class ServiceError extends ApplicationError {
-  constructor(message: string, code: string, details?: Record<string, any>) {
+  constructor(message: string, code: string, details?: Record<string, unknown>) {
     super(message, code, details);
   }
 }

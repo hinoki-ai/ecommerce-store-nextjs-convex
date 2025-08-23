@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     for (const suggestion of collectionSuggestions) {
       try {
         // Generate unique slug
-        let slug = slugify(suggestion.name);
+        const slug = slugify(suggestion.name);
         let counter = 1;
         let uniqueSlug = slug;
 

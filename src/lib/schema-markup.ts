@@ -215,7 +215,7 @@ export function generateOrganizationSchema(org: OrganizationSchema): object {
     "description": org.description,
     "contactPoint": org.contactPoint ? {
       "@type": "ContactPoint",
-      "telephone": org.contactPoint.telelephone,
+      "telephone": org.contactPoint.telephone,
       "contactType": org.contactPoint.contactType
     } : undefined,
     "sameAs": org.sameAs,

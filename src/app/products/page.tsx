@@ -28,18 +28,20 @@ import {
 } from "lucide-react"
 import { api } from "@/convex/_generated/api"
 import { formatPrice } from "@/lib/utils"
-
-// Mock categories for now - will be replaced with Convex query
-const mockCategories = [
-  { _id: "electronics", name: "Electronics", slug: "electronics", icon: "🔌" },
-  { _id: "clothing", name: "Clothing", slug: "clothing", icon: "👕" },
-  { _id: "home-garden", name: "Home & Garden", slug: "home-garden", icon: "🏠" },
-  { _id: "sports", name: "Sports", slug: "sports", icon: "⚽" },
-  { _id: "books", name: "Books", slug: "books", icon: "📚" },
-  { _id: "beauty", name: "Beauty", slug: "beauty", icon: "✨" }
-]
+import { useLanguage } from "@/components/LanguageProvider"
 
 export default function ProductsPage() {
+  const { t } = useLanguage()
+
+  // Mock categories for now - will be replaced with Convex query
+  const mockCategories = [
+    { _id: "electronics", name: t('categories.electronics'), slug: "electronics", icon: "🔌" },
+    { _id: "clothing", name: t('categories.clothing'), slug: "clothing", icon: "👕" },
+    { _id: "home-garden", name: t('categories.homeGarden'), slug: "home-garden", icon: "🏠" },
+    { _id: "sports", name: t('categories.sports'), slug: "sports", icon: "⚽" },
+    { _id: "books", name: t('categories.books'), slug: "books", icon: "📚" },
+    { _id: "beauty", name: t('categories.beauty'), slug: "beauty", icon: "✨" }
+  ]
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [priceRange, setPriceRange] = useState([0, 1000])
@@ -116,9 +118,9 @@ export default function ProductsPage() {
       <div className="bg-muted/30 border-b">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">All Products</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('nav.products')}</h1>
             <p className="text-muted-foreground text-lg">
-              Discover our complete collection of premium products
+              {t('product.browseProducts')}
             </p>
           </div>
         </div>
@@ -136,7 +138,7 @@ export default function ProductsPage() {
                 className="w-full"
               >
                 <Filter className="h-4 w-4 mr-2" />
-                Filters {activeFiltersCount > 0 && `(${activeFiltersCount})`}
+                {t('cart.filters')} {activeFiltersCount > 0 && `(${activeFiltersCount})`}
                 <ChevronDown className={`h-4 w-4 ml-auto transition-transform ${showFilters ? 'rotate-180' : ''}`} />
               </Button>
             </div>
@@ -146,10 +148,10 @@ export default function ProductsPage() {
               <Card>
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">Filters</CardTitle>
+                    <CardTitle className="text-lg">{t('cart.filters')}</CardTitle>
                     {activeFiltersCount > 0 && (
                       <Button variant="ghost" size="sm" onClick={clearFilters}>
-                        Clear All
+                        {t('cart.clearFilters')}
                       </Button>
                     )}
                   </div>
@@ -157,11 +159,11 @@ export default function ProductsPage() {
                 <CardContent className="space-y-6">
                   {/* Search */}
                   <div className="space-y-2">
-                    <Label>Search Products</Label>
+                    <Label>{t('cart.searchProducts')}</Label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
-                        placeholder="Search products..."
+                        placeholder={t('cart.searchProducts')}
                         value={searchQuery}
                         onChange={(e) => {
                           setSearchQuery(e.target.value)
@@ -174,7 +176,7 @@ export default function ProductsPage() {
 
                   {/* Categories */}
                   <div className="space-y-3">
-                    <Label>Categories</Label>
+                    <Label>{t('nav.categories')}</Label>
                     <div className="space-y-2 max-h-48 overflow-y-auto">
                       {categories.map((category) => (
                         <div key={category._id} className="flex items-center space-x-2">
@@ -197,7 +199,7 @@ export default function ProductsPage() {
 
                   {/* Price Range */}
                   <div className="space-y-3">
-                    <Label>Price Range</Label>
+                    <Label>{t('cart.priceRange')}</Label>
                     <div className="px-2">
                       <Slider
                         value={priceRange}
@@ -217,7 +219,7 @@ export default function ProductsPage() {
                   {/* Active Filters */}
                   {activeFiltersCount > 0 && (
                     <div className="space-y-2 pt-4 border-t">
-                      <Label>Active Filters</Label>
+                      <Label>{t('cart.activeFilters')}</Label>
                       <div className="flex flex-wrap gap-2">
                         {selectedCategories.map((slug) => {
                           const category = categories.find(cat => cat.slug === slug)
@@ -233,7 +235,7 @@ export default function ProductsPage() {
                         })}
                         {(priceRange[0] > 0 || priceRange[1] < 1000) && (
                           <Badge variant="secondary" className="flex items-center gap-1">
-                            Price: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
+                            {t('cart.price')}: {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
                             <X
                               className="h-3 w-3 cursor-pointer"
                               onClick={() => setPriceRange([0, 1000])}
@@ -254,7 +256,7 @@ export default function ProductsPage() {
             <div className="flex flex-col sm:flex-row gap-4 mb-6 items-start sm:items-center justify-between">
               <div className="flex items-center gap-4">
                 <p className="text-sm text-muted-foreground">
-                  Showing {sortedProducts.length} products
+                  {t('cart.showing')} {sortedProducts.length} {t('cart.products')}
                 </p>
                 <div className="flex items-center gap-2">
                   <Button
@@ -275,16 +277,16 @@ export default function ProductsPage() {
               </div>
 
               <div className="flex items-center gap-2">
-                <Label htmlFor="sort" className="text-sm">Sort by:</Label>
+                <Label htmlFor="sort" className="text-sm">{t('cart.sortBy')}:</Label>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger id="sort" className="w-40">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newest">Newest</SelectItem>
-                    <SelectItem value="price-low">Price: Low to High</SelectItem>
-                    <SelectItem value="price-high">Price: High to Low</SelectItem>
-                    <SelectItem value="name">Name</SelectItem>
+                    <SelectItem value="newest">{t('cart.newest')}</SelectItem>
+                    <SelectItem value="price-low">{t('cart.priceLow')}</SelectItem>
+                    <SelectItem value="price-high">{t('cart.priceHigh')}</SelectItem>
+                    <SelectItem value="name">{t('cart.nameAZ')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -319,11 +321,11 @@ export default function ProductsPage() {
             ) : (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🔍</div>
-                <h3 className="text-xl font-semibold mb-2">No products found</h3>
+                <h3 className="text-xl font-semibold mb-2">{t('cart.noProductsFound')}</h3>
                 <p className="text-muted-foreground mb-4">
-                  Try adjusting your filters or search terms
+                  {t('cart.tryDifferentSearch')}
                 </p>
-                <Button onClick={clearFilters}>Clear All Filters</Button>
+                <Button onClick={clearFilters}>{t('cart.clearFilters')}</Button>
               </div>
             )}
 
@@ -334,7 +336,7 @@ export default function ProductsPage() {
                   variant="outline"
                   onClick={() => setCurrentPage(prev => prev + 1)}
                 >
-                  Load More Products
+                  {t('cart.loadMore')} {t('cart.products')}
                 </Button>
               </div>
             )}

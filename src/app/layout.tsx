@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "./colors.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import ConvexClientProvider from '@/components/ConvexClientProvider'
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/hooks/useCart";
+import { AdvancedCartProvider } from "@/hooks/useAdvancedCart";
+import { ExitIntentPopup } from "@/components/ExitIntentPopup";
+import { CartAbandonmentRecovery } from "@/components/CartAbandonmentRecovery";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { LanguageAttributes } from "@/components/LanguageAttributes";
 import { ChatWidget } from "@/components/ChatWidget";
@@ -61,9 +63,13 @@ export default async function RootLayout({
                 <LanguageAttributes />
                 <CurrencyProvider>
                   <CartProvider>
-                    {children}
-                    <ChatWidget />
-                    <Toaster position="top-right" richColors />
+                    <AdvancedCartProvider>
+                      {children}
+                      <ChatWidget />
+                      <ExitIntentPopup isEnabled={true} />
+                      <CartAbandonmentRecovery isEnabled={true} />
+                      <Toaster position="top-right" richColors />
+                    </AdvancedCartProvider>
                   </CartProvider>
                 </CurrencyProvider>
               </LanguageProvider>
@@ -75,9 +81,13 @@ export default async function RootLayout({
                   <LanguageAttributes />
                   <CurrencyProvider>
                     <CartProvider>
-                      {children}
-                      <ChatWidget />
-                      <Toaster position="top-right" richColors />
+                      <AdvancedCartProvider>
+                        {children}
+                        <ChatWidget />
+                        <ExitIntentPopup isEnabled={true} />
+                        <CartAbandonmentRecovery isEnabled={true} />
+                        <Toaster position="top-right" richColors />
+                      </AdvancedCartProvider>
                     </CartProvider>
                   </CurrencyProvider>
                 </LanguageProvider>

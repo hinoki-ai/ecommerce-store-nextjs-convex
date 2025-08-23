@@ -49,7 +49,8 @@ export class GetProductsUseCase {
         totalPages: 1,
       };
     } catch (error) {
-      throw new UseCaseError('Failed to get products', 'GET_PRODUCTS_ERROR', { originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to get products', 'GET_PRODUCTS_ERROR', { originalError: errorMessage });
     }
   }
 }
@@ -82,7 +83,8 @@ export class GetProductByIdUseCase {
       if (error instanceof ProductNotFoundError) {
         throw error;
       }
-      throw new UseCaseError('Failed to get product', 'GET_PRODUCT_ERROR', { productId: id, originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to get product', 'GET_PRODUCT_ERROR', { productId: id, originalError: errorMessage });
     }
   }
 }
@@ -115,7 +117,8 @@ export class GetProductBySlugUseCase {
       if (error instanceof ProductNotFoundError) {
         throw error;
       }
-      throw new UseCaseError('Failed to get product by slug', 'GET_PRODUCT_BY_SLUG_ERROR', { slug, originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to get product by slug', 'GET_PRODUCT_BY_SLUG_ERROR', { slug, originalError: errorMessage });
     }
   }
 }
@@ -164,7 +167,8 @@ export class CreateProductUseCase {
       if (error instanceof InvalidProductDataError) {
         throw error;
       }
-      throw new UseCaseError('Failed to create product', 'CREATE_PRODUCT_ERROR', { originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to create product', 'CREATE_PRODUCT_ERROR', { originalError: errorMessage });
     }
   }
 }
@@ -207,7 +211,8 @@ export class UpdateProductUseCase {
       if (error instanceof ProductNotFoundError) {
         throw error;
       }
-      throw new UseCaseError('Failed to update product', 'UPDATE_PRODUCT_ERROR', { productId: id, originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to update product', 'UPDATE_PRODUCT_ERROR', { productId: id, originalError: errorMessage });
     }
   }
 }
@@ -228,7 +233,8 @@ export class DeleteProductUseCase {
       if (error instanceof ProductNotFoundError) {
         throw error;
       }
-      throw new UseCaseError('Failed to delete product', 'DELETE_PRODUCT_ERROR', { productId: id, originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to delete product', 'DELETE_PRODUCT_ERROR', { productId: id, originalError: errorMessage });
     }
   }
 }
@@ -249,7 +255,8 @@ export class GetProductsByCategoryUseCase {
 
       return await this.productRepository.findByCategory(categoryId);
     } catch (error) {
-      throw new UseCaseError('Failed to get products by category', 'GET_PRODUCTS_BY_CATEGORY_ERROR', { categoryId, originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to get products by category', 'GET_PRODUCTS_BY_CATEGORY_ERROR', { categoryId, originalError: errorMessage });
     }
   }
 }
@@ -277,7 +284,8 @@ export class SearchProductsUseCase {
 
       return products;
     } catch (error) {
-      throw new UseCaseError('Failed to search products', 'SEARCH_PRODUCTS_ERROR', { query, originalError: error.message });
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new UseCaseError('Failed to search products', 'SEARCH_PRODUCTS_ERROR', { query, originalError: errorMessage });
     }
   }
 }

@@ -936,15 +936,20 @@ export function getColorPalette(): Array<{
   dark: string;
   category: string;
 }> {
-  const palette = [];
+  const palette: Array<{
+    name: string;
+    light: string;
+    dark: string;
+    category: string;
+  }> = [];
 
   // Base colors
   const baseColors = ['background', 'foreground', 'card', 'popover', 'modal'];
   baseColors.forEach(name => {
     palette.push({
       name,
-      light: colorTokens.light[name],
-      dark: colorTokens.dark[name],
+      light: colorTokens.light[name as keyof typeof colorTokens.light],
+      dark: colorTokens.dark[name as keyof typeof colorTokens.dark],
       category: 'Base'
     });
   });
@@ -954,8 +959,8 @@ export function getColorPalette(): Array<{
   brandColors.forEach(name => {
     palette.push({
       name,
-      light: colorTokens.light[name],
-      dark: colorTokens.dark[name],
+      light: colorTokens.light[name as keyof typeof colorTokens.light],
+      dark: colorTokens.dark[name as keyof typeof colorTokens.dark],
       category: 'Brand'
     });
   });
@@ -965,8 +970,8 @@ export function getColorPalette(): Array<{
   statusColors.forEach(name => {
     palette.push({
       name,
-      light: colorTokens.light[name],
-      dark: colorTokens.dark[name],
+      light: colorTokens.light[name as keyof typeof colorTokens.light],
+      dark: colorTokens.dark[name as keyof typeof colorTokens.dark],
       category: 'Status'
     });
   });
@@ -976,8 +981,8 @@ export function getColorPalette(): Array<{
   stockColors.forEach(name => {
     palette.push({
       name,
-      light: colorTokens.light[name],
-      dark: colorTokens.dark[name],
+      light: colorTokens.light[name as keyof typeof colorTokens.light],
+      dark: colorTokens.dark[name as keyof typeof colorTokens.dark],
       category: 'Stock'
     });
   });
@@ -988,12 +993,12 @@ export function getColorPalette(): Array<{
     const lightColor = name === 'destructive' ? colorTokens.light.destructive :
                       name === 'warning' ? colorTokens.light.warning :
                       name === 'success' ? colorTokens.light.success :
-                      colorTokens.light.info;
+                      colorTokens.light.primary;
 
     const darkColor = name === 'destructive' ? colorTokens.dark.destructive :
                      name === 'warning' ? colorTokens.dark.warning :
                      name === 'success' ? colorTokens.dark.success :
-                     colorTokens.dark.info;
+                     colorTokens.dark.primary;
 
     palette.push({
       name,
@@ -1004,4 +1009,9 @@ export function getColorPalette(): Array<{
   });
 
   return palette;
+}
+
+// CommonJS export for Tailwind config compatibility
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { colorTokens, semanticColors, pastelColors, gradients };
 }

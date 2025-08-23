@@ -1,6 +1,43 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
+// Type definitions for SEO analysis
+interface SEOAnalysis {
+  title: {
+    length: number;
+    optimal: boolean;
+    hasKeywords: boolean;
+  };
+  description: {
+    length: number;
+    optimal: boolean;
+    hasKeywords: boolean;
+  };
+  metaTitle: {
+    exists: boolean;
+    length: number;
+    optimal: boolean;
+  };
+  metaDescription: {
+    exists: boolean;
+    length: number;
+    optimal: boolean;
+  };
+  tags: {
+    count: number;
+    relevant: boolean;
+  };
+  images: {
+    hasImages: boolean;
+    withAlt: boolean;
+  };
+  slug: {
+    length: number;
+    optimal: boolean;
+    hasKeywords: boolean;
+  };
+}
+
 // Advanced SEO Analysis Functions
 export const analyzeProductSEO = query({
   args: { productId: v.id("products") },
@@ -102,7 +139,7 @@ export const analyzeProductSEO = query({
 });
 
 // Generate SEO recommendations based on analysis
-function generateSEORecommendations(analysis: any) {
+function generateSEORecommendations(analysis: SEOAnalysis) {
   const recommendations = [];
 
   if (!analysis.title.optimal) {
@@ -223,7 +260,13 @@ export const generateSEOContent = mutation({
     }
 
     // Update product with generated content
-    const updates: any = {};
+    const updates: {
+      metaTitle?: string;
+      metaDescription?: string;
+      optimizedTitle?: string;
+      optimizedDescription?: string;
+      seoScore?: number;
+    } = {};
     updates[args.contentType] = generatedContent;
 
     // Calculate new SEO score after optimization
@@ -419,7 +462,7 @@ export const getSEOPerformanceAnalytics = query({
     // Get product details for top optimized
     const topProductDetails = await Promise.all(
       topOptimizedProducts.map(async ([productId, optimizations]) => {
-        const product = await ctx.db.get(productId as any);
+        const product = await ctx.db.get(productId);
         return {
           productId,
           productName: product?.name || "Unknown",

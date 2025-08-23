@@ -46,7 +46,7 @@ export interface ProductNutrition {
 }
 
 export interface Product {
-  id: ID;
+  _id: ID;
   name: string;
   nameJA?: string;
   slug: string;

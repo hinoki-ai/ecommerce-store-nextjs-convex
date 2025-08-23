@@ -288,7 +288,7 @@ export default function SEODashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {products.slice(0, 5).map((product) => (
-                    <div key={product.id} className="flex items-center justify-between p-3 bg-white rounded-lg border">
+                    <div key={product._id} className="flex items-center justify-between p-3 bg-white rounded-lg border">
                       <div>
                         <p className="font-medium">{product.title}</p>
                         <p className="text-sm text-gray-600">SEO Score: {product.seoScore}%</p>
@@ -371,7 +371,7 @@ export default function SEODashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {products.map((product) => (
-                    <div key={product.id} className="flex items-center justify-between p-4 bg-white rounded-lg border">
+                    <div key={product._id} className="flex items-center justify-between p-4 bg-white rounded-lg border">
                       <div className="flex-1">
                         <h3 className="font-medium">{product.title}</h3>
                         <p className="text-sm text-gray-600 mt-1">

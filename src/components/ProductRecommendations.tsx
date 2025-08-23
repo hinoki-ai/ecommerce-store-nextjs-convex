@@ -3,6 +3,7 @@
 import { useQuery } from "convex/react"
 import { Sparkles, ArrowRight, ShoppingCart, Heart, Star } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -182,7 +183,7 @@ export function ProductRecommendations({
       )}
 
       {/* Recommendations Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="product-grid">
         {displayRecommendations.map((product) => (
           <ProductCard
             key={product._id}
@@ -275,10 +276,12 @@ export function QuickRecommendations({
               <CardContent className="p-3">
                 <div className="aspect-square bg-gray-100 rounded-lg mb-2 overflow-hidden">
                   {product.images?.[0] && (
-                    <img
+                    <Image
                       src={product.images[0].url}
                       alt={product.images[0].alt || product.name}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, 25vw"
                     />
                   )}
                 </div>

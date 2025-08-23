@@ -13,9 +13,10 @@ import { useCart } from "@/hooks/useCart"
 import { toast } from "sonner"
 import { StockIndicator } from "@/components/StockIndicator"
 import { useLanguage } from "@/components/LanguageProvider"
+import { Id } from "@/convex/_generated/dataModel"
 
 interface Product {
-  _id: string
+  _id: Id<"products">
   name: string
   slug: string
   description: string
@@ -52,7 +53,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
   const [isAddingToCart, setIsAddingToCart] = useState(false)
   const { addToCart, getCartItemQuantity } = useCart()
 
-  const cartItemQuantity = getCartItemQuantity(product._id as any)
+  const cartItemQuantity = getCartItemQuantity(product._id)
 
   const mainImage = product.images[0]
   const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price
@@ -70,7 +71,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
 
     setIsAddingToCart(true)
     try {
-      await addToCart(product._id as any, 1, product.price)
+      await addToCart(product._id, 1, product.price)
       toast.success(`${product.name} ${t('success.addedToCart')}`)
     } catch (error) {
       console.error("Error adding to cart:", error)

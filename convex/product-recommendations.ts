@@ -112,14 +112,14 @@ export const getFrequentlyBoughtTogether = query({
       .collect();
 
     const productOrders = ordersWithProduct.filter(order =>
-      order.items.some((item: any) => item.productId === args.productId)
+      order.items.some((item: { productId: string }) => item.productId === args.productId)
     );
 
     // Count co-occurring products
     const coOccurrences: Record<string, number> = {};
 
     productOrders.forEach(order => {
-      order.items.forEach((item: any) => {
+      order.items.forEach((item: { productId: string }) => {
         if (item.productId !== args.productId) {
           coOccurrences[item.productId] = (coOccurrences[item.productId] || 0) + 1;
         }

@@ -265,7 +265,7 @@ export default function SearchPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">
                     {searchQuery ? (
-                      <>Search results for "<strong className="text-foreground">{searchQuery}</strong>"</>
+                      <>Search results for &quot;<strong className="text-foreground">{searchQuery}</strong>&quot;</>
                     ) : (
                       "All products"
                     )}
@@ -339,7 +339,7 @@ export default function SearchPage() {
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🔍</div>
                 <h3 className="text-xl font-semibold mb-2">
-                  {searchQuery ? `No results found for &quot;${searchQuery}&quot;` : "Start your search"}
+                  {searchQuery ? `No results found for &quot;{searchQuery}&quot;` : "Start your search"}
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                   {searchQuery

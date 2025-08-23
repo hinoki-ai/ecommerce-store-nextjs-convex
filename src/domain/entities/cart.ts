@@ -1,5 +1,6 @@
 import { BaseEntity } from './base-entity';
 import { Cart as CartType, CartItem, CartPricing } from '../types';
+import { Money } from '../value-objects/money';
 
 export class Cart extends BaseEntity implements CartType {
   private _userId?: string;
@@ -67,7 +68,7 @@ export class Cart extends BaseEntity implements CartType {
       if (item.quantity <= 0) {
         errors.push(`Item at index ${index} must have quantity > 0`);
       }
-      if (item.price < 0) {
+      if (item.price.isNegative()) {
         errors.push(`Item at index ${index} cannot have negative price`);
       }
     });
@@ -96,9 +97,9 @@ export class Cart extends BaseEntity implements CartType {
     this.setUpdatedBy('system');
   }
 
-  addItem(productId: string, quantity: number, price: number): void {
+  addItem(productId: string, quantity: number, price: Money): void {
     if (quantity <= 0) throw new Error('Quantity must be greater than 0');
-    if (price < 0) throw new Error('Price cannot be negative');
+    if (price.isNegative()) throw new Error('Price cannot be negative');
 
     const existingItem = this._items.find(item => item.productId === productId);
 
@@ -145,8 +146,8 @@ export class Cart extends BaseEntity implements CartType {
     }
   }
 
-  updateItemPrice(productId: string, price: number): void {
-    if (price < 0) throw new Error('Price cannot be negative');
+  updateItemPrice(productId: string, price: Money): void {
+    if (price.isNegative()) throw new Error('Price cannot be negative');
 
     const item = this._items.find(item => item.productId === productId);
     if (item) {
@@ -163,12 +164,14 @@ export class Cart extends BaseEntity implements CartType {
   }
 
   private recalculatePricing(): void {
-    const subtotal = this._items.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.19; // Assuming 19% tax rate, this should be configurable
+    const subtotal = this._items.reduce((total, item) =>
+      total.add(item.price.multiply(item.quantity)), Money.zero());
+    const taxRate = 0.19; // Assuming 19% tax rate, this should be configurable
+    const tax = subtotal.multiply(taxRate);
 
     this._pricing.subtotal = subtotal;
     this._pricing.tax = tax;
-    this._pricing.total = subtotal + tax;
+    this._pricing.total = subtotal.add(tax);
   }
 
   updatePricing(pricing: Partial<CartPricing>): void {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "convex/react"
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -25,10 +26,10 @@ export default function AdminDashboard() {
 
   // Calculate metrics
   const totalProducts = products.length
-  const activeProducts = products.filter(p => p.isActive).length
+  const activeProducts = products.filter((p: typeof products[0]) => p.isActive).length
   const totalUsers = users.length
-  const adminUsers = users.filter(u => u.role === "admin").length
-  const customerUsers = users.filter(u => u.role === "customer").length
+  const adminUsers = users.filter((u: typeof users[0]) => u.role === "admin").length
+  const customerUsers = users.filter((u: typeof users[0]) => u.role === "customer").length
 
   // Mock data for orders and revenue (since orders table might not exist yet)
   const totalOrders = 0
@@ -114,13 +115,15 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {products.slice(0, 5).map((product) => (
+              {products.slice(0, 5).map((product: typeof products[0]) => (
                 <div key={product._id} className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
                     {product.images?.[0] ? (
-                      <img
+                      <Image
                         src={product.images[0].url}
                         alt={product.images[0].alt || product.name}
+                        width={48}
+                        height={48}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -163,7 +166,7 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {users.slice(0, 5).map((user) => (
+              {users.slice(0, 5).map((user: typeof users[0]) => (
                 <div key={user._id} className="flex items-center space-x-4">
                   <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center flex-shrink-0">
                     {user.name.charAt(0).toUpperCase()}
@@ -229,41 +232,41 @@ export default function AdminDashboard() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <a
+            <Link
               href="/admin/products/new"
               className="flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 transition-colors"
             >
               <Package className="h-8 w-8 text-blue-500 mb-2" />
               <span className="text-sm font-medium">Add Product</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin/categories/new"
               className="flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 transition-colors"
             >
               <Eye className="h-8 w-8 text-green-500 mb-2" />
               <span className="text-sm font-medium">Add Category</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin/users"
               className="flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 transition-colors"
             >
               <Users className="h-8 w-8 text-purple-500 mb-2" />
               <span className="text-sm font-medium">Manage Users</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin/analytics"
               className="flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 transition-colors"
             >
               <TrendingUp className="h-8 w-8 text-orange-500 mb-2" />
               <span className="text-sm font-medium">View Analytics</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin/calendario"
               className="flex flex-col items-center p-4 border rounded-lg hover:bg-gray-50 transition-colors"
             >
               <Calendar className="h-8 w-8 text-indigo-500 mb-2" />
               <span className="text-sm font-medium">Manage Calendar</span>
-            </a>
+            </Link>
           </div>
         </CardContent>
       </Card>

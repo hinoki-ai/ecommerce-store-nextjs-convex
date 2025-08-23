@@ -19,7 +19,7 @@ export interface LanguageConfig {
 }
 
 export interface TranslationChunk {
-  [key: string]: string | TranslationChunk;
+  [key: string]: string | string[] | TranslationChunk;
 }
 
 export interface LanguageProvider {

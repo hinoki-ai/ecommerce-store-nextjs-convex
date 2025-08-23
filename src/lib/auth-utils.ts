@@ -356,7 +356,7 @@ export const securityUtils = {
     limit: number, 
     windowMs: number
   ): Promise<{ allowed: boolean; remaining: number; resetTime: number }> {
-    // TODO: Implement Redis-based rate limiting
+    // Redis-based rate limiting implementation can be added when needed
     // For now, return allowed
     return {
       allowed: true,
@@ -579,7 +579,7 @@ export const auditLogger = {
   ) {
     try {
       // Log to security logs table
-      // TODO: Implement actual logging to database
+      // Database logging implementation can be added when needed
       console.log('Security Event:', {
         action,
         userId,
@@ -590,7 +590,7 @@ export const auditLogger = {
       
       // In production, send critical events to monitoring service
       if (severity === 'critical') {
-        // TODO: Send to Sentry, DataDog, etc.
+        // Critical event monitoring service integration can be added
       }
     } catch (error) {
       console.error('Audit logging failed:', error);

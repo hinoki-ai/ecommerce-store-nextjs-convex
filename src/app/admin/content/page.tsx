@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import {
   Plus,
   Search,
@@ -137,16 +138,16 @@ export default function AdminContentPage() {
         </div>
         <div className="flex space-x-3">
           <Button asChild>
-            <a href="/admin/content/blog/new">
+            <Link href="/admin/content/blog/new">
               <FileText className="h-4 w-4 mr-2" />
               New Blog Post
-            </a>
+            </Link>
           </Button>
           <Button variant="outline" asChild>
-            <a href="/admin/content/collection/new">
+            <Link href="/admin/content/collection/new">
               <Folder className="h-4 w-4 mr-2" />
               New Collection
-            </a>
+            </Link>
           </Button>
         </div>
       </div>

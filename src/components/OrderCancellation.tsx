@@ -259,7 +259,7 @@ export function OrderCancellation({
                       <ul className="text-blue-700 space-y-1">
                         <li>• Order will be cancelled immediately</li>
                         <li>• Refund will be processed within 3-5 business days</li>
-                        <li>• You'll receive a confirmation email</li>
+                        <li>• You&apos;ll receive a confirmation email</li>
                       </ul>
                     </div>
                   </div>

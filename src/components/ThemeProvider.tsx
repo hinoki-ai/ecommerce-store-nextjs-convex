@@ -5,8 +5,12 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { type ThemeProviderProps } from 'next-themes/dist/types'
 import { ColorSystemProvider } from './ColorSystemProvider'
 
-interface ExtendedThemeProviderProps extends ThemeProviderProps {
+interface ExtendedThemeProviderProps extends Omit<ThemeProviderProps, 'children'> {
   children: React.ReactNode
+  attribute?: string
+  defaultTheme?: string
+  enableSystem?: boolean
+  disableTransitionOnChange?: boolean
 }
 
 export function ThemeProvider({

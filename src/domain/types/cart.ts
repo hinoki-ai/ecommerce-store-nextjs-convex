@@ -1,19 +1,25 @@
 import { ID, Timestamp, Currency } from './common';
+import { Money } from '../value-objects/money';
 
 export interface CartItem {
   id: ID;
   productId: ID;
   quantity: number;
-  price: number;
+  price: Money;
   addedAt: Timestamp;
   variantSelections?: Record<string, string>;
+  metadata?: {
+    categoryId?: string;
+    tags?: string[];
+  };
 }
 
 export interface CartPricing {
-  subtotal: number;
-  tax: number;
-  total: number;
+  subtotal: Money;
+  tax: Money;
+  total: Money;
   currency: Currency;
+  discount?: Money;
 }
 
 export interface Cart {

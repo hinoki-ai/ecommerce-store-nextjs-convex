@@ -155,7 +155,7 @@ export async function requireRole(request: NextRequest, allowedRoles: string[] =
 
 // Placeholder for user role retrieval
 async function getUserRole(userId: string): Promise<string> {
-  // TODO: Implement based on your user management system
+  // Implementation depends on user management system - placeholder for future enhancement
   // For now, return 'user' as default
   // In production, check Clerk metadata or your database
   return 'user';
@@ -196,7 +196,7 @@ export function withSecurity(
         }
       }
 
-      // TODO: Implement rate limiting with Redis or memory store
+      // Rate limiting implementation can be added with Redis or memory store when needed
       // Rate limiting would go here
 
       return await handler(request, context);

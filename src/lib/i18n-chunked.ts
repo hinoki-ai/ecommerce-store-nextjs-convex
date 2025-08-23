@@ -1,5 +1,10 @@
 /**
- * Chunked Internationalization System
+ * Chunked Internationalization System - SINGLE SOURCE OF TRUTH
+ * 
+ * ⚠️  CRITICAL: This is the ONLY i18n system allowed in this project
+ * ⚠️  DO NOT create alternative i18n implementations
+ * ⚠️  See I18N-RULES.md for mandatory guidelines
+ * 
  * Replaces the monolithic i18n with a scalable chunked architecture
  */
 

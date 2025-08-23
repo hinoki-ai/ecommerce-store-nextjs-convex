@@ -364,7 +364,7 @@ export default defineSchema({
       isApproved: v.boolean(),
       createdAt: v.number(),
       updatedAt: v.number(),
-    }).index("byReview", ["reviewId", "createdAt"])
+    }).index("byReview", ["reviewId", "createdAt"]),
 
     // Wishlist lists (user can have multiple wishlists)
     wishlistLists: defineTable({
@@ -383,12 +383,30 @@ export default defineSchema({
     // Wishlist items
     wishlists: defineTable({
       userId: v.string(),
-      wishlistId: v.id("wishlistLists"),
+      wishlistId: v.optional(v.id("wishlistLists")),
       productId: v.id("products"),
       addedAt: v.number(),
-    }).index("byWishlist", ["wishlistId", "addedAt"])
+      note: v.optional(v.string()),
+      savedForLater: v.optional(v.boolean()),
+    }).index("byWishlist", ["wishlistId", "productId"])
       .index("byUserProduct", ["userId", "productId"])
-      .index("byUser", ["userId", "addedAt"]),
+      .index("byUser", ["userId", "addedAt"])
+      .index("bySavedForLater", ["userId", "savedForLater", "addedAt"]),
+
+    // Price alerts for wishlist items
+    priceAlerts: defineTable({
+      userId: v.string(),
+      productId: v.id("products"),
+      originalPrice: v.number(),
+      targetPrice: v.number(),
+      isActive: v.boolean(),
+      triggeredAt: v.optional(v.number()),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    }).index("byUser", ["userId", "isActive"])
+      .index("byUserProduct", ["userId", "productId"])
+      .index("byProduct", ["productId", "isActive"])
+      .index("byActive", ["isActive", "createdAt"]),
 
     // AI-generated blog posts for SEO
     blogs: defineTable({

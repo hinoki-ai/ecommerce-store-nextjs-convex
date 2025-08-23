@@ -113,16 +113,18 @@ export async function POST(request: NextRequest) {
     // Create mock cart for validation
     const { Cart } = await import('@/domain/entities/cart');
     const { Money } = await import('@/domain/value-objects/money');
-    
+
+    const cartValue = new Money(validatedData.cartValue);
     const cart = new Cart('temp_cart', {
-      subtotal: new Money(validatedData.cartValue),
-      tax: new Money(0),
-      total: new Money(validatedData.cartValue)
+      subtotal: cartValue,
+      tax: Money.zero(),
+      total: cartValue,
+      currency: 'CLP'
     });
 
     // Add cart items
     validatedData.cartItems.forEach(item => {
-      cart.addItem(item.productId, item.quantity, item.price);
+      cart.addItem(item.productId, item.quantity, new Money(item.price));
     });
 
     // Create mock user if userId provided
@@ -165,9 +167,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate final pricing
-    const finalPrice = new Money(validatedData.cartValue).subtract(applicableResult.discount);
-    const savingsPercentage = validatedData.cartValue > 0 
-      ? (applicableResult.discount.amount / validatedData.cartValue) * 100 
+    const originalPrice = new Money(validatedData.cartValue);
+    const finalPrice = originalPrice.subtract(applicableResult.discount);
+    const savingsPercentage = validatedData.cartValue > 0
+      ? (applicableResult.discount.amount / validatedData.cartValue) * 100
       : 0;
 
     return NextResponse.json({

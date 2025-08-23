@@ -8,6 +8,7 @@ import { ProductCard } from "@/components/ProductCard"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -26,6 +27,7 @@ import {
 } from "lucide-react"
 import { api } from "@/convex/_generated/api"
 import { formatPrice } from "@/lib/utils"
+import { Product } from "@/domain/types/product"
 
 export default function CategoryPage() {
   const params = useParams()
@@ -40,13 +42,13 @@ export default function CategoryPage() {
 
   // Fetch products in this category
   const allProducts = useQuery(api.products.getProducts, { limit: 1000 }) || []
-  const categoryProducts = allProducts.filter(p => {
+  const categoryProducts = allProducts.filter((p: Product) => {
     if (!category) return false
     return p.categoryId === category._id
   })
 
   // Sort products
-  const sortedProducts = [...categoryProducts].sort((a, b) => {
+  const sortedProducts = [...categoryProducts].sort((a: Product, b: Product) => {
     switch (sortBy) {
       case "price-low":
         return a.price - b.price
@@ -68,13 +70,13 @@ export default function CategoryPage() {
 
   // Calculate category statistics
   const totalProducts = categoryProducts.length
-  const activeProducts = categoryProducts.filter(p => p.isActive).length
+  const activeProducts = categoryProducts.filter((p: Product) => p.isActive).length
   const avgPrice = totalProducts > 0
-    ? categoryProducts.reduce((sum, p) => sum + p.price, 0) / totalProducts
+    ? categoryProducts.reduce((sum: number, p: Product) => sum + p.price, 0) / totalProducts
     : 0
   const priceRange = totalProducts > 0 ? {
-    min: Math.min(...categoryProducts.map(p => p.price)),
-    max: Math.max(...categoryProducts.map(p => p.price))
+    min: Math.min(...categoryProducts.map((p: Product) => p.price)),
+    max: Math.max(...categoryProducts.map((p: Product) => p.price))
   } : { min: 0, max: 0 }
 
   if (!category) {
@@ -318,9 +320,9 @@ export default function CategoryPage() {
               <CardContent>
                 <div className="space-y-3">
                   {categoryProducts
-                    .filter(p => p.isFeatured || p.freshness?.isPopular)
+                    .filter((p: Product) => p.isFeatured || p.freshness?.isPopular)
                     .slice(0, 5)
-                    .map((product) => (
+                    .map((product: Product) => (
                     <div key={product._id} className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
                         {product.images?.[0] ? (
@@ -345,7 +347,7 @@ export default function CategoryPage() {
                       </div>
                     </div>
                   ))}
-                  {categoryProducts.filter(p => p.isFeatured || p.freshness?.isPopular).length === 0 && (
+                  {categoryProducts.filter((p: Product) => p.isFeatured || p.freshness?.isPopular).length === 0 && (
                     <p className="text-sm text-muted-foreground">No featured products in this category</p>
                   )}
                 </div>

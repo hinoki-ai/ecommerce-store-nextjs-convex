@@ -7,7 +7,7 @@ export interface FormField {
   required?: boolean;
   disabled?: boolean;
   hidden?: boolean;
-  defaultValue?: any;
+  defaultValue?: string | number | boolean | string[] | null;
   validation?: ValidationRule[];
   options?: FormOption[];
   min?: number;
@@ -30,13 +30,13 @@ export interface FormOption {
 
 export interface ValidationRule {
   type: 'required' | 'email' | 'minLength' | 'maxLength' | 'min' | 'max' | 'pattern' | 'custom';
-  value?: any;
+  value?: string | number | boolean | RegExp;
   message?: string;
-  validator?: (value: any) => boolean | string;
+  validator?: (value: unknown) => boolean | string;
 }
 
 export interface FormState {
-  values: Record<string, any>;
+  values: Record<string, unknown>;
   errors: Record<string, string>;
   touched: Record<string, boolean>;
   isSubmitting: boolean;
@@ -45,29 +45,29 @@ export interface FormState {
 }
 
 export interface FormActions {
-  setValue: (name: string, value: any) => void;
+  setValue: (name: string, value: unknown) => void;
   setError: (name: string, error: string) => void;
   setTouched: (name: string, touched: boolean) => void;
-  setValues: (values: Record<string, any>) => void;
+  setValues: (values: Record<string, unknown>) => void;
   setErrors: (errors: Record<string, string>) => void;
-  reset: (values?: Record<string, any>) => void;
+  reset: (values?: Record<string, unknown>) => void;
   validate: () => boolean;
-  handleSubmit: (onSubmit: (values: Record<string, any>) => void | Promise<void>) => (e: React.FormEvent) => void;
+  handleSubmit: (onSubmit: (values: Record<string, unknown>) => void | Promise<void>) => (e: React.FormEvent) => void;
 }
 
 export interface FormConfig {
   fields: FormField[];
-  initialValues?: Record<string, any>;
+  initialValues?: Record<string, unknown>;
   validationMode?: 'onChange' | 'onBlur' | 'onSubmit';
   submitMode?: 'onValid' | 'always';
-  onSubmit?: (values: Record<string, any>) => void | Promise<void>;
+  onSubmit?: (values: Record<string, unknown>) => void | Promise<void>;
   onError?: (errors: Record<string, string>) => void;
-  onChange?: (values: Record<string, any>) => void;
+  onChange?: (values: Record<string, unknown>) => void;
   onBlur?: (field: string) => void;
 }
 
 export interface FieldState {
-  value: any;
+  value: unknown;
   error?: string;
   touched: boolean;
   isValid: boolean;
@@ -75,7 +75,7 @@ export interface FieldState {
 }
 
 export interface FieldActions {
-  setValue: (value: any) => void;
+  setValue: (value: unknown) => void;
   setError: (error: string) => void;
   setTouched: (touched: boolean) => void;
   reset: () => void;

@@ -187,7 +187,7 @@ export default function LangHome() {
           </div>
           <div className="product-grid">
             {mockProducts.map((product) => (
-              <ProductCard key={product._id} product={product} priority />
+              <ProductCard key={product._id} product={product as any} priority />
             ))}
           </div>
         </div>

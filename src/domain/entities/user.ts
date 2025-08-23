@@ -13,6 +13,7 @@ export class User extends BaseEntity implements UserType {
   private _isActive: boolean;
   private _isEmailVerified?: boolean;
   private _isPhoneVerified?: boolean;
+  private _metadata?: { segment?: string; orderCount?: number };
 
   constructor(
     id: string,
@@ -39,6 +40,7 @@ export class User extends BaseEntity implements UserType {
   get isActive(): boolean { return this._isActive; }
   get isEmailVerified(): boolean | undefined { return this._isEmailVerified; }
   get isPhoneVerified(): boolean | undefined { return this._isPhoneVerified; }
+  get metadata(): { segment?: string; orderCount?: number } | undefined { return this._metadata ? { ...this._metadata } : undefined; }
 
   // Business logic methods
   isAdmin(): boolean {
@@ -148,6 +150,11 @@ export class User extends BaseEntity implements UserType {
     this.setUpdatedBy('system');
   }
 
+  updateMetadata(metadata: { segment?: string; orderCount?: number }): void {
+    this._metadata = { ...metadata };
+    this.setUpdatedBy('system');
+  }
+
   toJSON(): Record<string, any> {
     return {
       id: this._id,
@@ -162,6 +169,7 @@ export class User extends BaseEntity implements UserType {
       isActive: this._isActive,
       isEmailVerified: this._isEmailVerified,
       isPhoneVerified: this._isPhoneVerified,
+      metadata: this._metadata,
       audit: this._audit,
     };
   }

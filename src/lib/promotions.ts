@@ -300,7 +300,6 @@ export class PromotionService {
       createdAt: new Date(),
       updatedAt: new Date(),
       usage: {
-        usedCount: 0,
         ...data.usage
       }
     }

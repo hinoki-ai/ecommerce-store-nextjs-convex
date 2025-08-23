@@ -15,6 +15,7 @@ import { es } from 'date-fns/locale';
 import { calendarService } from '@/domain/services/calendar-service';
 import { EcommerceCalendarEvent, EcommerceEventCategory } from '@/domain/types/calendar';
 import { categoryColors, categoryLabels } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
 import Script from 'next/script';
 
 // Generate SEO metadata

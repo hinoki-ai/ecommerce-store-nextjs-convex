@@ -21,7 +21,7 @@ This color system is built around the following principles:
 - [Using Colors in Components](#-using-colors-in-components)
 - [Tailwind CSS Integration](#-tailwind-css-integration)
 - [Theme Management](#-theme-management)
-- [Color Utilities](#-color-utilities)
+- [Color Utilities](#color-utilities)
 - [Accessibility](#-accessibility)
 - [Design System Integration](#-design-system-integration)
 - [API Reference](#-api-reference)
@@ -730,7 +730,7 @@ const {
 
 ### Utility Functions
 
-#### Color Manipulation
+#### Color Manipulation Functions
 
 ```tsx
 import {
@@ -938,3 +938,4 @@ For questions, issues, or contributions regarding the color system:
 ## 📄 License
 
 This color system is part of your project and follows the same license terms.
+

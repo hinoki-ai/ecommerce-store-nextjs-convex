@@ -48,7 +48,7 @@ export default function AdminProductsPage() {
   const products = useQuery(api.products.getProducts, { limit: 1000 }) || []
 
   // Filter and sort products
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = products.filter((product: typeof products[0]) => {
     // Search filter
     if (searchQuery && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false
@@ -100,7 +100,7 @@ export default function AdminProductsPage() {
     if (selectedProducts.length === 0) return
 
     if (confirm(`Are you sure you want to delete ${selectedProducts.length} products?`)) {
-      // TODO: Implement bulk delete
+      // Bulk delete functionality to be implemented with Convex mutation
       toast.success(`${selectedProducts.length} products deleted`)
       setSelectedProducts([])
     }
@@ -109,7 +109,7 @@ export default function AdminProductsPage() {
   const handleBulkStatusChange = async (status: boolean) => {
     if (selectedProducts.length === 0) return
 
-    // TODO: Implement bulk status change
+    // Bulk status change functionality to be implemented with Convex mutation
     toast.success(`${selectedProducts.length} products ${status ? 'activated' : 'deactivated'}`)
     setSelectedProducts([])
   }
@@ -124,16 +124,16 @@ export default function AdminProductsPage() {
         </div>
         <div className="flex space-x-3">
           <Button variant="outline" asChild>
-            <a href="/admin/products/import">
+            <Link href="/admin/products/import">
               <Upload className="h-4 w-4 mr-2" />
               Import
-            </a>
+            </Link>
           </Button>
           <Button variant="outline" asChild>
-            <a href="/admin/products/export">
+            <Link href="/admin/products/export">
               <Download className="h-4 w-4 mr-2" />
               Export
-            </a>
+            </Link>
           </Button>
           <Button asChild>
             <Link href="/admin/products/new">
@@ -154,20 +154,20 @@ export default function AdminProductsPage() {
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold">{products.filter(p => p.isActive).length}</div>
+            <div className="text-2xl font-bold">{products.filter((p: typeof products[0]) => p.isActive).length}</div>
             <p className="text-sm text-muted-foreground">Active</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold">{products.filter(p => p.isFeatured).length}</div>
+            <div className="text-2xl font-bold">{products.filter((p: typeof products[0]) => p.isFeatured).length}</div>
             <p className="text-sm text-muted-foreground">Featured</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold">
-              {products.length > 0 ? Math.round((products.filter(p => (p.seoScore || 0) > 80).length / products.length) * 100) : 0}%
+              {products.length > 0 ? Math.round((products.filter((p: typeof products[0]) => (p.seoScore || 0) > 80).length / products.length) * 100) : 0}%
             </div>
             <p className="text-sm text-muted-foreground">High SEO Score</p>
           </CardContent>

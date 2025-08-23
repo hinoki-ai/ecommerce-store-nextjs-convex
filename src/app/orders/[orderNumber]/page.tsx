@@ -73,7 +73,7 @@ export default function OrderDetailPage() {
             <Package className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
             <h1 className="text-3xl font-bold mb-4">Order Not Found</h1>
             <p className="text-muted-foreground text-lg mb-8">
-              We couldn't find an order with number: {orderNumber}
+              We couldn&apos;t find an order with number: {orderNumber}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild>
