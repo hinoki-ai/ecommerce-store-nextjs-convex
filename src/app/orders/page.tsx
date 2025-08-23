@@ -68,7 +68,9 @@ const getStatusBadge = (status: string) => {
 }
 
 export default function OrdersPage() {
-  const { userId, isSignedIn } = useAuth()
+  // const { userId, isSignedIn } = useAuth()
+  const userId = "mock-user-id"
+  const isSignedIn = true
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [sortBy, setSortBy] = useState("newest")
