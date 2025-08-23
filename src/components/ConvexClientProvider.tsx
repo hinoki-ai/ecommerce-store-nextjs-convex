@@ -7,28 +7,32 @@ import { ConvexProvider } from 'convex/react'
 import { useAuth } from '@clerk/nextjs'
 import { ConvexErrorBoundary } from './ErrorBoundary'
 
-if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
+// Check if we should skip authentication (for development/testing)
+const skipAuth = process.env.SKIP_AUTH === 'true' || process.env.NEXT_PUBLIC_SKIP_AUTH === 'true'
+
+// Only create Convex client if not skipping auth
+let convex: ConvexReactClient | undefined
+if (!skipAuth && process.env.NEXT_PUBLIC_CONVEX_URL) {
+  convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL)
+} else if (!skipAuth) {
   throw new Error('Missing NEXT_PUBLIC_CONVEX_URL in your .env file')
 }
 
-const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL)
-
 export default function ConvexClientProvider({ children }: { children: ReactNode }) {
+  if (skipAuth) {
+    // Skip Convex entirely for testing - just return children wrapped in error boundary
+    return (
+      <ConvexErrorBoundary>
+        {children}
+      </ConvexErrorBoundary>
+    )
+  }
+
   // useAuth must be called at the top level, not conditionally
   const auth = useAuth()
 
-  // Check if we should skip authentication (for development/testing)
-  const skipAuth = process.env.SKIP_AUTH === 'true'
-
-  if (skipAuth) {
-    // Use regular ConvexProvider without authentication
-    return (
-      <ConvexErrorBoundary>
-        <ConvexProvider client={convex}>
-          {children}
-        </ConvexProvider>
-      </ConvexErrorBoundary>
-    )
+  if (!convex) {
+    throw new Error('Convex client not initialized')
   }
 
   // Normal mode with Clerk authentication

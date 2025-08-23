@@ -147,3 +147,4 @@ dist/
 !*.tsx
 !*.mjs
 !*.cjs
+.vercel

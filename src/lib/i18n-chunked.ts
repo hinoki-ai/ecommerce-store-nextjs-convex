@@ -8,7 +8,8 @@
  * Replaces the monolithic i18n with a scalable chunked architecture
  */
 
-import { LanguageProviderFactory, LanguageChunk } from './providers/language-provider';
+import { LanguageProviderFactory, LanguageChunk, LanguageProvider } from './providers/language-provider';
+import type { TranslationRequest, TranslationResponse } from './services/translation-service';
 import { TranslationService } from './services/translation-service';
 import { LanguageLoader } from './loaders/language-loader';
 

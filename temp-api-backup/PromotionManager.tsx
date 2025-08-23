@@ -663,7 +663,7 @@ export function PromotionManager({ className = "" }: PromotionManagerProps) {
                   <div className="text-center py-8">
                     <Tag className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     <h3 className="font-semibold">No hay cupones disponibles</h3>
-                    <p className="text-muted-foreground">Crea promociones de tipo "cupón" para generar códigos</p>
+                    <p className="text-muted-foreground">Crea promociones de tipo &quot;cupón&quot; para generar códigos</p>
                   </div>
                 )}
               </div>

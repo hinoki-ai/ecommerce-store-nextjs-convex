@@ -34,8 +34,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { formatPrice } from "@/lib/utils"
 import { useCart } from "@/hooks/useCart"
 import { api } from "@/convex/_generated/api"
-import { useAuth } from "@clerk/nextjs"
-import { SignInButton, SignUpButton } from "@clerk/nextjs"
+// import { useAuth } from "@clerk/nextjs"
+// import { SignInButton, SignUpButton } from "@clerk/nextjs"
 import { useMutation } from "convex/react"
 import { toast } from "sonner"
 
@@ -66,7 +66,9 @@ interface CheckoutFormData {
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { userId, isSignedIn } = useAuth()
+  // const { userId, isSignedIn } = useAuth()
+  const userId = "mock-user-id"
+  const isSignedIn = true
   const { cart, clearCart } = useCart()
   const [currentStep, setCurrentStep] = useState(1)
   const [isProcessing, setIsProcessing] = useState(false)

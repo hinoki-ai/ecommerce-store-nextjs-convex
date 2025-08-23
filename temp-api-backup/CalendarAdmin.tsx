@@ -509,7 +509,7 @@ function EventCard({ event, onEdit, onDelete }: EventCardProps) {
                 <AlertDialogHeader>
                   <AlertDialogTitle>¿Eliminar evento?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Esta acción no se puede deshacer. Se eliminará permanentemente el evento "{event.title}".
+                    Esta acción no se puede deshacer. Se eliminará permanentemente el evento &quot;{event.title}&quot;.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

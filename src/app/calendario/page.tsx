@@ -12,16 +12,50 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CalendarIcon, MapPinIcon, ClockIcon, TagIcon, FilterIcon } from 'lucide-react';
 import { format, isToday, isFuture, isPast } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { calendarService } from '@/domain/services/calendar-service';
 import { EcommerceCalendarEvent, EcommerceEventCategory } from '@/domain/types/calendar';
 import { categoryColors, categoryLabels } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import Script from 'next/script';
 
+// Static mock data for build time
+const staticEvents: EcommerceCalendarEvent[] = [
+  {
+    id: '1',
+    title: 'Gran Liquidación de Verano',
+    description: 'Descuentos de hasta 70% en toda la tienda',
+    shortDescription: 'Liquidación de verano',
+    startDate: new Date('2024-12-15'),
+    endDate: new Date('2024-12-31'),
+    category: 'PROMOTION',
+    status: 'ACTIVE',
+    location: 'Tienda Principal',
+    isPublic: true,
+    priority: 'HIGH'
+  },
+  {
+    id: '2',
+    title: 'Lanzamiento de Nueva Colección',
+    description: 'Descubre nuestra nueva colección de productos',
+    shortDescription: 'Nueva colección',
+    startDate: new Date('2024-12-20'),
+    endDate: new Date('2024-12-25'),
+    category: 'LAUNCH',
+    status: 'ACTIVE',
+    location: 'Tienda Principal',
+    isPublic: true,
+    priority: 'MEDIUM'
+  }
+];
+
 // Generate SEO metadata
 export async function generateMetadata(): Promise<Metadata> {
-  const events = await calendarService.getUpcomingEvents(20);
-  const seo = calendarService.generateCalendarPageSEO(events);
+  // Use static data for build time
+  const events = staticEvents;
+  const seo = {
+    metaTitle: 'Calendario de Eventos - Aramac Store',
+    metaDescription: 'Calendario de eventos especiales, promociones y actividades en nuestra tienda.',
+    keywords: ['calendario', 'eventos', 'promociones', 'chile', 'tienda']
+  };
 
   return {
     title: seo.metaTitle,
@@ -97,11 +131,9 @@ interface CalendarPageProps {
 }
 
 export default async function CalendarPage({ searchParams }: CalendarPageProps) {
-  // Fetch calendar data
-  const [upcomingEvents, activePromotions] = await Promise.all([
-    calendarService.getUpcomingEvents(50),
-    calendarService.getActivePromotions(),
-  ]);
+  // Use static data for build time to avoid API calls
+  const upcomingEvents = staticEvents;
+  const activePromotions = staticEvents.filter(event => event.category === 'PROMOTION');
 
   const allEvents = [...upcomingEvents, ...activePromotions];
   const selectedCategory = searchParams.category as EcommerceEventCategory;

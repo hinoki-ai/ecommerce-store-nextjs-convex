@@ -2,6 +2,7 @@
  * Language Hook - React Integration for Chunked Language Provider
  * Example of how to use the chunked i18n system in React components
  */
+'use client'
 
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from '../lib/i18n-chunked';
@@ -22,6 +23,7 @@ interface UseLanguageReturn {
   currentLanguage: string;
   setLanguage: (language: string) => Promise<void>;
   availableLanguages: Array<{ code: string; name: string; flag: string }>;
+  supportedLanguages: Array<{ code: string; name: string; flag: string }>;
 
   // Loading states
   isLoading: boolean;
@@ -123,6 +125,7 @@ export const useLanguage = (options: UseLanguageOptions = {}): UseLanguageReturn
     currentLanguage,
     setLanguage,
     availableLanguages: getAvailableLanguages(),
+    supportedLanguages: getAvailableLanguages(),
 
     // Loading states
     isLoading,

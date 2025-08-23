@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from '@clerk/nextjs'
-import ConvexClientProvider from '@/components/ConvexClientProvider'
+// import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
-import { CartProvider } from "@/hooks/useCart";
-import { AdvancedCartProvider } from "@/hooks/useAdvancedCart";
-import { ExitIntentPopup } from "@/components/ExitIntentPopup";
-import { CartAbandonmentRecovery } from "@/components/CartAbandonmentRecovery";
+// import { CartProvider } from "@/hooks/useCart";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { LanguageAttributes } from "@/components/LanguageAttributes";
-import { ChatWidget } from "@/components/ChatWidget";
 import { CurrencyProvider } from "@/components/CurrencyProvider";
 import { initializeChunkedI18n } from "@/lib/i18n-chunked";
 
@@ -57,43 +52,14 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {process.env.SKIP_AUTH === 'true' ? (
-            <ConvexClientProvider>
-              <LanguageProvider>
-                <LanguageAttributes />
-                <CurrencyProvider>
-                  <CartProvider>
-                    <AdvancedCartProvider>
-                      {children}
-                      <ChatWidget />
-                      <ExitIntentPopup isEnabled={true} />
-                      <CartAbandonmentRecovery isEnabled={true} />
-                      <Toaster position="top-right" richColors />
-                    </AdvancedCartProvider>
-                  </CartProvider>
-                </CurrencyProvider>
-              </LanguageProvider>
-            </ConvexClientProvider>
-          ) : (
-            <ClerkProvider>
-              <ConvexClientProvider>
-                <LanguageProvider>
-                  <LanguageAttributes />
-                  <CurrencyProvider>
-                    <CartProvider>
-                      <AdvancedCartProvider>
-                        {children}
-                        <ChatWidget />
-                        <ExitIntentPopup isEnabled={true} />
-                        <CartAbandonmentRecovery isEnabled={true} />
-                        <Toaster position="top-right" richColors />
-                      </AdvancedCartProvider>
-                    </CartProvider>
-                  </CurrencyProvider>
-                </LanguageProvider>
-              </ConvexClientProvider>
-            </ClerkProvider>
-          )}
+          {/* Simplified layout for deployment */}
+          <LanguageProvider>
+            <LanguageAttributes />
+            <CurrencyProvider>
+              {children}
+              <Toaster position="top-right" richColors />
+            </CurrencyProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

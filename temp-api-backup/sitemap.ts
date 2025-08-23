@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/prisma';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   // Static pages
   const staticPages = [
@@ -19,6 +19,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'daily' as const,
     priority: route === '' ? 1.0 : 0.8,
   }));
+
+  // Skip database operations during testing mode
+  if (process.env.SKIP_AUTH === 'true' || process.env.NEXT_PUBLIC_SKIP_AUTH === 'true') {
+    console.log('Sitemap: Skipping database operations in testing mode');
+    return staticPages;
+  }
 
   try {
     // Dynamic product pages

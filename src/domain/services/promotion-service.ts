@@ -318,7 +318,7 @@ export class PromotionService {
       tags: item.metadata?.tags
     }));
 
-    const categories = [...new Set(items.map(item => item.categoryId).filter((id): id is string => Boolean(id)))];
+    const categories = Array.from(new Set(items.map(item => item.categoryId).filter((id): id is string => Boolean(id))));
     const productIds = items.map(item => item.productId);
     const quantities = items.reduce((acc, item) => {
       acc[item.productId] = item.quantity;

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useQuery } from "convex/react"
-import { useAuth } from "@clerk/nextjs"
+// import { useAuth } from "@clerk/nextjs"
 import Link from "next/link"
 import {
   Package,

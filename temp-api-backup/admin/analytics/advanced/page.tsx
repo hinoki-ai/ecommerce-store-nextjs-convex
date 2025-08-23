@@ -81,7 +81,7 @@ interface AnalyticsMetric {
   value: string | number
   change: number
   trend: 'up' | 'down' | 'stable'
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
   color: string
 }
 

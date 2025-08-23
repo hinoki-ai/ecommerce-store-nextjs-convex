@@ -14,7 +14,6 @@ import { CalendarIcon, MapPinIcon, ClockIcon, ArrowRightIcon } from 'lucide-reac
 import { format, isToday } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { EcommerceCalendarEvent } from '@/domain/types/calendar';
-import { categoryColors, categoryLabels } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 
 interface CalendarWidgetProps {
@@ -60,7 +59,7 @@ export function CalendarWidget({
       }
 
       const data = await response.json();
-      setEvents(data.events || []);
+      setEvents(data.events || data || []);
 
     } catch (err) {
       console.error('Error fetching calendar events:', err);
@@ -100,11 +99,7 @@ export function CalendarWidget({
           <CardDescription>{error}</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button
-            variant="outline"
-            onClick={fetchEvents}
-            className="w-full"
-          >
+          <Button variant="outline" onClick={fetchEvents}>
             Reintentar
           </Button>
         </CardContent>
@@ -112,24 +107,73 @@ export function CalendarWidget({
     );
   }
 
-  if (events.length === 0) {
+  if (!events.length) {
     return (
       <Card className={cn("", className)}>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
-          <CardDescription>
-            {productId
-              ? "No hay eventos programados para este producto"
-              : "No hay eventos próximos programados"}
-          </CardDescription>
+          <CardDescription>No hay eventos próximos</CardDescription>
         </CardHeader>
         <CardContent>
-          <Button variant="outline" asChild className="w-full">
+          <p className="text-sm text-gray-500">
+            Revisa más tarde para nuevas actividades
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const displayEvents = events.slice(0, limit);
+
+  if (compact) {
+    return (
+      <Card className={cn("", className)}>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <CalendarIcon className="h-5 w-5 text-primary" />
+              <CardTitle className="text-lg">{title}</CardTitle>
+            </div>
             <Link href="/calendario">
-              Ver Calendario Completo
-              <ArrowRightIcon className="ml-2 h-4 w-4" />
+              <Button variant="ghost" size="sm">
+                <ArrowRightIcon className="h-4 w-4" />
+              </Button>
             </Link>
-          </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <div className="space-y-3">
+            {displayEvents.map((event) => (
+              <div key={event.id} className="flex items-start gap-3 p-2 rounded-lg hover:bg-gray-50">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <CalendarIcon className="h-5 w-5 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-medium text-gray-900 truncate">
+                    {event.title}
+                  </h4>
+                  <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                    <ClockIcon className="h-3 w-3" />
+                    <span>{format(event.startDate, 'dd MMM', { locale: es })}</span>
+                    {event.location && (
+                      <>
+                        <MapPinIcon className="h-3 w-3" />
+                        <span className="truncate">{event.location}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 pt-3 border-t">
+            <Link href="/calendario">
+              <Button variant="outline" size="sm" className="w-full">
+                Ver todos los eventos
+                <ArrowRightIcon className="h-4 w-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
         </CardContent>
       </Card>
     );
@@ -138,147 +182,68 @@ export function CalendarWidget({
   return (
     <Card className={cn("", className)}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <CalendarIcon className="h-5 w-5 text-blue-600" />
-          {title}
-        </CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              <CalendarIcon className="h-6 w-6 text-primary" />
+              {title}
+            </CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </div>
+          <Link href="/calendario">
+            <Button variant="ghost" size="sm">
+              <ArrowRightIcon className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {events.map((event) => (
-            <EventItem
-              key={event.id}
-              event={event}
-              compact={compact}
-              showCategory={showCategories}
-            />
+          {displayEvents.map((event) => (
+            <div key={event.id} className="border rounded-lg p-4 hover:shadow-sm transition-shadow">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h4 className="font-medium text-gray-900">{event.title}</h4>
+                    {isToday(event.startDate) && (
+                      <Badge variant="secondary" className="text-xs">
+                        Hoy
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">
+                    {event.shortDescription || event.description}
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <div className="flex items-center gap-1">
+                      <ClockIcon className="h-4 w-4" />
+                      <span>{format(event.startDate, 'dd MMM yyyy', { locale: es })}</span>
+                    </div>
+                    {event.location && (
+                      <div className="flex items-center gap-1">
+                        <MapPinIcon className="h-4 w-4" />
+                        <span>{event.location}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
-
-        <div className="mt-4 pt-4 border-t">
-          <Button variant="outline" asChild className="w-full">
-            <Link href="/calendario">
-              Ver Todos los Eventos
-              <ArrowRightIcon className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+        <div className="mt-6 pt-4 border-t">
+          <Link href="/calendario">
+            <Button variant="outline" className="w-full">
+              Ver calendario completo
+              <ArrowRightIcon className="h-4 w-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>
   );
 }
 
-interface EventItemProps {
-  event: EcommerceCalendarEvent;
-  compact?: boolean;
-  showCategory?: boolean;
-}
-
-function EventItem({ event, compact = false, showCategory = true }: EventItemProps) {
-  const isEventToday = isToday(event.startDate);
-
-  if (compact) {
-    return (
-      <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-        <div
-          className={cn(
-            "w-3 h-3 rounded-full flex-shrink-0",
-            categoryColors[event.category]
-          )}
-        />
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium truncate">{event.title}</p>
-          <p className="text-xs text-gray-500">
-            {format(event.startDate, "dd MMM", { locale: es })}
-            {isEventToday && (
-              <Badge className="ml-1 bg-blue-500 text-white text-xs">Hoy</Badge>
-            )}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="p-3 border rounded-lg hover:bg-gray-50 transition-colors">
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex items-center gap-2">
-          {showCategory && (
-            <Badge
-              className={cn(
-                "text-white text-xs",
-                categoryColors[event.category]
-              )}
-            >
-              {categoryLabels[event.category]}
-            </Badge>
-          )}
-          {isEventToday && (
-            <Badge className="bg-blue-500 text-white text-xs">Hoy</Badge>
-          )}
-          {event.priority === 'HIGH' && (
-            <Badge className="bg-red-500 text-white text-xs">Alta</Badge>
-          )}
-        </div>
-      </div>
-
-      <h4 className="font-medium text-sm mb-1">{event.title}</h4>
-
-      {event.shortDescription && (
-        <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-          {event.shortDescription}
-        </p>
-      )}
-
-      <div className="flex items-center gap-4 text-xs text-gray-500">
-        <div className="flex items-center gap-1">
-          <CalendarIcon className="h-3 w-3" />
-          <span>
-            {format(event.startDate, "dd MMM", { locale: es })}
-            {event.endDate.getTime() !== event.startDate.getTime() &&
-              ` - ${format(event.endDate, "dd MMM", { locale: es })}`}
-          </span>
-        </div>
-
-        {event.location && (
-          <div className="flex items-center gap-1">
-            <MapPinIcon className="h-3 w-3" />
-            <span className="truncate">{event.location}</span>
-          </div>
-        )}
-
-        {!event.isAllDay && (
-          <div className="flex items-center gap-1">
-            <ClockIcon className="h-3 w-3" />
-            <span>
-              {format(event.startDate, "HH:mm", { locale: es })}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {event.metadata?.promotionCode && (
-        <div className="mt-2 p-1 bg-green-50 border border-green-200 rounded">
-          <p className="text-xs font-medium text-green-800">
-            Código: <code className="bg-white px-1 rounded">{event.metadata.promotionCode}</code>
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// Compact version for homepage hero
-export function CompactCalendarWidget({ className }: { className?: string }) {
-  return (
-    <CalendarWidget
-      title="🎉 Próximas Actividades"
-      description="Eventos y promociones que no te puedes perder"
-      limit={2}
-      compact={true}
-      showCategories={false}
-      className={cn("max-w-md", className)}
-    />
-  );
-}
+export function CompactCalendarWidget(props: CalendarWidgetProps) {
+  return <CalendarWidget {...props} compact={true} />;
+} 

@@ -1,33 +1,42 @@
-/**
- * Active Promotions API Route
- * Returns currently active promotions and sales
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { calendarService } from '@/domain/services/calendar-service';
+
+// Mock data for promotions
+const mockPromotions = [
+  {
+    id: '1',
+    title: 'Gran Liquidación de Verano',
+    description: 'Descuentos de hasta 70% en toda la tienda',
+    shortDescription: 'Liquidación de verano',
+    startDate: new Date('2024-12-15'),
+    endDate: new Date('2024-12-31'),
+    category: 'PROMOTION',
+    status: 'ACTIVE',
+    location: 'Tienda Principal',
+    isPublic: true,
+    priority: 'HIGH',
+    discountPercentage: 70,
+    applicableProducts: ['all'],
+    conditions: 'Válido solo en tienda física'
+  }
+];
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const active = searchParams.get('active') !== 'false';
+    const active = searchParams.get('active') === 'true';
+    const limit = parseInt(searchParams.get('limit') || '50');
 
-    const promotions = active
-      ? await calendarService.getActivePromotions()
-      : await calendarService.getUpcomingEvents(20).then(events =>
-          events.filter(e => e.category === 'PROMOTION' || e.category === 'SALE')
-        );
+    let promotions = mockPromotions;
+    
+    if (active) {
+      promotions = promotions.filter(promo => promo.status === 'ACTIVE');
+    }
+    
+    promotions = promotions.slice(0, limit);
 
-    return NextResponse.json({
-      promotions,
-      total: promotions.length,
-      active
-    });
-
+    return NextResponse.json(promotions);
   } catch (error) {
     console.error('Error fetching promotions:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch promotions' }, { status: 500 });
   }
-}
+} 

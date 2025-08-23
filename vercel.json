@@ -1,0 +1,68 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "name": "store-aramac",
+  "projectSettings": {
+    "framework": "nextjs",
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_APP_URL": "https://store.aramac.dev",
+      "NEXT_PUBLIC_APP_DOMAIN": "store.aramac.dev"
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_APP_URL": "https://store.aramac.dev",
+    "NEXT_PUBLIC_APP_DOMAIN": "store.aramac.dev"
+  },
+  "functions": {
+    "app/**": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/cleanup",
+      "schedule": "0 2 * * *"
+    }
+  ]
+}

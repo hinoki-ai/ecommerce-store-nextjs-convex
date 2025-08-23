@@ -13,13 +13,14 @@ class ApiClient {
   private baseURL: string;
 
   constructor() {
+    // Use relative URLs if no base URL is provided (for same-origin requests)
     this.baseURL = process.env.NEXT_PUBLIC_API_URL || '';
   }
 
   async get<T = any>(url: string, options?: { params?: Record<string, any> }): Promise<ApiResponse<T>> {
     try {
       const params = new URLSearchParams(options?.params || {});
-      const fullUrl = `${this.baseURL}${url}${params.toString() ? `?${params.toString()}` : ''}`;
+      const fullUrl = this.baseURL ? `${this.baseURL}${url}${params.toString() ? `?${params.toString()}` : ''}` : `${url}${params.toString() ? `?${params.toString()}` : ''}`;
 
       const response = await fetch(fullUrl, {
         method: 'GET',
@@ -43,7 +44,8 @@ class ApiClient {
 
   async post<T = any>(url: string, data?: any): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseURL}${url}`, {
+      const fullUrl = this.baseURL ? `${this.baseURL}${url}` : url;
+      const response = await fetch(fullUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +68,8 @@ class ApiClient {
 
   async put<T = any>(url: string, data?: any): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseURL}${url}`, {
+      const fullUrl = this.baseURL ? `${this.baseURL}${url}` : url;
+      const response = await fetch(fullUrl, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +92,8 @@ class ApiClient {
 
   async delete<T = any>(url: string): Promise<ApiResponse<T>> {
     try {
-      const response = await fetch(`${this.baseURL}${url}`, {
+      const fullUrl = this.baseURL ? `${this.baseURL}${url}` : url;
+      const response = await fetch(fullUrl, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

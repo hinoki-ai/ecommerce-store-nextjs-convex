@@ -212,7 +212,7 @@ export class Product extends BaseEntity implements ProductType {
     this.setUpdatedBy('system');
   }
 
-  toJSON(): Record<string, any> {
+  toJSON(): Record<string, unknown> {
     return {
       id: this._id,
       name: this._name,

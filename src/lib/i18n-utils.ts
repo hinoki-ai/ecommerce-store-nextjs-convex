@@ -3,17 +3,17 @@
  * Helper functions for easier translation usage throughout the application
  */
 
-import { useLanguage } from '@/components/LanguageProvider';
-import { LanguageProviderFactory } from '@/lib/providers/language-provider';
+import { useLanguage } from '../hooks/useLanguage';
+import { LanguageProviderFactory } from './providers/language-provider';
 
 /**
  * Hook for getting translated text with optional parameters
  */
-export const useTranslation = () => {
-  const { t } = useLanguage();
+export const useTranslation = (language?: string) => {
+  const { t, supportedLanguages } = useLanguage();
 
-  const translate = (key: string, params?: Record<string, string | number>): string => {
-    let translatedText = t(key);
+  const translate = async (key: string, params?: Record<string, string | number>): Promise<{ text: string }> => {
+    let translatedText = await t(key);
 
     // Replace parameters in the translated text
     if (params) {
@@ -22,10 +22,50 @@ export const useTranslation = () => {
       });
     }
 
-    return translatedText;
+    return { text: translatedText };
   };
 
-  return translate;
+  const batchTranslate = async (keys: string[]): Promise<{ translations: Record<string, { text: string }> }> => {
+    const translations: Record<string, { text: string }> = {};
+    for (const key of keys) {
+      translations[key] = await translate(key);
+    }
+    return { translations };
+  };
+
+  const simpleBatchTranslate = async (keys: string[]): Promise<Record<string, string>> => {
+    const translations: Record<string, string> = {};
+    for (const key of keys) {
+      const result = await translate(key);
+      translations[key] = result.text;
+    }
+    return translations;
+  };
+
+  const preload = async (keys: string[]): Promise<void> => {
+    // For now, just load the translations (they're already loaded)
+    for (const key of keys) {
+      await translate(key);
+    }
+  };
+
+  const getAvailableLanguages = () => {
+    return [
+      { code: 'es', name: 'Español', flag: '🇨🇱' },
+      { code: 'en', name: 'English', flag: '🇺🇸' },
+      { code: 'fr', name: 'Français', flag: '🇫🇷' },
+      { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+      { code: 'ru', name: 'Русский', flag: '🇷🇺' }
+    ];
+  };
+
+  return {
+    t: translate,
+    batchT: simpleBatchTranslate,
+    preload,
+    getAvailableLanguages,
+    supportedLanguages
+  };
 };
 
 /**
@@ -34,11 +74,12 @@ export const useTranslation = () => {
 export const useBatchTranslation = () => {
   const { t } = useLanguage();
 
-  const batchTranslate = (keys: string[]): Record<string, string> => {
+  const batchTranslate = async (keys: string[]): Promise<Record<string, string>> => {
     const translations: Record<string, string> = {};
-    keys.forEach(key => {
-      translations[key] = t(key);
-    });
+    for (const key of keys) {
+      const result = await t(key);
+      translations[key] = result;
+    }
     return translations;
   };
 
@@ -209,9 +250,12 @@ export const useConditionalText = () => {
   }): string => {
     const langOptions = options[currentLanguage as keyof typeof options] || options;
 
-    if (count === 0 && langOptions.zero) return langOptions.zero;
-    if (count === 1 && langOptions.one) return langOptions.one;
-    if (count > 1 && langOptions.many) return langOptions.many;
+    // Check if langOptions is an object with the expected properties
+    if (typeof langOptions === 'object' && langOptions !== null) {
+      if (count === 0 && 'zero' in langOptions && langOptions.zero) return langOptions.zero;
+      if (count === 1 && 'one' in langOptions && langOptions.one) return langOptions.one;
+      if (count > 1 && 'many' in langOptions && langOptions.many) return langOptions.many;
+    }
 
     // Fallback to general options
     if (count === 0 && options.zero) return options.zero;

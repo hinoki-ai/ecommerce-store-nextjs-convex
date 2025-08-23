@@ -1,0 +1,64 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "name": "store-aramac-testing",
+  "projectSettings": {
+    "framework": "nextjs",
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install"
+  },
+  "build": {
+    "env": {
+      "SKIP_AUTH": "true",
+      "NEXT_PUBLIC_SKIP_AUTH": "true",
+      "NEXT_PUBLIC_APP_URL": "https://store.aramac.dev",
+      "NEXT_PUBLIC_APP_DOMAIN": "store.aramac.dev",
+      "NEXT_PUBLIC_USE_MOCK_DATA": "true",
+      "NEXT_PUBLIC_DEBUG_MODE": "true",
+      "NODE_ENV": "production"
+    }
+  },
+  "env": {
+    "SKIP_AUTH": "true",
+    "NEXT_PUBLIC_SKIP_AUTH": "true",
+    "NEXT_PUBLIC_APP_URL": "https://store.aramac.dev",
+    "NEXT_PUBLIC_APP_DOMAIN": "store.aramac.dev",
+    "NEXT_PUBLIC_USE_MOCK_DATA": "true",
+    "NEXT_PUBLIC_DEBUG_MODE": "true"
+  },
+  "functions": {
+    "app/**": {
+      "maxDuration": 30
+    },
+    "api/**": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Testing-Mode",
+          "value": "true"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}
