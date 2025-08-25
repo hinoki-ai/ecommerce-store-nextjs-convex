@@ -1,4 +1,4 @@
-import { mutation, query, internal } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 // Check for wishlist notifications (price drops, back in stock, etc.)

@@ -13,9 +13,12 @@ import { NextRequest } from 'next/server';
 // Role hierarchy and permissions
 export const ROLES = {
   SUPER_ADMIN: 'super_admin',
-  ADMIN: 'admin', 
+  ADMIN: 'admin',
   MODERATOR: 'moderator',
   AFFILIATE: 'affiliate',
+  PREMIUM: 'premium',
+  BASIC: 'basic',
+  FREE: 'free',
   CUSTOMER: 'customer',
   VIEWER: 'viewer'
 } as const;
@@ -60,6 +63,17 @@ export const PERMISSIONS = {
   MANAGE_AFFILIATES: 'manage_affiliates',
   VIEW_AFFILIATE_DASHBOARD: 'view_affiliate_dashboard',
   PROCESS_PAYOUTS: 'process_payouts',
+
+  // Billing system
+  MANAGE_BILLING: 'manage_billing',
+  VIEW_BILLING: 'view_billing',
+  MANAGE_SUBSCRIPTIONS: 'manage_subscriptions',
+  VIEW_SUBSCRIPTIONS: 'view_subscriptions',
+  MANAGE_PAYMENTS: 'manage_payments',
+  VIEW_PAYMENTS: 'view_payments',
+  ACCESS_PREMIUM_FEATURES: 'access_premium_features',
+  ACCESS_ADVANCED_REPORTS: 'access_advanced_reports',
+  ACCESS_BULK_OPERATIONS: 'access_bulk_operations',
   
   // Security operations
   MANAGE_SECURITY: 'manage_security',
@@ -113,11 +127,44 @@ export const ROLE_PERMISSIONS: Record<UserRole, Permission[]> = {
     PERMISSIONS.VIEW_PRODUCTS,
     PERMISSIONS.VIEW_AFFILIATE_DASHBOARD,
   ],
-  
+
+  [ROLES.PREMIUM]: [
+    PERMISSIONS.VIEW_PRODUCTS,
+    PERMISSIONS.MANAGE_PRODUCTS,
+    PERMISSIONS.CREATE_PRODUCTS,
+    PERMISSIONS.EDIT_PRODUCTS,
+    PERMISSIONS.VIEW_ADVANCED_ANALYTICS,
+    PERMISSIONS.EXPORT_DATA,
+    PERMISSIONS.MANAGE_BILLING,
+    PERMISSIONS.VIEW_BILLING,
+    PERMISSIONS.MANAGE_SUBSCRIPTIONS,
+    PERMISSIONS.VIEW_SUBSCRIPTIONS,
+    PERMISSIONS.MANAGE_PAYMENTS,
+    PERMISSIONS.VIEW_PAYMENTS,
+    PERMISSIONS.ACCESS_PREMIUM_FEATURES,
+    PERMISSIONS.ACCESS_ADVANCED_REPORTS,
+    PERMISSIONS.ACCESS_BULK_OPERATIONS,
+  ],
+
+  [ROLES.BASIC]: [
+    PERMISSIONS.VIEW_PRODUCTS,
+    PERMISSIONS.CREATE_PRODUCTS,
+    PERMISSIONS.EDIT_PRODUCTS,
+    PERMISSIONS.VIEW_ANALYTICS,
+    PERMISSIONS.VIEW_BILLING,
+    PERMISSIONS.VIEW_SUBSCRIPTIONS,
+    PERMISSIONS.VIEW_PAYMENTS,
+    PERMISSIONS.ACCESS_PREMIUM_FEATURES,
+  ],
+
+  [ROLES.FREE]: [
+    PERMISSIONS.VIEW_PRODUCTS,
+  ],
+
   [ROLES.CUSTOMER]: [
     PERMISSIONS.VIEW_PRODUCTS,
   ],
-  
+
   [ROLES.VIEWER]: [
     PERMISSIONS.VIEW_PRODUCTS,
   ],
@@ -257,6 +304,60 @@ export async function requireSuperAdmin(): Promise<UserContext> {
   return await requireAuth({
     roles: [ROLES.SUPER_ADMIN]
   });
+}
+
+/**
+ * Billing plan authentication checks
+ */
+export async function requirePremium(): Promise<UserContext> {
+  return await requireAuth({
+    roles: [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM]
+  });
+}
+
+export async function requireBasic(): Promise<UserContext> {
+  return await requireAuth({
+    roles: [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM, ROLES.BASIC]
+  });
+}
+
+export async function requirePaidPlan(): Promise<UserContext> {
+  return await requireAuth({
+    roles: [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM, ROLES.BASIC]
+  });
+}
+
+/**
+ * Check if user has billing access
+ */
+export async function hasBillingAccess(): Promise<boolean> {
+  try {
+    const user = await getAuthenticatedUser();
+    if (!user) return false;
+
+    return user.permissions.some(permission =>
+      permission === PERMISSIONS.MANAGE_BILLING ||
+      permission === PERMISSIONS.VIEW_BILLING ||
+      permission === PERMISSIONS.MANAGE_SUBSCRIPTIONS ||
+      permission === PERMISSIONS.VIEW_SUBSCRIPTIONS
+    );
+  } catch (error) {
+    console.error('Billing access check error:', error);
+    return false;
+  }
+}
+
+/**
+ * Check if user has premium features access
+ */
+export async function hasPremiumAccess(): Promise<boolean> {
+  try {
+    const user = await getAuthenticatedUser();
+    return user?.permissions.includes(PERMISSIONS.ACCESS_PREMIUM_FEATURES) || false;
+  } catch (error) {
+    console.error('Premium access check error:', error);
+    return false;
+  }
 }
 
 /**
@@ -554,16 +655,51 @@ export const clientAuthUtils = {
   canAccessRoute: (userRole: UserRole, route: string): boolean => {
     const adminRoutes = ['/admin'];
     const superAdminRoutes = ['/admin/advanced'];
-    
+    const premiumRoutes = ['/premium', '/advanced-reports', '/bulk-operations'];
+    const billingRoutes = ['/billing', '/subscription', '/payments'];
+
     if (superAdminRoutes.some(adminRoute => route.startsWith(adminRoute))) {
       return userRole === ROLES.SUPER_ADMIN;
     }
-    
+
     if (adminRoutes.some(adminRoute => route.startsWith(adminRoute))) {
       return [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.MODERATOR].includes(userRole);
     }
-    
+
+    if (premiumRoutes.some(premiumRoute => route.startsWith(premiumRoute))) {
+      return [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM].includes(userRole);
+    }
+
+    if (billingRoutes.some(billingRoute => route.startsWith(billingRoute))) {
+      return [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM, ROLES.BASIC].includes(userRole);
+    }
+
     return true; // All users can access non-admin routes
+  },
+
+  // Check if user has billing access on client side
+  hasBillingAccess: (userRole: UserRole): boolean => {
+    return [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM, ROLES.BASIC].includes(userRole);
+  },
+
+  // Check if user has premium access on client side
+  hasPremiumAccess: (userRole: UserRole): boolean => {
+    return [ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.PREMIUM].includes(userRole);
+  },
+
+  // Get plan level from role
+  getPlanLevel: (userRole: UserRole): 'free' | 'basic' | 'premium' | 'enterprise' => {
+    switch (userRole) {
+      case ROLES.SUPER_ADMIN:
+      case ROLES.ADMIN:
+        return 'enterprise';
+      case ROLES.PREMIUM:
+        return 'premium';
+      case ROLES.BASIC:
+        return 'basic';
+      default:
+        return 'free';
+    }
   }
 };
 

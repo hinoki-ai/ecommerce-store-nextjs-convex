@@ -70,53 +70,7 @@ export const checkLowStockAlerts = mutation({
   },
 });
 
-// Get products with low stock
-export const getLowStockProducts = query({
-  args: {
-    threshold: v.optional(v.number()),
-    limit: v.optional(v.number()),
-  },
-  handler: async (ctx, args) => {
-    const threshold = args.threshold || 5;
-    const limit = args.limit || 50;
 
-    const lowStockProducts = await ctx.db
-      .query("products")
-      .filter((q) => q.and(
-        q.eq(q.field("isActive"), true),
-        q.lte(q.field("inventory.quantity"), threshold)
-      ))
-      .order("asc") // Show lowest stock first
-      .take(limit);
-
-    // Get recent sales data for each product
-    const productsWithSalesData = await Promise.all(
-      lowStockProducts.map(async (product) => {
-        // Get recent orders for this product (last 30 days)
-        const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-        const recentOrders = await ctx.db
-          .query("orders")
-          .filter((q) => q.gte(q.field("createdAt"), thirtyDaysAgo))
-          .collect();
-
-        const recentSales = recentOrders
-          .flatMap(order => order.items)
-          .filter(item => item.productId === product._id)
-          .reduce((sum, item) => sum + item.quantity, 0);
-
-        return {
-          ...product,
-          recentSales,
-          daysUntilStockout: recentSales > 0
-            ? Math.floor(product.inventory.quantity / (recentSales / 30))
-            : null
-        };
-      })
-    );
-
-    return productsWithSalesData;
-  },
-});
 
 // Update low stock threshold for a product
 export const updateLowStockThreshold = mutation({

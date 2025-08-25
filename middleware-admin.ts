@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)'])
 
-export default clerkMiddleware(async (auth, req) => {
+async function adminMiddlewareHandler(auth: any, req: any): Promise<NextResponse> {
   // TEMPORARY: Skip authentication for development/testing
   const skipAuth = process.env.SKIP_AUTH === 'true'
 
@@ -32,7 +32,14 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   return NextResponse.next()
-})
+}
+
+// Conditional export: bypass Clerk when SKIP_AUTH=true
+const skipAuth = process.env.SKIP_AUTH === 'true'
+
+export default skipAuth
+  ? (async (req: any) => await adminMiddlewareHandler(null, req))
+  : clerkMiddleware(adminMiddlewareHandler)
 
 export const config = {
   matcher: [

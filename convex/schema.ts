@@ -1232,4 +1232,94 @@ export default defineSchema({
     }).index("byWorkflow", ["workflowId", "createdAt"])
       .index("byStatus", ["status", "createdAt"])
       .index("byDate", ["createdAt"]),
+
+    // Billing and subscription management system
+    billingPlans: defineTable({
+      id: v.string(),
+      name: v.string(),
+      features: v.array(v.string()),
+      limits: v.object({
+        products: v.number(), // -1 for unlimited
+        orders: v.number(), // -1 for unlimited
+        storage: v.string(),
+      }),
+      price: v.optional(v.object({
+        monthly: v.number(),
+        yearly: v.number(),
+        currency: v.string(),
+      })),
+      stripePriceId: v.optional(v.string()),
+      isActive: v.boolean(),
+      sortOrder: v.number(),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    }).index("byActive", ["isActive", "sortOrder"])
+      .index("byId", ["id"]),
+
+    subscriptions: defineTable({
+      userId: v.string(),
+      planId: v.string(),
+      status: v.union(
+        v.literal("active"),
+        v.literal("canceled"),
+        v.literal("past_due"),
+        v.literal("incomplete"),
+        v.literal("trialing")
+      ),
+      currentPeriodStart: v.number(),
+      currentPeriodEnd: v.number(),
+      cancelAtPeriodEnd: v.boolean(),
+      stripeSubscriptionId: v.optional(v.string()),
+      stripeCustomerId: v.optional(v.string()),
+      metadata: v.optional(v.any()),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    }).index("byUserId", ["userId"])
+      .index("byPlan", ["planId", "status"])
+      .index("byStatus", ["status", "currentPeriodEnd"])
+      .index("byStripeSubscription", ["stripeSubscriptionId"]),
+
+    billingPayments: defineTable({
+      userId: v.string(),
+      subscriptionId: v.optional(v.id("subscriptions")),
+      amount: v.number(),
+      currency: v.string(),
+      status: v.union(
+        v.literal("pending"),
+        v.literal("succeeded"),
+        v.literal("failed"),
+        v.literal("canceled"),
+        v.literal("refunded")
+      ),
+      paymentMethod: v.string(),
+      stripePaymentIntentId: v.optional(v.string()),
+      stripeChargeId: v.optional(v.string()),
+      failureReason: v.optional(v.string()),
+      metadata: v.optional(v.any()),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    }).index("byUser", ["userId", "createdAt"])
+      .index("bySubscription", ["subscriptionId", "createdAt"])
+      .index("byStatus", ["status", "createdAt"])
+      .index("byStripePaymentIntent", ["stripePaymentIntentId"]),
+
+    billingUsage: defineTable({
+      userId: v.string(),
+      subscriptionId: v.optional(v.id("subscriptions")),
+      resource: v.union(
+        v.literal("products"),
+        v.literal("orders"),
+        v.literal("storage"),
+        v.literal("api_calls"),
+        v.literal("bandwidth")
+      ),
+      currentCount: v.number(),
+      periodStart: v.number(),
+      periodEnd: v.number(),
+      metadata: v.optional(v.any()),
+      createdAt: v.number(),
+      updatedAt: v.number(),
+    }).index("byUser", ["userId", "resource", "periodStart"])
+      .index("bySubscription", ["subscriptionId", "resource", "periodStart"])
+      .index("byPeriod", ["periodStart", "periodEnd"]),
   });

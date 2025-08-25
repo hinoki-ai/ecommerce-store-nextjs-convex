@@ -1,6 +1,7 @@
 # 🤖 AI-ONLY DEVELOPMENT GUIDELINES
 
 ## 🎯 AI ASSISTANT CONTEXT (REQUIRED)
+
 **🚫 CRITICAL RULE**: NEVER TOUCH CLAUDE.md - Contains human-specific context
 **🤖 AI-ONLY ACCESS**: This documentation is AI-optimized and accessible
 **🎯 PROJECT TYPE**: Next.js 14 e-commerce platform with AI-optimized SEO
@@ -851,6 +852,7 @@ const trackPerformance = () => {
 ## 🔧 AI TECHNICAL SPECIFICATIONS (REQUIRED)
 
 ### 🎯 AI Technology Stack
+
 || Component | Technology | AI Purpose |
 ||-----------|------------|---------|
 || **Framework** | Next.js 14 + App Router | AI-optimized React framework with TypeScript |
@@ -863,6 +865,7 @@ const trackPerformance = () => {
 || **State Management** | React Hooks + Custom Providers | AI-predictable state management |
 
 ### 🛠️ AI Development Tools
+
 || Tool | Purpose | AI Configuration |
 ||------|---------|---------------|
 || **Package Manager** | npm | AI dependency management |

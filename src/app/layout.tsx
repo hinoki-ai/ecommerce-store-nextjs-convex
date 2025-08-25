@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
 // import { CartProvider } from "@/hooks/useCart";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { LanguageAttributes } from "@/components/LanguageAttributes";
 import { CurrencyProvider } from "@/components/CurrencyProvider";
+import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { initializeChunkedI18n } from "@/lib/i18n-chunked";
 
 const geistSans = Geist({
@@ -46,21 +47,24 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* Simplified layout for deployment */}
-          <LanguageProvider>
-            <LanguageAttributes />
-            <CurrencyProvider>
-              {children}
-              <Toaster position="top-right" richColors />
-            </CurrencyProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+        <ClerkProvider>
+          <ConvexClientProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <LanguageProvider>
+                <LanguageAttributes />
+                <CurrencyProvider>
+                  {children}
+                  <Toaster position="top-right" richColors />
+                </CurrencyProvider>
+              </LanguageProvider>
+            </ThemeProvider>
+          </ConvexClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

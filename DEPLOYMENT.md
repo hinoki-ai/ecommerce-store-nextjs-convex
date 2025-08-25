@@ -1,11 +1,13 @@
 # Deployment Guide for store.aramac.dev
 
 ## Overview
+
 This guide covers the deployment process for the AI-Powered E-Commerce SEO System to the production subdomain `store.aramac.dev`.
 
 ## Prerequisites
 
 ### 1. Environment Setup
+
 - Copy `.env.production` to your deployment platform
 - Update all placeholder values with production credentials
 - Ensure all required services are configured for production
@@ -13,11 +15,13 @@ This guide covers the deployment process for the AI-Powered E-Commerce SEO Syste
 ### 2. Required Services Configuration
 
 #### Convex Database
+
 - Deploy your Convex functions: `npx convex deploy --prod`
 - Update `CONVEX_DEPLOYMENT` and `NEXT_PUBLIC_CONVEX_URL` in production environment
 - Configure Convex environment variables in dashboard
 
 #### Clerk Authentication
+
 - Set up production Clerk application
 - Configure production domain in Clerk dashboard: `store.aramac.dev`
 - Update redirect URLs to use `https://store.aramac.dev`
@@ -25,11 +29,13 @@ This guide covers the deployment process for the AI-Powered E-Commerce SEO Syste
 - Update all Clerk environment variables
 
 #### Database Setup
+
 - Configure production SQLite database or upgrade to PostgreSQL
 - Run database migrations: `npx prisma migrate deploy`
 - Generate Prisma client: `npx prisma generate`
 
 #### AI Services
+
 - Configure production OpenAI API key with appropriate usage limits
 - Set up monitoring for API usage and costs
 
@@ -38,6 +44,7 @@ This guide covers the deployment process for the AI-Powered E-Commerce SEO Syste
 ### Using Vercel (Recommended)
 
 1. **Initial Setup**
+
    ```bash
    # Install Vercel CLI
    npm i -g vercel
@@ -47,6 +54,7 @@ This guide covers the deployment process for the AI-Powered E-Commerce SEO Syste
    ```
 
 2. **Project Configuration**
+
    ```bash
    # Link project to Vercel
    vercel link
@@ -65,11 +73,13 @@ This guide covers the deployment process for the AI-Powered E-Commerce SEO Syste
    ```
 
 3. **Domain Configuration**
+
    - Add `store.aramac.dev` as custom domain in Vercel dashboard
    - Configure DNS records to point to Vercel
    - SSL certificates will be automatically provisioned
 
 4. **Deploy**
+
    ```bash
    # Deploy to production
    vercel --prod
@@ -78,6 +88,7 @@ This guide covers the deployment process for the AI-Powered E-Commerce SEO Syste
 ### Using Other Platforms
 
 For other platforms (Netlify, Railway, etc.), ensure:
+
 - Build command: `npm run build`
 - Start command: `npm start`
 - Node.js version: 18.x or higher
@@ -86,6 +97,7 @@ For other platforms (Netlify, Railway, etc.), ensure:
 ## Post-Deployment Checklist
 
 ### 1. Service Verification
+
 - [ ] Application loads at `https://store.aramac.dev`
 - [ ] Convex database connectivity
 - [ ] Clerk authentication flows
@@ -93,24 +105,28 @@ For other platforms (Netlify, Railway, etc.), ensure:
 - [ ] AI services responding
 
 ### 2. SEO Configuration
+
 - [ ] Robots.txt accessible at `/robots.txt`
 - [ ] Sitemap.xml accessible at `/sitemap.xml`
 - [ ] Meta tags and JSON-LD structured data
 - [ ] Core Web Vitals performance targets met
 
 ### 3. Security Validation
+
 - [ ] HTTPS properly configured
 - [ ] Security headers implemented
 - [ ] Environment variables secured
 - [ ] No secrets exposed in client-side code
 
 ### 4. Performance Testing
+
 - [ ] Page load times under 3 seconds
 - [ ] Core Web Vitals within green thresholds
 - [ ] Database query performance
 - [ ] AI API response times acceptable
 
 ### 5. Functionality Testing
+
 - [ ] User registration and authentication
 - [ ] Product browsing and search
 - [ ] Shopping cart functionality
@@ -122,12 +138,14 @@ For other platforms (Netlify, Railway, etc.), ensure:
 ## Monitoring and Maintenance
 
 ### Analytics Setup
+
 - Configure web analytics (Google Analytics, etc.)
 - Set up error tracking (Sentry, etc.)
 - Monitor Core Web Vitals
 - Track conversion metrics
 
 ### Regular Maintenance
+
 - Monitor AI API usage and costs
 - Database performance optimization
 - Security updates and patches
@@ -138,26 +156,31 @@ For other platforms (Netlify, Railway, etc.), ensure:
 ### Common Issues
 
 1. **Environment Variable Issues**
+
    - Verify all required variables are set
    - Check variable names match exactly
    - Ensure no trailing spaces or quotes
 
 2. **Database Connection Issues**
+
    - Verify DATABASE_URL format
    - Check database accessibility from deployment platform
    - Ensure migrations are applied
 
 3. **Authentication Issues**
+
    - Verify Clerk domain configuration
    - Check redirect URLs match production domain
    - Validate webhook configurations
 
 4. **AI Service Issues**
+
    - Check OpenAI API key validity
    - Monitor API usage limits
    - Verify request/response formats
 
 ### Support Resources
+
 - Next.js deployment documentation
 - Convex deployment guides
 - Clerk production setup guides
@@ -168,6 +191,7 @@ For other platforms (Netlify, Railway, etc.), ensure:
 See `.env.production` for complete list of required environment variables with production values.
 
 ## Security Notes
+
 - Never commit real API keys to version control
 - Use secure environment variable storage
 - Regularly rotate secrets and API keys
