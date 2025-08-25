@@ -23,6 +23,16 @@ const defaultLanguageRoutes = [
   '/track'
 ];
 
+// Define routes that should bypass language routing (like auth routes)
+const bypassLanguageRoutes = [
+  '/sign-in',
+  '/sign-up',
+  '/dashboard',
+  '/admin',
+  '/api/auth',
+  '/api/webhooks'
+];
+
 // Supported language codes
 const supportedLanguages = supportedLanguageChunks.map(lang => lang.code);
 
@@ -38,6 +48,13 @@ function isPublicRoute(pathname: string): boolean {
  */
 function isDefaultLanguageRoute(pathname: string): boolean {
   return defaultLanguageRoutes.some(route => pathname === route);
+}
+
+/**
+ * Check if path should bypass language routing entirely
+ */
+function shouldBypassLanguageRouting(pathname: string): boolean {
+  return bypassLanguageRoutes.some(route => pathname.startsWith(route));
 }
 
 /**
@@ -145,6 +162,11 @@ export function i18nMiddleware(request: NextRequest): NextResponse | null {
 
   // Skip middleware for public routes
   if (isPublicRoute(pathname)) {
+    return null;
+  }
+
+  // Skip middleware for routes that should bypass language routing
+  if (shouldBypassLanguageRouting(pathname)) {
     return null;
   }
 
