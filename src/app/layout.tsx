@@ -8,7 +8,7 @@ import { Toaster } from "sonner";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { LanguageAttributes } from "@/components/LanguageAttributes";
 import { CurrencyProvider } from "@/components/CurrencyProvider";
-import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+import ConvexClientProvider from "@/components/ConvexClientProvider";
 import { initializeChunkedI18n } from "@/lib/i18n-chunked";
 
 const geistSans = Geist({
