@@ -74,13 +74,13 @@ const nextConfig: NextConfig = {
       return config;
     }
 
-    // Production optimizations
-    if (!dev && !isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "react/jsx-runtime.js": "preact/compat/jsx-runtime",
-      };
-    }
+    // Production optimizations (disabled for React 19 compatibility)
+    // if (!dev && !isServer) {
+    //   config.resolve.alias = {
+    //     ...config.resolve.alias,
+    //     "react/jsx-runtime.js": "preact/compat/jsx-runtime",
+    //   };
+    // }
 
     // Bundle size optimization
     config.module.rules.push({
