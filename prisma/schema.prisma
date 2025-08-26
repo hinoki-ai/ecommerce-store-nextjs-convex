@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  optimizedTitle String?
+  optimizedDescription String?
+  originalTitle String?
+  originalDescription String?
+  tags        String   // AI-generated tags (comma-separated)
+  images      ProductImage[]
+  collections ProductCollection[]
+  category    String?
+  price       Float?
+  seoScore    Float?   @default(0)
+  language    String   @default("en")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  seoAlt    String? // AI-generated alt text
+}
+
+model Collection {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  imageUrl    String?
+  products    ProductCollection[]
+  tags        String   // Tags that define this collection (comma-separated)
+  seoTitle    String?
+  seoDescription String?
+  isHoliday   Boolean  @default(false)
+  holidayDate DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ProductCollection {
+  productId    String
+  collectionId String
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  @@id([productId, collectionId])
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String
+  excerpt     String?
+  imageUrl    String?
+  internalLinks String?  // Links to products/collections (JSON string)
+  seoTitle    String?
+  seoDescription String?
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SEOLog {
+  id        String   @id @default(cuid())
+  action    String   // 'optimize_product', 'generate_tags', 'create_collection', etc.
+  entityId  String
+  entityType String  // 'product', 'collection', 'blog'
+  details   String?
+  createdAt DateTime @default(now())
+}

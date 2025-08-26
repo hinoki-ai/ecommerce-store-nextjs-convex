@@ -1,14 +1,14 @@
 {
-  "name": "Tienda ARAMAC - E-commerce Chileno",
-  "short_name": "ARAMAC Store",
-  "description": "Tu tienda online favorita en Chile. Productos de calidad con envío a todo el país.",
+  "name": "ΛRΛMΛC Store - AI-Powered E-Commerce SaaS",
+  "short_name": "ΛRΛMΛC Store",
+  "description": "Advanced AI-driven e-commerce platform for modern businesses. Intelligent retail solutions with automated inventory management and seamless customer experiences.",
   "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "es-CL",
+  "lang": "en-US",
   "dir": "ltr",
   
   "icons": [
@@ -64,10 +64,23 @@
   
   "shortcuts": [
     {
-      "name": "Explorar Productos",
-      "short_name": "Productos",
-      "description": "Ver todos los productos disponibles",
-      "url": "/products?source=pwa_shortcut",
+      "name": "AI Dashboard",
+      "short_name": "Dashboard",
+      "description": "Access intelligent business analytics and insights",
+      "url": "/admin/dashboard?source=pwa_shortcut",
+      "icons": [
+        {
+          "src": "/icons/dashboard-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Product Catalog",
+      "short_name": "Products",
+      "description": "Manage intelligent inventory and product optimization",
+      "url": "/admin/products?source=pwa_shortcut",
       "icons": [
         {
           "src": "/icons/products-96x96.png",
@@ -77,39 +90,26 @@
       ]
     },
     {
-      "name": "Mi Carrito",
-      "short_name": "Carrito",
-      "description": "Ver carrito de compras",
-      "url": "/cart?source=pwa_shortcut",
+      "name": "AI Analytics",
+      "short_name": "Analytics",
+      "description": "View AI-powered business intelligence and performance metrics",
+      "url": "/admin/analytics?source=pwa_shortcut",
       "icons": [
         {
-          "src": "/icons/cart-96x96.png",
+          "src": "/icons/analytics-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
       ]
     },
     {
-      "name": "Mis Pedidos",
-      "short_name": "Pedidos",
-      "description": "Ver historial de pedidos",
-      "url": "/orders?source=pwa_shortcut",
+      "name": "Customer Hub",
+      "short_name": "Customers",
+      "description": "Manage customer relationships with AI insights",
+      "url": "/admin/customers?source=pwa_shortcut",
       "icons": [
         {
-          "src": "/icons/orders-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Lista de Deseos",
-      "short_name": "Wishlist",
-      "description": "Ver productos favoritos",
-      "url": "/wishlist?source=pwa_shortcut",
-      "icons": [
-        {
-          "src": "/icons/wishlist-96x96.png",
+          "src": "/icons/customers-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -117,29 +117,29 @@
     }
   ],
   
-  "categories": ["shopping", "lifestyle", "business"],
+  "categories": ["business", "productivity", "utilities", "shopping"],
   
   "screenshots": [
     {
-      "src": "/screenshots/mobile-home.png",
+      "src": "/screenshots/mobile-dashboard.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Página principal en móvil"
+      "label": "AI Dashboard on Mobile"
     },
     {
-      "src": "/screenshots/mobile-products.png",
+      "src": "/screenshots/mobile-analytics.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Catálogo de productos"
+      "label": "Business Analytics Mobile View"
     },
     {
-      "src": "/screenshots/desktop-home.png",
+      "src": "/screenshots/desktop-dashboard.png",
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Página principal en escritorio"
+      "label": "AI-Powered Business Dashboard"
     }
   ],
   
@@ -154,7 +154,7 @@
   
   "protocol_handlers": [
     {
-      "protocol": "web+aramac",
+      "protocol": "web+aramac-store",
       "url": "/handle?type=%s"
     }
   ],

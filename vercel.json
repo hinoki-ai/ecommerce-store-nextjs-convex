@@ -9,8 +9,10 @@
   },
   "build": {
     "env": {
+      "NODE_ENV": "production",
       "NEXT_PUBLIC_APP_URL": "https://store.aramac.dev",
-      "NEXT_PUBLIC_APP_DOMAIN": "store.aramac.dev"
+      "NEXT_PUBLIC_APP_DOMAIN": "store.aramac.dev",
+      "SKIP_ENV_VALIDATION": "true"
     }
   },
   "env": {

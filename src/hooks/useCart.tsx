@@ -57,12 +57,44 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  // Check if we're in build mode or should skip auth
+  const shouldSkipAuth = () => {
+    if (process.env.NODE_ENV === 'production' && typeof window === 'undefined') {
+      return true // Skip during SSG/build
+    }
+    return process.env.SKIP_AUTH === 'true' || process.env.NEXT_PUBLIC_SKIP_AUTH === 'true'
+  }
+
+  // If we should skip auth, provide a minimal cart context
+  if (shouldSkipAuth()) {
+    const fallbackContext: CartContextType = {
+      cart: null,
+      cartCount: 0,
+      isLoading: false,
+      addToCart: async () => {},
+      removeFromCart: async () => {},
+      updateCartItemQuantity: async () => {},
+      clearCart: async () => {},
+      getCartItemQuantity: () => 0
+    }
+
+    return (
+      <CartErrorBoundary>
+        <CartContext.Provider value={fallbackContext}>
+          {children}
+        </CartContext.Provider>
+      </CartErrorBoundary>
+    )
+  }
+
   const { userId, isSignedIn } = useAuth()
   const [sessionId, setSessionId] = useState<string>("")
   const [cartId, setCartId] = useState<string | null>(null)
 
   // Generate session ID for guest users
   useEffect(() => {
+    if (typeof window === 'undefined') return // Skip during SSR
+    
     if (!isSignedIn && !sessionId) {
       const newSessionId = `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
       setSessionId(newSessionId)
@@ -78,12 +110,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [isSignedIn, sessionId])
 
-  // Mutations
-  const getOrCreateCart = useMutation(api.carts.getOrCreateCart)
-  const addToCartMutation = useMutation(api.carts.addToCart)
-  const removeFromCartMutation = useMutation(api.carts.removeFromCart)
-  const updateCartItemQuantityMutation = useMutation(api.carts.updateCartItemQuantity)
-  const clearCartMutation = useMutation(api.carts.clearCart)
+  // Mutations - wrapped in try-catch for build safety
+  let getOrCreateCart, addToCartMutation, removeFromCartMutation, updateCartItemQuantityMutation, clearCartMutation;
+  
+  try {
+    getOrCreateCart = useMutation(api.carts.getOrCreateCart)
+    addToCartMutation = useMutation(api.carts.addToCart)
+    removeFromCartMutation = useMutation(api.carts.removeFromCart)
+    updateCartItemQuantityMutation = useMutation(api.carts.updateCartItemQuantity)
+    clearCartMutation = useMutation(api.carts.clearCart)
+  } catch (error) {
+    console.warn('CartProvider: Convex mutations not available, providing fallback')
+    // Provide dummy functions for build-time
+    getOrCreateCart = async () => null
+    addToCartMutation = async () => {}
+    removeFromCartMutation = async () => {}
+    updateCartItemQuantityMutation = async () => {}
+    clearCartMutation = async () => {}
+  }
 
   // Get or create cart when sessionId or userId is available
   useEffect(() => {

@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useQuery } from "convex/react"
+
+// Force dynamic rendering to prevent build-time issues
+export const dynamic = 'force-dynamic'
 import Link from "next/link"
 import {
   ArrowLeft,

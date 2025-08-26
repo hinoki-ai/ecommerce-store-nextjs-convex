@@ -4,7 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
-// import { CartProvider } from "@/hooks/useCart";
+import { CartProvider } from "@/hooks/useCart";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { LanguageAttributes } from "@/components/LanguageAttributes";
 import { CurrencyProvider } from "@/components/CurrencyProvider";
@@ -24,15 +24,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aramac Branfing - Premium Ecommerce Platform",
-  description: "Discover premium products at Aramac Branfing - Your trusted source for quality goods with exceptional service",
-  keywords: ["ecommerce", "aramac branfing", "online store", "premium products", "quality goods"],
+  title: "ΛRΛMΛC Store - AI-Powered E-Commerce SaaS Platform",
+  description: "Experience the future of e-commerce with ΛRΛMΛC Store - Advanced AI-driven retail solutions, intelligent inventory management, and seamless customer experiences for modern businesses.",
+  keywords: ["ai ecommerce", "saas platform", "aramac", "intelligent retail", "ai-powered store", "machine learning commerce", "automated inventory", "smart retail solutions"],
   openGraph: {
     type: "website",
-    title: "Aramac Branfing - Premium Ecommerce Platform",
-    description: "Discover premium products at Aramac Branfing - Your trusted source for quality goods with exceptional service",
+    title: "ΛRΛMΛC Store - AI-Powered E-Commerce SaaS Platform",
+    description: "Experience the future of e-commerce with ΛRΛMΛC Store - Advanced AI-driven retail solutions, intelligent inventory management, and seamless customer experiences for modern businesses.",
     url: "/",
-    siteName: "Aramac Branfing",
+    siteName: "ΛRΛMΛC Store",
   },
 };
 
@@ -47,22 +47,26 @@ export default async function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ClerkProvider>
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        >
           <ConvexClientProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <LanguageProvider>
-                <LanguageAttributes />
-                <CurrencyProvider>
-                  {children}
-                  <Toaster position="top-right" richColors />
-                </CurrencyProvider>
-              </LanguageProvider>
-            </ThemeProvider>
+            <CartProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <LanguageProvider>
+                  <LanguageAttributes />
+                  <CurrencyProvider>
+                    {children}
+                    <Toaster position="top-right" richColors />
+                  </CurrencyProvider>
+                </LanguageProvider>
+              </ThemeProvider>
+            </CartProvider>
           </ConvexClientProvider>
         </ClerkProvider>
       </body>

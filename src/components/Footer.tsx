@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/components/LanguageProvider"
@@ -14,11 +15,18 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">A</span>
+            <div className="flex items-center space-x-3">
+              <Image
+                src="/logo.png"
+                alt="ΛRΛMΛC Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8"
+              />
+              <div className="flex flex-col">
+                <span className="font-bold text-xl leading-none">ΛRΛMΛC</span>
+                <span className="text-xs text-muted-foreground leading-none">Store</span>
               </div>
-              <span className="font-bold text-xl">Aramac Branfing</span>
             </div>
             <p className="text-muted-foreground text-sm">
               {t('seo.description')}
@@ -103,7 +111,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-muted-foreground">
-            © 2024 Aramac Branfing. {t('footer.allRightsReserved')}
+            © 2024 ΛRΛMΛC Store. {t('footer.allRightsReserved')}
           </div>
           <div className="flex space-x-6 text-sm text-muted-foreground">
             <Link href="/privacy" className="hover:text-foreground transition-colors">

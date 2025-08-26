@@ -1,5 +1,8 @@
 "use client"
 
+// Force dynamic rendering to prevent build-time issues with Convex
+export const dynamic = 'force-dynamic'
+
 import { useState } from "react"
 import Link from "next/link"
 import { useQuery, useMutation } from "convex/react"

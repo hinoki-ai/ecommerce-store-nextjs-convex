@@ -68,9 +68,9 @@ const isAdminRoute = createRouteMatcher([
   '/api/affiliate/dashboard(.*)'
 ])
 
-// Supported languages and default language
-const supportedLanguages = ['es', 'en', 'de', 'fr', 'ar', 'ru']
-const defaultLanguage = 'es'
+// Supported languages and default language constants available for future use
+// const supportedLanguages = ['es', 'en', 'de', 'fr', 'ar', 'ru']
+// const defaultLanguage = 'es'
 
 /**
  * Security headers for enhanced protection
@@ -138,7 +138,7 @@ function checkRateLimit(req: NextRequest): boolean {
  * SECURITY: Comprehensive security and authentication
  * PERFORMANCE: Optimized execution order
  */
-async function middlewareHandler(auth: any, req: NextRequest): Promise<NextResponse> {
+async function middlewareHandler(auth: () => Promise<{ userId: string | null }>, req: NextRequest): Promise<NextResponse> {
   const pathname = req.nextUrl.pathname
 
   // TEMPORARY: Skip authentication for development/testing
@@ -150,7 +150,7 @@ async function middlewareHandler(auth: any, req: NextRequest): Promise<NextRespo
 
   // SECURITY: Rate limiting check
   if (!checkRateLimit(req)) {
-    return new Response('Too Many Requests', { status: 429 })
+    return NextResponse.json('Too Many Requests', { status: 429 })
   }
 
   // PERFORMANCE: Handle language routing first
@@ -167,7 +167,7 @@ async function middlewareHandler(auth: any, req: NextRequest): Promise<NextRespo
   if (process.env.NODE_ENV === 'production' && !isSecure) {
     const url = new URL(req.url)
     url.protocol = 'https:'
-    return Response.redirect(url, 308)
+    return NextResponse.redirect(url, { status: 308 })
   }
 
   // SECURITY: Authentication for protected routes (skip if SKIP_AUTH=true)
@@ -191,7 +191,7 @@ async function middlewareHandler(auth: any, req: NextRequest): Promise<NextRespo
       }
     } catch (error) {
       console.error('Authentication error:', error)
-      return new Response('Authentication Error', { status: 401 })
+      return NextResponse.json('Authentication Error', { status: 401 })
     }
   }
 
@@ -254,7 +254,7 @@ async function middlewareHandler(auth: any, req: NextRequest): Promise<NextRespo
 const skipAuth = process.env.SKIP_AUTH === 'true'
 
 export default skipAuth
-  ? (async (req: NextRequest) => await middlewareHandler(null, req))
+  ? (async (req: NextRequest) => await middlewareHandler(() => Promise.resolve({ userId: null }), req))
   : clerkMiddleware(middlewareHandler)
 
 /**

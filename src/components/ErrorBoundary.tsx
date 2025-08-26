@@ -206,7 +206,17 @@ export function ConvexErrorBoundary({ children }: { children: ReactNode }) {
   return (
     <ErrorBoundary
       onError={(error, errorInfo) => {
-        console.error('Convex Error:', { error, errorInfo })
+        // More detailed error logging for Convex-specific errors
+        console.error('Convex Error Boundary caught an error:', {
+          error: {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+          },
+          errorInfo,
+          timestamp: new Date().toISOString(),
+          url: typeof window !== 'undefined' ? window.location.href : 'server-side'
+        })
       }}
       fallback={
         <div className="p-6 text-center">

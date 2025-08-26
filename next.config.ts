@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Turbopack configuration
+  turbopack: {
+    root: process.cwd(),
+  },
+
   // Production optimizations
   poweredByHeader: false,
   reactStrictMode: true,
@@ -57,7 +62,6 @@ const nextConfig: NextConfig = {
   // },
 
   experimental: {
-    // Turbopack for dev (already in package.json scripts)
     // Optimized package imports
     optimizePackageImports: [
       "@radix-ui/react-icons",
@@ -65,36 +69,6 @@ const nextConfig: NextConfig = {
       "lucide-react",
       "date-fns",
     ],
-  },
-
-  // Webpack optimizations (only for production builds, not turbopack)
-  webpack: (config, { dev, isServer }) => {
-    // Skip webpack customizations when using turbopack (detected by build info)
-    if (process.env.TURBOPACK) {
-      return config;
-    }
-
-    // Production optimizations (disabled for React 19 compatibility)
-    // if (!dev && !isServer) {
-    //   config.resolve.alias = {
-    //     ...config.resolve.alias,
-    //     "react/jsx-runtime.js": "preact/compat/jsx-runtime",
-    //   };
-    // }
-
-    // Bundle size optimization
-    config.module.rules.push({
-      test: /\.(png|jpe?g|gif|svg)$/,
-      use: {
-        loader: "file-loader",
-        options: {
-          publicPath: "/_next/static/images/",
-          outputPath: "static/images/",
-        },
-      },
-    });
-
-    return config;
   },
 
   // Output configuration

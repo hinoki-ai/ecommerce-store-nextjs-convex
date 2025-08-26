@@ -10,7 +10,7 @@
 const authConfig = {
   providers: [
     {
-      domain: "https://your-app.clerk.accounts.dev",
+      domain: "https://gentle-snake-85.clerk.accounts.dev",
       applicationID: "convex",
     },
   ],

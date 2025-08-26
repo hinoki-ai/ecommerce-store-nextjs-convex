@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering to prevent build-time issues with Convex
+export const dynamic = 'force-dynamic'
+
 import { useUser, useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'

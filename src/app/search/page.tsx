@@ -1,5 +1,8 @@
 "use client"
 
+// Force dynamic rendering to prevent build-time issues with Convex
+export const dynamic = 'force-dynamic'
+
 import { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"

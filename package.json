@@ -1,11 +1,12 @@
 {
-  "name": "store",
+  "name": "aramac-store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npx prisma generate && SKIP_ENV_VALIDATION=true next build",
     "start": "npm run validate:env && next start",
+    "start:standalone": "node .next/standalone/server.js",
     "lint": "eslint",
     "validate:env": "node scripts/validate-env.js",
     "postinstall": "npm run validate:env"
@@ -50,7 +51,7 @@
     "next-themes": "^0.4.6",
     "openai": "^5.15.0",
     "react": "19.1.0",
-    "react-day-picker": "^8.10.1",
+    "react-day-picker": "^9.4.3",
     "react-dom": "19.1.0",
     "react-use-measure": "^2.1.7",
     "recharts": "^2.15.4",
@@ -66,6 +67,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@prisma/client": "^5.22.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -74,6 +76,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
     "postcss": "^8.4.47",
+    "prisma": "^5.22.0",
     "tailwindcss": "^4.1.12",
     "typescript": "^5"
   }

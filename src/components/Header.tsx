@@ -51,11 +51,18 @@ export function Header() {
         {/* Top Bar */}
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="h-8 w-8 bg-primary rounded-md flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">A</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/logo.png"
+              alt="ΛRΛMΛC Logo"
+              width={32}
+              height={32}
+              className="h-8 w-8"
+            />
+            <div className="flex flex-col">
+              <span className="font-bold text-xl leading-none">ΛRΛMΛC</span>
+              <span className="text-xs text-muted-foreground leading-none">Store</span>
             </div>
-            <span className="font-bold text-xl">Aramac Branfing</span>
           </Link>
 
           {/* Search Bar - Desktop */}

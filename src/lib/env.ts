@@ -4,50 +4,80 @@ import { z } from 'zod';
 const envSchema = z.object({
   // Next.js
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  
+
   // App configuration
   NEXT_PUBLIC_APP_URL: z.string().url('Invalid app URL'),
-  
+  NEXT_PUBLIC_APP_DOMAIN: z.string().min(1, 'App domain is required'),
+  NEXT_PUBLIC_API_URL: z.string().url('Invalid API URL').optional(),
+
   // Database
   DATABASE_URL: z.string().min(1, 'Database URL is required'),
-  
+
   // Convex
   CONVEX_DEPLOYMENT: z.string().min(1, 'Convex deployment URL is required'),
   NEXT_PUBLIC_CONVEX_URL: z.string().url('Invalid Convex URL').optional(),
-  
+
   // Authentication (Clerk)
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1, 'Clerk publishable key is required'),
   CLERK_SECRET_KEY: z.string().min(1, 'Clerk secret key is required'),
-  
+  CLERK_WEBHOOK_SECRET: z.string().optional(),
+  NEXT_PUBLIC_CLERK_FRONTEND_API_URL: z.string().url('Invalid Clerk frontend API URL').optional(),
+  NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL: z.string().optional(),
+  NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL: z.string().optional(),
+  NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: z.string().optional(),
+  NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: z.string().optional(),
+  CLERK_WEBHOOK_URL: z.string().url('Invalid Clerk webhook URL').optional(),
+
   // AI Services
   OPENAI_API_KEY: z.string().min(1, 'OpenAI API key is required'),
-  
+
   // Payment processing (if using Stripe)
   STRIPE_SECRET_KEY: z.string().optional(),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   STRIPE_WEBHOOK_SECRET: z.string().optional(),
-  
+  STRIPE_BASIC_PRICE_ID: z.string().optional(),
+  STRIPE_PREMIUM_PRICE_ID: z.string().optional(),
+
   // Email services (optional)
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.string().optional(),
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
-  
+
   // Redis (for caching and rate limiting)
   REDIS_URL: z.string().url('Invalid Redis URL').optional(),
-  
+
   // Analytics
   GOOGLE_ANALYTICS_ID: z.string().optional(),
-  
+  NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
+  GA_API_SECRET: z.string().optional(),
+  NEXT_PUBLIC_FACEBOOK_PIXEL_ID: z.string().optional(),
+  CUSTOM_ANALYTICS_ENDPOINT: z.string().url('Invalid custom analytics endpoint').optional(),
+
   // CDN and asset optimization
   NEXT_PUBLIC_CDN_URL: z.string().url('Invalid CDN URL').optional(),
-  
+
   // Security
   NEXTAUTH_SECRET: z.string().min(32, 'NextAuth secret must be at least 32 characters').optional(),
-  
+
   // Monitoring and logging
   SENTRY_DSN: z.string().url('Invalid Sentry DSN').optional(),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
+
+  // Development/Testing
+  NEXT_PUBLIC_DEBUG_MODE: z.string().transform(val => val === 'true').optional(),
+  SKIP_AUTH: z.string().transform(val => val === 'true').optional(),
+  NEXT_PUBLIC_SKIP_AUTH: z.string().transform(val => val === 'true').optional(),
+  NEXT_PUBLIC_USE_MOCK_DATA: z.string().transform(val => val === 'true').optional(),
+  NEXT_PUBLIC_MOCK_USER_ID: z.string().optional(),
+  NEXT_PUBLIC_MOCK_USER_EMAIL: z.string().email('Invalid mock user email').optional(),
+
+  // PWA
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+
+  // Performance
+  ANALYZE: z.string().transform(val => val === 'true').optional(),
 });
 
 // Parse and validate environment variables

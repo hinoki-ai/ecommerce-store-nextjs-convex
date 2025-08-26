@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**AI-Powered E-Commerce SEO System** - A Next.js 15 e-commerce platform optimized for AI-assisted development with comprehensive SEO automation for rural Chilean markets.
+**ΛRΛMΛC Store - AI-Powered E-Commerce SaaS Platform** - A Next.js 15 intelligent retail platform designed as a comprehensive SaaS solution with advanced AI-driven features, automated SEO optimization, and scalable multi-tenant architecture for modern e-commerce businesses.
 
 **Core Technologies:**
 - **Framework:** Next.js 15 with App Router and Turbopack
@@ -292,10 +292,10 @@ Access comprehensive SEO management at `/admin/seo-dashboard`:
 
 ## Business Context
 
-**Target Audience:** Rural Chilean users requiring professional Spanish-first experience
-**Revenue Model:** E-commerce with AI-driven SEO for organic traffic growth
-**Growth Strategy:** SEO-first approach targeting 2000+ monthly organic visitors within 6 months
-**Content Strategy:** Professional, accessible tone with comprehensive product information
+**Target Audience:** Modern businesses and enterprises seeking intelligent e-commerce solutions with AI automation
+**Revenue Model:** SaaS platform with tiered subscription plans, AI-enhanced services, and enterprise solutions
+**Growth Strategy:** Technology-driven approach targeting B2B clients and innovative retailers seeking advanced automation
+**Content Strategy:** Professional, technical documentation with comprehensive AI-powered features and enterprise-grade capabilities
 
 ## Administrative Access
 
@@ -308,4 +308,4 @@ Key admin routes for development and content management:
 - `/admin/orders` - Order management system
 - `/admin/users` - User management interface
 
-When working on this project, always prioritize the established patterns, maintain consistency with the dual-database architecture, and ensure all AI-generated content maintains the professional Spanish-first approach for the target Chilean market.
+When working on this project, always prioritize the established patterns, maintain consistency with the dual-database architecture, and ensure all AI-generated content maintains the professional, enterprise-grade standards expected of a modern SaaS platform with global scalability and technical excellence.
