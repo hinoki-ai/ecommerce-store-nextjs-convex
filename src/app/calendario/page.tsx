@@ -52,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Use static data for build time
   const events = staticEvents;
   const seo = {
-    metaTitle: 'Calendario de Eventos - Aramac Store',
+                metaTitle: 'Calendario de Eventos - ΛRΛMΛC Store',
     metaDescription: 'Calendario de eventos especiales, promociones y actividades en nuestra tienda.',
     keywords: ['calendario', 'eventos', 'promociones', 'chile', 'tienda']
   };

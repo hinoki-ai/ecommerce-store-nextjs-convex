@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔍 ARAMAC Store - Comprehensive Deployment Validation"
+echo "🔍 ΛRΛMΛC Store - Comprehensive Deployment Validation"
 echo "============================================="
 
 # Colors for output

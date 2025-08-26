@@ -1,4 +1,4 @@
-# Aramac Branfing Color Tokenization System
+# Aramac Branding Color Tokenization System
 
 A comprehensive, enterprise-grade color system designed for modern e-commerce platforms. This system provides a complete color tokenization solution with semantic naming, accessibility compliance, and seamless integration with design tools and development workflows.
 

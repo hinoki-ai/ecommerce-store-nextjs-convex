@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Turbopack configuration
-  turbopack: {
-    root: process.cwd(),
-  },
+  // Development configuration
+  ...(process.env.NODE_ENV === 'development' && {
+    // Force port 3000 for development
+    port: 3000,
+  }),
 
   // Production optimizations
   poweredByHeader: false,

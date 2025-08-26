@@ -245,7 +245,7 @@ self.addEventListener('push', (event) => {
   }
   
   const options = {
-    title: data.title || 'Tienda ARAMAC',
+    title: data.title || 'Tienda ΛRΛMΛC',
     body: data.body || 'Tienes una nueva notificación',
     icon: '/icons/icon-192x192.png',
     badge: '/icons/badge-72x72.png',

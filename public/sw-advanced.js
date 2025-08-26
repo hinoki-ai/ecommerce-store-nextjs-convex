@@ -1,4 +1,4 @@
-// Advanced Service Worker for Aramac E-commerce Store
+// Advanced Service Worker for ΛRΛMΛC E-commerce Store
 // Provides intelligent caching, background sync, and performance optimizations
 
 const CACHE_VERSION = 'aramac-v2.1.0'

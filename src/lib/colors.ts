@@ -1,13 +1,13 @@
 /**
- * Aramac Branfing Color Token System
+ * ΛRΛMΛC Branding Color Token System
  * Comprehensive design system with semantic color tokens
  * Supports both light and dark modes with proper contrast ratios
  * Using OKLCH color space for better color manipulation and accessibility
  */
 
-// Base color tokens - Aramac Branfing palette
+// Base color tokens - ΛRΛMΛC Branding palette
 export const colorTokens = {
-  // Light mode color palette - Aramac Branfing
+  // Light mode color palette - ΛRΛMΛC Branding
   light: {
     // Base system colors
     background: 'oklch(1 0 0)',
@@ -21,7 +21,7 @@ export const colorTokens = {
     sheet: 'oklch(1 0 0)',
     'sheet-foreground': 'oklch(0.145 0 0)',
 
-    // Primary brand colors - Aramac Branfing brand colors
+    // Primary brand colors - ΛRΛMΛC Branding brand colors
     primary: 'oklch(0.55 0.15 240)',
     'primary-foreground': 'oklch(0.99 0 0)',
     'primary-hover': 'oklch(0.6 0.15 240)',

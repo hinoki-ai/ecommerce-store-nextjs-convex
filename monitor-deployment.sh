@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 ARAMAC Store - Production Deployment Monitor"
+echo "🚀 ΛRΛMΛC Store - Production Deployment Monitor"
 echo "=============================================="
 
 # Colors

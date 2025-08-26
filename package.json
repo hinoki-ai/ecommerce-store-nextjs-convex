@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "npx prisma generate && SKIP_ENV_VALIDATION=true next build",
     "start": "npm run validate:env && next start",
     "start:standalone": "node .next/standalone/server.js",

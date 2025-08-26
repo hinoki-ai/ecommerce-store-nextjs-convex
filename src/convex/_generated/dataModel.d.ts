@@ -6,6 +6,9 @@ export interface Doc {
   _creationTime: number;
 }
 
+// Mock Id type for Convex
+export type Id<T extends string = string> = string & { __tableName: T };
+
 export interface Product extends Doc {
   id: string;
   name: string;
@@ -41,18 +44,35 @@ export interface User extends Doc {
 
 export interface Cart extends Doc {
   id: string;
-  userId: string;
+  userId?: string;
+  sessionId?: string;
   items: CartItem[];
-  total: number;
-  currency: string;
+  pricing: {
+    subtotal: { amount: number; currency: string };
+    tax: { amount: number; currency: string };
+    total: { amount: number; currency: string };
+    currency: string;
+  };
+  audit: {
+    createdAt: number;
+    updatedAt: number;
+  };
 }
 
 export interface CartItem {
   id: string;
-  productId: string;
+  productId: Id<"products">;
   quantity: number;
-  price: number;
-  product: Product;
+  price: {
+    amount: number;
+    currency: string;
+  };
+  addedAt: number;
+  variantSelections?: Record<string, string>;
+  metadata?: {
+    categoryId?: string;
+    tags?: string[];
+  };
 }
 
 export interface Order extends Doc {

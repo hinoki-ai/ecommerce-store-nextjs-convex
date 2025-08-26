@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useQuery } from "convex/react"
+import { useLanguage } from "@/hooks/useLanguage"
 
 // Force dynamic rendering to prevent build-time issues
 export const dynamic = 'force-dynamic'
@@ -69,6 +70,7 @@ interface CheckoutFormData {
 
 export default function CheckoutPage() {
   const router = useRouter()
+  const { t } = useTranslation()
   // const { userId, isSignedIn } = useAuth()
   const userId = "mock-user-id"
   const isSignedIn = true
@@ -212,11 +214,11 @@ export default function CheckoutPage() {
       // Redirect to success page with order details
       router.push(`/checkout/success?order=${order.orderNumber}`)
 
-      toast.success("Order placed successfully!")
+      toast.success(t("checkout.orderPlaced"))
 
     } catch (error) {
       console.error("Error placing order:", error)
-      toast.error("Failed to place order. Please try again.")
+      toast.error(t("checkout.paymentError"))
     } finally {
       setIsProcessing(false)
     }
@@ -251,12 +253,12 @@ export default function CheckoutPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🛒</div>
-            <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
+            <h1 className="text-2xl font-bold mb-4">{t("checkout.cartEmpty")}</h1>
             <p className="text-muted-foreground mb-8">
-              Add some items to your cart before checking out
+              {t("errors.inventory")}
             </p>
             <Button asChild>
-              <Link href="/products">Continue Shopping</Link>
+              <Link href="/products">{t("checkout.continueShopping")}</Link>
             </Button>
           </div>
         </div>
@@ -265,9 +267,9 @@ export default function CheckoutPage() {
   }
 
   const steps = [
-    { id: 1, name: "Shipping", icon: Truck },
-    { id: 2, name: "Payment", icon: CreditCard },
-    { id: 3, name: "Review", icon: Check }
+    { id: 1, name: t("checkout.shipping"), icon: Truck },
+    { id: 2, name: t("checkout.paymentMethod"), icon: CreditCard },
+    { id: 3, name: t("common.confirm"), icon: Check }
   ]
 
   return (
@@ -279,13 +281,13 @@ export default function CheckoutPage() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/cart">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Cart
+                {t("common.back")}
               </Link>
             </Button>
             <div>
-              <h1 className="text-3xl font-bold">Checkout</h1>
+              <h1 className="text-3xl font-bold">{t("checkout.title")}</h1>
               <p className="text-muted-foreground">
-                Complete your order
+                {t("checkout.placeOrder")}
               </p>
             </div>
           </div>
@@ -297,9 +299,9 @@ export default function CheckoutPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="text-center space-y-4">
-                  <h3 className="text-lg font-semibold">Checkout Options</h3>
+                  <h3 className="text-lg font-semibold">{t("checkout.title")}</h3>
                   <p className="text-muted-foreground">
-                    Choose how you'd like to complete your purchase
+                    {t("checkout.signIn")}
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
@@ -310,13 +312,13 @@ export default function CheckoutPage() {
                         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                           <User className="h-6 w-6 text-primary" />
                         </div>
-                        <h4 className="font-medium">Sign In</h4>
+                        <h4 className="font-medium">{t("nav.signIn")}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Access your saved information and track orders
+                          {t("checkout.signIn")}
                         </p>
                         <SignInButton mode="modal">
                           <Button variant={!isGuestCheckout ? "default" : "outline"} className="w-full">
-                            Sign In
+                            {t("nav.signIn")}
                           </Button>
                         </SignInButton>
                       </div>
@@ -329,16 +331,16 @@ export default function CheckoutPage() {
                         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                           <ShoppingBag className="h-6 w-6 text-primary" />
                         </div>
-                        <h4 className="font-medium">Guest Checkout</h4>
+                        <h4 className="font-medium">{t("checkout.guestCheckout")}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Quick checkout without creating an account
+                          {t("checkout.guestCheckout")}
                         </p>
                         <Button
                           variant={isGuestCheckout ? "default" : "outline"}
                           onClick={() => setIsGuestCheckout(true)}
                           className="w-full"
                         >
-                          Continue as Guest
+                          {t("checkout.continueShopping")}
                         </Button>
                       </div>
                     </div>
@@ -346,7 +348,7 @@ export default function CheckoutPage() {
 
                   <div className="mt-6 pt-4 border-t">
                     <p className="text-sm text-muted-foreground">
-                      Don't have an account? <SignUpButton mode="modal" className="text-primary hover:underline">Create one</SignUpButton> for a faster experience next time.
+                      {t("checkout.createAccount")} <SignUpButton mode="modal" className="text-primary hover:underline">{t("checkout.createAccount")}</SignUpButton> {t("checkout.signIn")}
                     </p>
                   </div>
                 </div>
@@ -406,7 +408,7 @@ export default function CheckoutPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <MapPin className="h-5 w-5" />
-                    Shipping Information
+                    {t("checkout.shippingAddress")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -421,107 +423,107 @@ export default function CheckoutPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name *</Label>
+                      <Label htmlFor="firstName">{t("checkout.firstName")} *</Label>
                       <Input
                         id="firstName"
                         value={formData.firstName}
                         onChange={(e) => handleInputChange("firstName", e.target.value)}
-                        placeholder="John"
+                        placeholder={t("checkout.firstName")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name *</Label>
+                      <Label htmlFor="lastName">{t("checkout.lastName")} *</Label>
                       <Input
                         id="lastName"
                         value={formData.lastName}
                         onChange={(e) => handleInputChange("lastName", e.target.value)}
-                        placeholder="Doe"
+                        placeholder={t("checkout.lastName")}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="email">{t("checkout.email")} *</Label>
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder="john@example.com"
+                      placeholder={t("checkout.email")}
                     />
                     {isGuestCheckout && (
                       <p className="text-xs text-muted-foreground">
-                        We'll send order updates to this email
+                        {t("checkout.email")}
                       </p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number *</Label>
+                    <Label htmlFor="phone">{t("checkout.phone")} *</Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
-                      placeholder="(555) 123-4567"
+                      placeholder={t("checkout.phone")}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="address">Street Address *</Label>
+                    <Label htmlFor="address">{t("checkout.address")} *</Label>
                     <Input
                       id="address"
                       value={formData.address}
                       onChange={(e) => handleInputChange("address", e.target.value)}
-                      placeholder="123 Main Street"
+                      placeholder={t("checkout.address")}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="apartment">Apartment, suite, etc. (optional)</Label>
+                    <Label htmlFor="apartment">{t("checkout.apartment")}</Label>
                     <Input
                       id="apartment"
                       value={formData.apartment}
                       onChange={(e) => handleInputChange("apartment", e.target.value)}
-                      placeholder="Apt 4B"
+                      placeholder={t("checkout.apartment")}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="city">City *</Label>
+                      <Label htmlFor="city">{t("checkout.city")} *</Label>
                       <Input
                         id="city"
                         value={formData.city}
                         onChange={(e) => handleInputChange("city", e.target.value)}
-                        placeholder="New York"
+                        placeholder={t("checkout.city")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="state">State *</Label>
+                      <Label htmlFor="state">{t("checkout.state")} *</Label>
                       <Input
                         id="state"
                         value={formData.state}
                         onChange={(e) => handleInputChange("state", e.target.value)}
-                        placeholder="NY"
+                        placeholder={t("checkout.state")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="zipCode">ZIP Code *</Label>
+                      <Label htmlFor="zipCode">{t("checkout.zipCode")} *</Label>
                       <Input
                         id="zipCode"
                         value={formData.zipCode}
                         onChange={(e) => handleInputChange("zipCode", e.target.value)}
-                        placeholder="10001"
+                        placeholder={t("checkout.zipCode")}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="country">Country *</Label>
+                    <Label htmlFor="country">{t("checkout.country")} *</Label>
                     <Select value={formData.country} onValueChange={(value) => handleInputChange("country", value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select country" />
+                        <SelectValue placeholder={t("checkout.country")} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="US">United States</SelectItem>
