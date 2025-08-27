@@ -36,13 +36,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Initialize the i18n system
-  await initializeChunkedI18n();
+  // Note: i18n initialization moved to client-side to prevent build-time issues
+  // (was causing 13x repeated initializations during SSG)
 
   return (
     <html suppressHydrationWarning>
