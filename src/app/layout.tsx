@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -9,19 +8,15 @@ import { LanguageProvider } from "@/components/LanguageProvider";
 import { LanguageAttributes } from "@/components/LanguageAttributes";
 import { CurrencyProvider } from "@/components/CurrencyProvider";
 import ConvexClientProvider from "@/components/ConvexClientProvider";
-import { initializeChunkedI18n } from "@/lib/i18n-chunked";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
+// Using system fonts to avoid build issues with Google Fonts
+const geistSans = {
+  variable: "--font-geist-sans"
+};
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
+const geistMono = {
+  variable: "--font-geist-mono"
+};
 
 export const metadata: Metadata = {
   title: "ΛRΛMΛC Store - AI-Powered E-Commerce SaaS Platform",

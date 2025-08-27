@@ -113,8 +113,8 @@ export class LanguageChunkRegistry {
 
   private async loadChunkModule(languageCode: string): Promise<LanguageProvider> {
     try {
-      // Dynamic import of language chunk
-      const chunkModule = await import(`../chunks/${languageCode}.chunk`);
+      // Dynamic import of language chunk with correct file extension
+      const chunkModule = await import(`../chunks/${languageCode}.chunk.ts`);
       return chunkModule.default as LanguageProvider;
     } catch (error) {
       console.error(`Failed to load language chunk: ${languageCode}`, error);
