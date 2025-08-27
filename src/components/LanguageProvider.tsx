@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { LanguageProviderFactory, LanguageChunk, LanguageContextType } from '@/lib/providers/language-provider';
+import { initializeChunkedI18n } from '@/lib/i18n-chunked';
 
 // Enhanced context type with error handling
 interface EnhancedLanguageContextType extends LanguageContextType {
@@ -94,6 +95,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       setError(null);
 
       try {
+        // First, initialize the i18n system to register supported languages
+        await initializeChunkedI18n();
+
         // Check localStorage first
         const savedLanguage = localStorage.getItem('preferred-language');
         if (savedLanguage && factory.getSupportedLanguages().some(lang => lang.code === savedLanguage)) {
