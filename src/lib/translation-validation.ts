@@ -3,7 +3,7 @@
  * Comprehensive tools for ensuring translation quality and completeness
  */
 
-import { supportedLanguageChunks } from './i18n-chunked';
+import { supportedLanguageChunks } from './divine-parsing-oracle';
 import { lazyLoadLanguageProvider } from './lazy-language-loader';
 
 export interface ValidationResult {

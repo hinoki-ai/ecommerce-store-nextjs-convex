@@ -4,7 +4,7 @@
  */
 
 import { generateTranslationQualityReport, exportReport, ValidationResult } from './translation-validation';
-import { supportedLanguageChunks } from './i18n-chunked';
+import { supportedLanguageChunks } from './divine-parsing-oracle';
 import { lazyLoadLanguageProvider } from './lazy-language-loader';
 
 export interface TranslationKeyInfo {

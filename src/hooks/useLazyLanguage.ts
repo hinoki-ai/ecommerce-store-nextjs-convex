@@ -15,7 +15,7 @@ import {
   LanguagePerformanceMonitor,
   useLazyLanguage as useLazyLanguageLoader
 } from '@/lib/lazy-language-loader';
-import { supportedLanguageChunks } from '@/lib/i18n-chunked';
+import { supportedLanguageChunks } from '@/lib/divine-parsing-oracle';
 
 interface UseLazyLanguageOptions {
   autoPreload?: boolean;

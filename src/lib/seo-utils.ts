@@ -3,7 +3,7 @@
  * Comprehensive SEO tools for international e-commerce
  */
 
-import { supportedLanguageChunks } from './i18n-chunked';
+import { supportedLanguageChunks } from './divine-parsing-oracle';
 
 /**
  * Generate hreflang tags for all supported languages

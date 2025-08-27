@@ -1,11 +1,11 @@
 /**
  * Language Hook - React Integration for Chunked Language Provider
- * Example of how to use the chunked i18n system in React components
+ * Example of how to use the divine parsing oracle system in React components
  */
 'use client'
 
 import { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from '../lib/i18n-chunked';
+import { TranslationService } from '../lib/services/translation-service';
 import { LanguageLoader } from '../lib/loaders/language-loader';
 
 interface UseLanguageOptions {
@@ -50,7 +50,7 @@ export const useLanguage = (options: UseLanguageOptions = {}): UseLanguageReturn
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  const { t, batchT, preload, getAvailableLanguages } = useTranslation(currentLanguage);
+  const translationService = TranslationService.getInstance();
   const loader = LanguageLoader.getInstance();
 
   // Load language on mount or language change
@@ -99,8 +99,8 @@ export const useLanguage = (options: UseLanguageOptions = {}): UseLanguageReturn
   }, [currentLanguage, loadLanguage]);
 
   const preloadTranslations = useCallback(async (keys: string[]) => {
-    await preload(keys);
-  }, [preload]);
+    await translationService.preloadTranslations(currentLanguage, keys);
+  }, [translationService, currentLanguage]);
 
   const getPerformanceStats = useCallback(() => {
     return loader.getPerformanceStats();
@@ -109,11 +109,11 @@ export const useLanguage = (options: UseLanguageOptions = {}): UseLanguageReturn
   return {
     // Translation functions
     t: async (key: string, params?: Record<string, string | number>) => {
-      const response = await t(key, params);
+      const response = await translationService.translate({ key, language: currentLanguage, params });
       return response.text;
     },
     batchT: async (keys: string[]) => {
-      const response = await batchT(keys);
+      const response = await translationService.batchTranslate({ keys, language: currentLanguage });
       const result: Record<string, string> = {};
       keys.forEach(key => {
         result[key] = response.translations[key]?.text || key;
@@ -124,8 +124,8 @@ export const useLanguage = (options: UseLanguageOptions = {}): UseLanguageReturn
     // Language management
     currentLanguage,
     setLanguage,
-    availableLanguages: getAvailableLanguages(),
-    supportedLanguages: getAvailableLanguages(),
+    availableLanguages: translationService.getAvailableLanguages(),
+    supportedLanguages: translationService.getAvailableLanguages(),
 
     // Loading states
     isLoading,
@@ -162,30 +162,66 @@ export const useViewportLanguageLoader = (language: string, options?: UseLanguag
 };
 
 /**
- * Hook for language detection based on browser settings
+ * Enhanced hook for language detection based on browser settings
+ * Includes region-specific logic for better Spanish detection
  */
 export const useBrowserLanguage = () => {
   const [browserLanguage, setBrowserLanguage] = useState<string>('es');
   const [detectedLanguages, setDetectedLanguages] = useState<string[]>([]);
+  const [confidence, setConfidence] = useState<number>(0);
+  const [regionInfo, setRegionInfo] = useState<{region?: string, isSpanishSpeaking: boolean}>({});
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const browserLangs = navigator.languages || [navigator.language];
       setDetectedLanguages(browserLangs);
 
-      // Find the first supported language
-      const supportedCodes = ['es', 'en', 'de', 'fr', 'ar', 'ru'];
-      const detected = browserLangs.find(lang =>
-        supportedCodes.includes(lang.split('-')[0])
-      );
+      // Enhanced Spanish-speaking region detection
+      const spanishRegions = ['ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 'EC', 'GT', 'CU', 'BO', 'DO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 'UY'];
 
-      setBrowserLanguage(detected ? detected.split('-')[0] : 'es');
+      let bestMatch = 'es'; // Default to Spanish
+      let highestConfidence = 0;
+      let region = '';
+
+      // Analyze each language preference
+      for (const lang of browserLangs) {
+        const [primaryCode, regionCode] = lang.split('-');
+        const quality = 1 - (browserLangs.indexOf(lang) * 0.1); // Decreasing quality by position
+
+        if (primaryCode === 'es') {
+          let spanishConfidence = quality;
+
+          // Boost confidence for Spanish-speaking regions
+          if (regionCode && spanishRegions.includes(regionCode.toUpperCase())) {
+            spanishConfidence *= 1.5;
+            region = regionCode;
+          }
+
+          if (spanishConfidence > highestConfidence) {
+            highestConfidence = spanishConfidence;
+            bestMatch = 'es';
+          }
+        } else if (primaryCode === 'en' && highestConfidence < quality) {
+          // English is a fallback but with lower priority
+          highestConfidence = quality * 0.8;
+          bestMatch = 'en';
+        }
+      }
+
+      setBrowserLanguage(bestMatch);
+      setConfidence(highestConfidence);
+      setRegionInfo({
+        region,
+        isSpanishSpeaking: spanishRegions.includes(region.toUpperCase())
+      });
     }
   }, []);
 
   return {
     browserLanguage,
     detectedLanguages,
+    confidence,
+    regionInfo,
     supportedLanguages: ['es', 'en', 'de', 'fr', 'ar', 'ru']
   };
 };

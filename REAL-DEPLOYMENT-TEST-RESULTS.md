@@ -65,7 +65,7 @@
 ### What We Fixed (Successfully)
 
 **1. ✅ I18N Build Issues - RESOLVED**
-- **Before**: `await initializeChunkedI18n()` in layout.tsx caused repeated builds
+- **Before**: `await initializeChunkedI18n()` in layout.tsx caused repeated builds (HISTORICAL - now uses `initializeDivineParsingOracle()`)
 - **After**: Client-side initialization only
 - **Result**: Clean build, no initialization spam
 

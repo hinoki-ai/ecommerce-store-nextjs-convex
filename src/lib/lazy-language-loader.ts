@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { LanguageChunk, supportedLanguageChunks } from './i18n-chunked';
+import { LanguageChunk, supportedLanguageChunks } from './divine-parsing-oracle';
 
 // Cache for loaded language chunks
 interface CacheEntry {

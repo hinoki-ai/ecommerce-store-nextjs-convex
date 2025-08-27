@@ -1,5 +1,5 @@
 /**
- * Comprehensive TypeScript interfaces for i18n system
+ * Comprehensive TypeScript interfaces for Divine Parsing Oracle system
  * Provides type-safe translation keys and autoloop multi-completion
  */
 

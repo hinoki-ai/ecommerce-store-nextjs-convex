@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { LanguageProviderFactory, LanguageChunk, LanguageContextType } from '@/lib/providers/language-provider';
-import { initializeChunkedI18n } from '@/lib/i18n-chunked';
+import { initializeDivineParsingOracle } from '@/lib/divine-parsing-oracle';
 
 // Enhanced context type with error handling
 interface EnhancedLanguageContextType extends LanguageContextType {
@@ -77,7 +77,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLoadingState(LoadingState.LOADING);
 
     try {
-      await factory.initializeCriticalChunks();
+      await factory.preloadCriticalChunks();
       setLoadingState(LoadingState.SUCCESS);
     } catch (error) {
       console.error('Retry failed:', error);
@@ -95,22 +95,34 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       setError(null);
 
       try {
-        // First, initialize the i18n system to register supported languages
-        await initializeChunkedI18n();
+        // First, initialize the divine parsing oracle system to register supported languages
+        await initializeDivineParsingOracle();
+
+        const supportedLanguages = factory.getSupportedLanguages();
+        console.log('Available languages after init:', supportedLanguages.map(l => l.code));
+
+        if (supportedLanguages.length === 0) {
+          throw new Error('No supported languages found after initialization');
+        }
 
         // Check localStorage first
         const savedLanguage = localStorage.getItem('preferred-language');
-        if (savedLanguage && factory.getSupportedLanguages().some(lang => lang.code === savedLanguage)) {
+        if (savedLanguage && supportedLanguages.some(lang => lang.code === savedLanguage)) {
           await setLanguage(savedLanguage);
         } else {
           // Check browser language
           const browserLang = navigator.language.split('-')[0];
-          const supportedLang = factory.getSupportedLanguages().find(lang => lang.code === browserLang);
+          const supportedLang = supportedLanguages.find(lang => lang.code === browserLang);
           if (supportedLang) {
             await setLanguage(supportedLang.code);
           } else {
-            // Fall back to default language
-            await setLanguage('es');
+            // Fall back to default language (just set it directly if setLanguage fails)
+            try {
+              await setLanguage('es');
+            } catch (langError) {
+              console.warn('Failed to set Spanish language, using direct fallback:', langError);
+              setCurrentLanguage('es');
+            }
           }
         }
 

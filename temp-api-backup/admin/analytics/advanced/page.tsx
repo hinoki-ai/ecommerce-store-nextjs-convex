@@ -461,7 +461,7 @@ export default function AdvancedAnalyticsPage() {
                     <span className="font-medium text-blue-900">Revenue Forecast</span>
                   </div>
                   <p className="text-sm text-blue-800">
-                    Based on current trends, next month's revenue is projected to reach 
+                    Based on current trends, next month&apos;s revenue is projected to reach 
                     <span className="font-semibold"> {formatAmount(920000)}</span> (+8.2% growth)
                   </p>
                 </div>

@@ -1,4 +1,8 @@
-# i18n Implementation Audit Report
+# i18n Implementation Audit Report (HISTORICAL)
+
+**Note**: This report contains historical references to the old i18n system.
+The system has since been renamed to "Divine Parsing Oracle System".
+See DIVINE-PARSING-ORACLE-RULES.md for current guidelines.
 
 Generated on: 2025-08-26T04:24:51.385Z
 

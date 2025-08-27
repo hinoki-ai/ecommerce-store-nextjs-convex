@@ -1,10 +1,10 @@
 /**
- * Internationalization Middleware
+ * Divine Parsing Oracle Middleware
  * Handles automatic language detection and URL routing
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { supportedLanguageChunks, defaultLanguage } from '@/lib/i18n-chunked';
+import { supportedLanguageChunks, defaultLanguage } from 'src/lib/divine-parsing-oracle';
 
 // Define public routes that don't need language prefix
 const publicRoutes = [
@@ -80,29 +80,54 @@ function extractLanguageFromPath(pathname: string): { lang: string; path: string
 }
 
 /**
- * Detect language from Accept-Language header
+ * Enhanced language detection from Accept-Language header
+ * Includes region-specific logic for Spanish-speaking countries
  */
 function detectLanguageFromHeader(acceptLanguage: string | null): string {
   if (!acceptLanguage) {
     return defaultLanguage;
   }
 
-  // Parse Accept-Language header
+  // Parse Accept-Language header with enhanced region detection
   const languages = acceptLanguage
     .split(',')
     .map(lang => {
       const [code, quality = '1'] = lang.trim().split(';q=');
+      const [primaryCode, regionCode] = code.split('-');
       return {
-        code: code.split('-')[0], // Get primary language code
-        quality: parseFloat(quality)
+        code: primaryCode,
+        region: regionCode,
+        quality: parseFloat(quality),
+        fullCode: code
       };
     })
     .sort((a, b) => b.quality - a.quality);
 
-  // Find first supported language
-  for (const { code } of languages) {
-    if (supportedLanguages.includes(code)) {
-      return code;
+  // Enhanced Spanish detection for Spanish-speaking regions
+  const spanishRegions = ['ES', 'MX', 'AR', 'CO', 'PE', 'VE', 'CL', 'EC', 'GT', 'CU', 'BO', 'DO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 'UY'];
+
+  // First pass: Check for Spanish with high priority regions
+  for (const lang of languages) {
+    if (lang.code === 'es') {
+      // If it's Spanish from a Spanish-speaking region, prioritize it
+      if (lang.region && spanishRegions.includes(lang.region.toUpperCase())) {
+        return 'es';
+      }
+      // If it's generic Spanish, still consider it but check others first
+      if (!lang.region) {
+        // Look for English with higher quality first
+        const englishLang = languages.find(l => l.code === 'en' && l.quality > lang.quality);
+        if (!englishLang) {
+          return 'es';
+        }
+      }
+    }
+  }
+
+  // Second pass: Find any supported language
+  for (const lang of languages) {
+    if (supportedLanguages.includes(lang.code)) {
+      return lang.code;
     }
   }
 
@@ -157,7 +182,7 @@ function createLanguageRedirect(
 /**
  * Main middleware function
  */
-export function i18nMiddleware(request: NextRequest): NextResponse | null {
+export function divineParsingOracleMiddleware(request: NextRequest): NextResponse | null {
   const { pathname } = request.nextUrl;
 
   // Skip middleware for public routes
@@ -263,20 +288,6 @@ export function generateHrefLangLinks(request: NextRequest, currentPath: string)
 }
 
 /**
- * Middleware configuration
+ * Note: This middleware is integrated into the main middleware.ts file
+ * The matcher configuration is handled by the main middleware
  */
-export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - manifest.json (PWA manifest)
-     * - robots.txt (robots file)
-     * - sitemap.xml (sitemap)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|robots.txt|sitemap.xml).*)',
-  ],
-};

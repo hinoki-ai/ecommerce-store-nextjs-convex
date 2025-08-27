@@ -57,6 +57,11 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  // Always call hooks at the top level, before any conditional returns
+  const { userId, isSignedIn } = useAuth()
+  const [sessionId, setSessionId] = useState<string>("")
+  const [cartId, setCartId] = useState<string | null>(null)
+
   // Check if we're in build mode or should skip auth
   const shouldSkipAuth = () => {
     if (process.env.NODE_ENV === 'production' && typeof window === 'undefined') {
@@ -86,10 +91,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       </CartErrorBoundary>
     )
   }
-
-  const { userId, isSignedIn } = useAuth()
-  const [sessionId, setSessionId] = useState<string>("")
-  const [cartId, setCartId] = useState<string | null>(null)
 
   // Generate session ID for guest users
   useEffect(() => {

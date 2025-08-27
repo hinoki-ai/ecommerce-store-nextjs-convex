@@ -378,7 +378,7 @@ export default function NewProductPage() {
                   <div className="text-center py-8 text-muted-foreground">
                     <ImageIcon className="h-12 w-12 mx-auto mb-4" />
                     <p>No images added yet</p>
-                    <p className="text-sm">Click "Add Image" to get started</p>
+                    <p className="text-sm">Click &quot;Add Image&quot; to get started</p>
                   </div>
                 )}
               </CardContent>

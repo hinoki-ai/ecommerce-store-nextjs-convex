@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **ΛRΛMΛC Store - AI-Powered E-Commerce SaaS Platform** - A Next.js 15 intelligent retail platform designed as a comprehensive SaaS solution with advanced AI-driven features, automated SEO optimization, and scalable multi-tenant architecture for modern e-commerce businesses.
 
 **Core Technologies:**
+
 - **Framework:** Next.js 15 with App Router and Turbopack
 - **Language:** TypeScript with strict type checking
 - **Database:** Dual database system - Convex for real-time data, SQLite/Prisma for SEO content
@@ -18,6 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Core Development
+
 ```bash
 # Start development server with Turbopack (faster compilation)
 npm run dev
@@ -36,6 +38,7 @@ npm run lint
 ```
 
 ### Database Operations
+
 ```bash
 # Prisma (SEO content database)
 npx prisma generate           # Generate Prisma client after schema changes
@@ -49,12 +52,14 @@ npx convex codegen           # Generate TypeScript types from schema
 ```
 
 ### Environment Validation
+
 ```bash
 # Environment validation (runs automatically on build/start)
 npm run validate:env         # Validate required environment variables
 ```
 
 ### AI SEO Operations
+
 ```bash
 # Access SEO dashboard for AI operations
 # Navigate to: http://localhost:3000/admin/seo-dashboard
@@ -72,9 +77,11 @@ npm run validate:env         # Validate required environment variables
 ## High-Level Architecture
 
 ### Dual Database Architecture
+
 The project uses two databases for optimal performance:
 
 **Convex Database (`convex/schema.ts`)**
+
 - Real-time e-commerce operations (products, orders, carts, users)
 - Comprehensive user management with Clerk integration and security features
 - Advanced features: wishlist management, reviews, notifications, promotions
@@ -85,13 +92,15 @@ The project uses two databases for optimal performance:
 - Used for dynamic content and user-facing operations
 
 **Prisma/SQLite Database (`prisma/schema.prisma`)**
+
 - SEO-focused content management (blogs, collections, SEO logs)
 - AI-generated content storage and optimization
 - Static content that benefits from SQL relationships
 - Used for content generation and SEO analytics
 
 ### Domain-Driven Design Structure
-```
+
+```bash
 src/
 ├── domain/                    # Business logic and entities
 │   ├── entities/              # Core business entities (Product, Category, Order, etc.)
@@ -108,6 +117,7 @@ src/
 ```
 
 ### AI SEO Workflow Architecture
+
 The project implements a sophisticated AI-driven SEO system:
 
 1. **Product Optimization Pipeline** (`src/lib/ai-seo.ts`)
@@ -129,8 +139,10 @@ The project implements a sophisticated AI-driven SEO system:
    - Dynamic sitemap generation
 
 ### Multi-Language Support
-Implements **unified chunked i18n system** for optimal performance:
-- **Primary System**: `src/lib/i18n-chunked.ts` (ONLY system allowed)
+
+Implements **unified divine parsing oracle system** for optimal performance:
+
+- **Primary System**: `src/lib/divine-parsing-oracle.ts` (ONLY divine parsing oracle system allowed)
 - **Languages**: ES (primary) → EN (secondary) → FR, DE, RU, AR
 - **Architecture**: Chunked loading (`src/lib/chunks/`) with provider pattern
 - **Spanish-first**: Design for rural Chilean audience
@@ -139,6 +151,7 @@ Implements **unified chunked i18n system** for optimal performance:
 - **Rules**: See `I18N-RULES.md` for strict guidelines
 
 ### Real-Time Features
+
 - Shopping cart synchronization via Convex
 - Live inventory updates and stock tracking
 - Real-time order tracking and status updates
@@ -151,7 +164,9 @@ Implements **unified chunked i18n system** for optimal performance:
 ## Key Development Patterns
 
 ### API Route Structure
+
 All API routes follow consistent error handling and validation patterns:
+
 ```typescript
 export async function POST(request: Request) {
   try {
@@ -167,6 +182,7 @@ export async function POST(request: Request) {
 ```
 
 ### AI Service Integration
+
 AI services are centralized in `src/lib/ai-seo.ts` with proper error handling:
 
 - OpenAI GPT-4 integration for content optimization
@@ -182,6 +198,7 @@ AI services are centralized in `src/lib/ai-seo.ts` with proper error handling:
 - Error boundaries for graceful failure handling
 
 ### Database Access Patterns
+
 **Convex Queries/Mutations:**
 
 - Real-time queries for dynamic content (products, orders, carts)
@@ -227,6 +244,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ## SEO-Specific Features
 
 ### Automated SEO Dashboard
+
 Access comprehensive SEO management at `/admin/seo-dashboard`:
 
 - AI product optimization interface

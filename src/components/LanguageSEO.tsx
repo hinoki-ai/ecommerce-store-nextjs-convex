@@ -1,7 +1,7 @@
 "use client"
 
 import { useLanguage } from './LanguageProvider';
-import { supportedLanguageChunks } from '@/lib/i18n-chunked';
+import { supportedLanguageChunks } from '@/lib/divine-parsing-oracle';
 import Head from 'next/head';
 
 interface LanguageSEOProps {

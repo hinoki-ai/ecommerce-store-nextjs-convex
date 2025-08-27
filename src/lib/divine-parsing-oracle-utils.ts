@@ -1,15 +1,45 @@
 /**
- * i18n Utility Functions
- * Helper functions for easier translation usage throughout the application
+ * Divine Parsing Oracle Utility Functions
+ * Helper functions for easier divine parsing oracle usage throughout the application
  */
 
-import { useLanguage } from '../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 import { LanguageProviderFactory } from './providers/language-provider';
+
+/**
+ * Unified Translation Hook
+ * Provides both simple and advanced translation interfaces for backward compatibility
+ */
+export const useUnifiedTranslation = () => {
+  const { t: simpleTranslate } = useLanguage();
+
+  // Advanced translation function that supports nested keys
+  const advancedTranslate = async (key: string) => {
+    return (subKey: string) => {
+      const fullKey = `${key}.${subKey}`;
+      return simpleTranslate(fullKey);
+    };
+  };
+
+  // Simple translation function for backward compatibility
+  const simpleT = (key: string) => {
+    return simpleTranslate(key);
+  };
+
+  return {
+    // Advanced interface (supports nested keys)
+    t: advancedTranslate,
+    // Simple interface (backward compatible)
+    simpleT,
+    // Direct access to simple translate for components that need it
+    translate: simpleTranslate
+  };
+};
 
 /**
  * Hook for getting translated text with optional parameters
  */
-export const useTranslation = (language?: string) => {
+export const useTranslation = () => {
   const { t, supportedLanguages } = useLanguage();
 
   const translate = async (key: string, params?: Record<string, string | number>): Promise<{ text: string }> => {
@@ -23,14 +53,6 @@ export const useTranslation = (language?: string) => {
     }
 
     return { text: translatedText };
-  };
-
-  const batchTranslate = async (keys: string[]): Promise<{ translations: Record<string, { text: string }> }> => {
-    const translations: Record<string, { text: string }> = {};
-    for (const key of keys) {
-      translations[key] = await translate(key);
-    }
-    return { translations };
   };
 
   const simpleBatchTranslate = async (keys: string[]): Promise<Record<string, string>> => {
@@ -51,11 +73,12 @@ export const useTranslation = (language?: string) => {
 
   const getAvailableLanguages = () => {
     return [
-      { code: 'es', name: 'Español', flag: '🇨🇱' },
+      { code: 'es', name: 'Español', flag: '🇪🇸' },
       { code: 'en', name: 'English', flag: '🇺🇸' },
       { code: 'fr', name: 'Français', flag: '🇫🇷' },
       { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-      { code: 'ru', name: 'Русский', flag: '🇷🇺' }
+      { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+      { code: 'ar', name: 'العربية', flag: '🇸🇦', direction: 'rtl' }
     ];
   };
 
@@ -83,7 +106,7 @@ export const useBatchTranslation = () => {
     return translations;
   };
 
-  return batchTranslate;
+  return { batchTranslate };
 };
 
 /**
@@ -103,7 +126,7 @@ export const useAvailableLanguages = () => {
 };
 
 /**
- * Utility function to format currency with i18n support
+ * Utility function to format currency with divine parsing oracle support
  */
 export const formatCurrency = (amount: number, currency: string = 'CLP', language: string = 'es'): string => {
   try {
@@ -113,7 +136,7 @@ export const formatCurrency = (amount: number, currency: string = 'CLP', languag
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
-  } catch (error) {
+  } catch {
     // Fallback to simple formatting
     const symbol = currency === 'CLP' ? '$' : '$';
     return `${symbol}${amount.toLocaleString()}`;
@@ -121,7 +144,7 @@ export const formatCurrency = (amount: number, currency: string = 'CLP', languag
 };
 
 /**
- * Utility function to format date with i18n support
+ * Utility function to format date with divine parsing oracle support
  */
 export const formatDate = (date: Date | string, language: string = 'es'): string => {
   try {
@@ -131,7 +154,7 @@ export const formatDate = (date: Date | string, language: string = 'es'): string
       month: 'long',
       day: 'numeric',
     }).format(dateObj);
-  } catch (error) {
+  } catch {
     // Fallback to simple formatting
     const dateObj = typeof date === 'string' ? new Date(date) : date;
     return dateObj.toLocaleDateString();
@@ -160,7 +183,7 @@ export const formatRelativeTime = (date: Date | string, language: string = 'es')
     } else {
       return formatDate(dateObj, language);
     }
-  } catch (error) {
+  } catch {
     // Fallback to simple date formatting
     const dateObj = typeof date === 'string' ? new Date(date) : date;
     return dateObj.toLocaleDateString();
@@ -173,7 +196,7 @@ export const formatRelativeTime = (date: Date | string, language: string = 'es')
 export const getMonthNames = (language: string = 'es'): string[] => {
   const factory = LanguageProviderFactory.getInstance();
   const provider = factory.getCachedProvider(language);
-  if (provider) {
+  if (provider && provider.translations.date && typeof provider.translations.date === 'object' && 'months' in provider.translations.date) {
     return provider.translations.date.months as string[];
   }
   // Fallback
@@ -188,7 +211,7 @@ export const getMonthNames = (language: string = 'es'): string[] => {
 export const getDayNames = (language: string = 'es'): string[] => {
   const factory = LanguageProviderFactory.getInstance();
   const provider = factory.getCachedProvider(language);
-  if (provider) {
+  if (provider && provider.translations.date && typeof provider.translations.date === 'object' && 'days' in provider.translations.date) {
     return provider.translations.date.days as string[];
   }
   // Fallback

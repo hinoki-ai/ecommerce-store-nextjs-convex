@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { LanguageProviderFactory } from '../providers/language-provider';
 import { TranslationService } from '../services/translation-service';
 import { LanguageLoader } from '../loaders/language-loader';
-import { supportedLanguageChunks, defaultLanguage } from '../i18n-chunked';
+import { supportedLanguageChunks, defaultLanguage } from '../divine-parsing-oracle';
 import {
   CompleteTranslationSchema,
   UseTranslationReturn,
@@ -16,7 +16,7 @@ import {
   TranslateFunction,
   TranslationKey,
   NestedTranslationKey
-} from '../types/i18n.types';
+} from '../types/divine-parsing-oracle.types';
 
 export const useTranslation = (): UseTranslationReturn => {
   const [isLoading, setIsLoading] = useState(false);

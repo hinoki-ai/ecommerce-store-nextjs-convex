@@ -3,8 +3,8 @@
  *
  * ⚠️  WARNING: This is a legacy compatibility wrapper only
  * ⚠️  DO NOT MODIFY this file beyond delegation to chunked system
- * ⚠️  For new implementations, use './i18n-chunked' directly
- * ⚠️  See I18N-RULES.md for mandatory guidelines
+ * ⚠️  For new implementations, use './divine-parsing-oracle' directly
+ * ⚠️  See DIVINE-PARSING-ORACLE-RULES.md for mandatory guidelines
  *
  * This file provides backward compatibility while delegating to the
  * unified chunked language provider architecture.
@@ -14,7 +14,7 @@
 export {
   supportedLanguageChunks as supportedLanguages,
   defaultLanguage,
-  initializeChunkedI18n,
+  initializeDivineParsingOracle,
   getLocalizedUrl,
   generateHrefLangTags,
   translateContent,
@@ -28,7 +28,7 @@ export {
   type LanguageProvider,
   type TranslationRequest,
   type TranslationResponse
-} from './i18n-chunked';
+} from './divine-parsing-oracle';
 
 // Legacy interface for backward compatibility
 export interface LanguageContent {
@@ -75,9 +75,11 @@ export const languageConfigs = {
 
 /**
  * Initialize the i18n system (backward compatibility)
- * This now initializes the chunked system
+ * This now initializes the divine parsing oracle system
  */
 export const initializeI18n = async (): Promise<void> => {
-  console.warn('initializeI18n is deprecated. Use initializeChunkedI18n from i18n-chunked instead.');
-  return initializeChunkedI18n();
+  console.warn('initializeI18n is deprecated. Use initializeDivineParsingOracle from divine-parsing-oracle instead.');
+  // Import and call dynamically to avoid circular dependency
+  const { initializeDivineParsingOracle } = await import('./divine-parsing-oracle');
+  return initializeDivineParsingOracle();
 };

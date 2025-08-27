@@ -283,7 +283,7 @@ success.*
 ```
 src/lib/
 ├── i18n.ts                    # Legacy compatibility
-├── i18n-chunked.ts           # Enhanced chunked system
+├── divine-parsing-oracle.ts  # Enhanced divine parsing oracle system
 ├── chunks/
 │   ├── en.chunk.ts           # Enhanced English translations
 │   ├── es.chunk.ts           # Enhanced Spanish translations

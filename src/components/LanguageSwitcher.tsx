@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLanguageSwitcher, useCommonUITranslations } from '@/lib/hooks/i18n-hooks';
+import { useBrowserLanguage } from '@/hooks/useLanguage';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, Globe, Check } from 'lucide-react';
+import { ChevronDown, Globe, Check, ArrowRightLeft, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LanguageSwitcherProps {
@@ -33,7 +34,21 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 }) => {
   const { currentLanguage, supportedLanguages, setLanguage, isLoading } = useLanguageSwitcher();
   const common = useCommonUITranslations();
+  const { browserLanguage, confidence, regionInfo } = useBrowserLanguage();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Translation helper function
+  const t = (key: string, fallback?: string) => {
+    // Use the common translations first, then fallback to key
+    const commonKeys: Record<string, string> = {
+      currentLanguage: 'Current Language',
+      availableLanguages: 'Available Languages',
+      browserDefault: 'Browser',
+      browserSuggestion: 'Suggested for you',
+      region: 'Region'
+    };
+    return commonKeys[key] || fallback || key;
+  };
 
   const handleLanguageChange = async (languageCode: string) => {
     try {
@@ -148,13 +163,108 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" className="w-64">
         <DropdownMenuLabel className="flex items-center gap-2">
           <Globe className="h-4 w-4" />
           {common.language || 'Language'}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {supportedLanguages.map(renderLanguageOption)}
+
+        {/* Current language section */}
+        <div className="px-2 py-1.5">
+          <div className="text-xs font-medium text-muted-foreground mb-2">
+            {t('common.currentLanguage', 'Current Language')}:
+          </div>
+          {supportedLanguages
+            .filter(lang => lang.code === currentLanguage)
+            .map(lang => (
+              <div key={lang.code} className="flex items-center justify-between p-2 bg-accent/50 rounded">
+                <span className="flex items-center gap-2">
+                  {showFlags && <span className="text-base">{getFlagEmoji(lang.flag)}</span>}
+                  {showNames && <span className="font-medium">{lang.name}</span>}
+                </span>
+                <Check className="h-4 w-4 text-primary" />
+              </div>
+            ))}
+        </div>
+
+        <DropdownMenuSeparator />
+
+        {/* Available languages */}
+        <div className="px-2 py-1.5">
+          <div className="text-xs font-medium text-muted-foreground mb-2">
+            {t('common.availableLanguages', 'Available Languages')}:
+          </div>
+          <div className="space-y-1">
+            {supportedLanguages
+              .filter(lang => lang.code !== currentLanguage)
+              .map(lang => (
+                <div
+                  key={lang.code}
+                  onClick={() => handleLanguageChange(lang.code)}
+                  className={cn(
+                    'flex items-center justify-between p-2 rounded cursor-pointer hover:bg-accent',
+                    'transition-colors duration-150'
+                  )}
+                >
+                  <span className="flex items-center gap-2">
+                    {showFlags && <span className="text-base">{getFlagEmoji(lang.flag)}</span>}
+                    {showNames && <span>{lang.name}</span>}
+                  </span>
+                  {browserLanguage === lang.code && confidence > 0.5 && (
+                    <span className="ml-2 text-xs text-muted-foreground bg-secondary px-1.5 py-0.5 rounded">
+                      {t('common.browserDefault', 'Browser')}
+                    </span>
+                  )}
+                </div>
+              ))}
+          </div>
+        </div>
+
+        {/* Browser language suggestion */}
+        {browserLanguage && browserLanguage !== currentLanguage && confidence > 0.6 && (
+          <>
+            <DropdownMenuSeparator />
+            <div className="px-2 py-2">
+              <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                <ArrowRightLeft className="h-3 w-3" />
+                {t('common.browserSuggestion', 'Suggested for you')}:
+              </div>
+              <div
+                onClick={() => handleLanguageChange(browserLanguage)}
+                className="flex items-center justify-between p-2 rounded cursor-pointer hover:bg-accent/80 bg-accent/30 border border-dashed"
+              >
+                <span className="flex items-center gap-2">
+                  {(() => {
+                    const browserLangData = supportedLanguages.find(l => l.code === browserLanguage);
+                    return (
+                      <>
+                        {showFlags && browserLangData && <span className="text-base">{getFlagEmoji(browserLangData.flag)}</span>}
+                        {showNames && browserLangData && <span className="font-medium">{browserLangData.name}</span>}
+                      </>
+                    );
+                  })()}
+                </span>
+                <span className="text-xs text-muted-foreground bg-primary/10 text-primary px-1.5 py-0.5 rounded">
+                  {Math.round(confidence * 100)}%
+                </span>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Region info for Spanish */}
+        {currentLanguage === 'es' && regionInfo.region && regionInfo.isSpanishSpeaking && (
+          <>
+            <DropdownMenuSeparator />
+            <div className="px-2 py-1">
+              <div className="text-xs text-muted-foreground flex items-center gap-1">
+                <MapPin className="h-3 w-3" />
+                {t('common.region', 'Region')}: {regionInfo.region.toUpperCase()}
+              </div>
+            </div>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

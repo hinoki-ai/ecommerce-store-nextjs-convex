@@ -1,5 +1,5 @@
 /**
- * @fileoverview Next.js middleware for authentication, i18n, and security
+ * @fileoverview Next.js middleware for authentication, divine parsing oracle, and security
  * @description Production-ready middleware for AI-powered e-commerce platform
  * @author AI Agent Generated
  * @version 2.0.0
@@ -10,7 +10,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { i18nMiddleware } from './middleware-i18n'
+import { divineParsingOracleMiddleware } from './middleware-divine-parsing-oracle'
 
 /**
  * Protected routes requiring authentication
@@ -95,18 +95,18 @@ const securityHeaders = {
  * SEO: Automatic hreflang handling
  */
 function handleLanguageRouting(req: NextRequest) {
-  // Use the enhanced i18n middleware
-  const i18nResponse = i18nMiddleware(req)
+  // Use the enhanced divine parsing oracle middleware
+  const divineParsingOracleResponse = divineParsingOracleMiddleware(req)
 
-  if (i18nResponse) {
+  if (divineParsingOracleResponse) {
     // Add security headers to redirect responses
     Object.entries(securityHeaders).forEach(([key, value]) => {
-      i18nResponse.headers.set(key, value)
+      divineParsingOracleResponse.headers.set(key, value)
     })
-    return i18nResponse
+    return divineParsingOracleResponse
   }
 
-  // If no i18n redirect needed, continue with normal flow
+  // If no divine parsing oracle redirect needed, continue with normal flow
   return NextResponse.next()
 }
 
@@ -261,12 +261,12 @@ export default skipAuth
  * Middleware configuration
  * SECURITY: Comprehensive pattern matching for all routes
  * PERFORMANCE: Optimized regex patterns
+ * DIVINE PARSING ORACLE: Combined matcher for both divine parsing oracle and authentication
  */
 export const config = {
   matcher: [
-    // SECURITY: Skip Next.js internals and static files
-    // PERFORMANCE: Negative lookahead regex optimization
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Divine Parsing Oracle middleware pattern (language routing)
+    '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|robots.txt|sitemap.xml).*)',
     // SECURITY: Always match API routes for authentication
     '/(api|trpc)(.*)',
   ],

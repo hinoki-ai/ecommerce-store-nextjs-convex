@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { AlertTriangle, RefreshCw, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -70,10 +71,10 @@ export function ErrorState({
             )}
             {showHomeButton && (
               <Button variant="outline" asChild>
-                <a href="/">
+                <Link href="/">
                   <Home className="h-4 w-4 mr-2" />
                   Go Home
-                </a>
+                </Link>
               </Button>
             )}
           </div>
@@ -98,10 +99,10 @@ export function ErrorState({
         )}
         {showHomeButton && (
           <Button variant="outline" size="sm" asChild>
-            <a href="/">
+            <Link href="/">
               <Home className="h-4 w-4 mr-2" />
               Home
-            </a>
+            </Link>
           </Button>
         )}
       </div>
