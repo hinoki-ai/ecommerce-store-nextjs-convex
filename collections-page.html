@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - ΛRΛMΛC Store</title>
+    <meta name="description" content="Explore our curated collections at ΛRΛMΛC Store. Discover themed product collections designed for specific needs and occasions.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'selector'
+        }
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* Custom styles for ΛRΛMΛC Store */
+        :root {
+            --primary: oklch(0.55 0.15 240);
+            --primary-foreground: oklch(0.99 0 0);
+            --background: oklch(1 0 0);
+            --foreground: oklch(0.145 0 0);
+            --muted: oklch(0.97 0 0);
+            --muted-foreground: oklch(0.32 0 0);
+            --accent: oklch(0.97 0 0);
+            --accent-foreground: oklch(0.14 0 0);
+            --border: oklch(0.922 0 0);
+            --input: oklch(0.922 0 0);
+            --ring: oklch(0.708 0 0);
+            --card: oklch(1 0 0);
+            --card-foreground: oklch(0.145 0 0);
+        }
+
+        /* Navigation styles */
+        .nav-link {
+            transition: color 0.2s ease-in-out;
+        }
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            background-color: transparent;
+            color: var(--foreground);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent);
+        }
+
+        /* Logo styles */
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+            line-height: 1;
+            color: var(--foreground);
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            line-height: 1;
+            color: var(--muted-foreground);
+        }
+
+        /* Card styles */
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        /* Collection card styles */
+        .collection-card {
+            background: linear-gradient(135deg, var(--muted) 0%, var(--background) 100%);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .collection-gradient {
+            background: linear-gradient(135deg, oklch(from var(--primary) calc(l + 0.4) c h / 0.1) 0%, var(--accent) 100%);
+        }
+
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            height: 1.5rem;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .md\\:hidden {
+                display: none;
+            }
+            .md\\:flex {
+                display: flex;
+            }
+            .md\\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 768px) {
+            .md\\:hidden {
+                display: block;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .lg\\:hidden {
+                display: none;
+            }
+            .lg\\:flex {
+                display: flex;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\\:hidden {
+                display: block;
+            }
+        }
+
+        /* Mobile menu animation */
+        .mobile-menu {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-['Inter']">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="container mx-auto px-4">
+            <!-- Top Bar -->
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo -->
+                <a href="full-website-replica.html" class="flex items-center space-x-3">
+                    <div class="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">Λ</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="logo-text">ΛRΛMΛC</span>
+                        <span class="logo-subtitle">Store</span>
+                    </div>
+                </a>
+
+                <!-- Search Bar - Desktop -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input
+                            type="text"
+                            placeholder="Search products..."
+                            class="w-full px-4 py-2 text-sm border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                        />
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden lg:flex items-center space-x-6">
+                    <a href="full-website-replica.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Home
+                    </a>
+                    <a href="products-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Products
+                    </a>
+                    <a href="categories-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Categories
+                    </a>
+                    <a href="collections-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors font-semibold">
+                        Collections
+                    </a>
+                    <a href="blog-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Blog
+                    </a>
+                </nav>
+
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search - Mobile -->
+                    <button class="md:hidden p-2 hover:bg-accent rounded-md">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Wishlist -->
+                    <a href="wishlist-page.html">
+                        <button class="relative p-2 hover:bg-accent rounded-md">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <span class="badge absolute -top-1 -right-1 bg-primary text-primary-foreground">3</span>
+                        </button>
+                    </a>
+
+                    <!-- Cart -->
+                    <a href="cart-page.html">
+                        <button class="relative p-2 hover:bg-accent rounded-md">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.4 7M7 13v7m0-7l1.4-7M17 13v7m0-7l-1.4-7"></path>
+                            </svg>
+                            <span class="badge absolute -top-1 -right-1 bg-primary text-primary-foreground">5</span>
+                        </button>
+                    </a>
+
+                    <!-- User Account -->
+                    <button class="p-2 hover:bg-accent rounded-md">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-toggle" class="lg:hidden p-2 hover:bg-accent rounded-md">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="lg:hidden border-t py-4 hidden mobile-menu">
+                <nav class="flex flex-col space-y-4">
+                    <a href="full-website-replica.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Home
+                    </a>
+                    <a href="products-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Products
+                    </a>
+                    <a href="categories-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Categories
+                    </a>
+                    <a href="collections-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors font-semibold">
+                        Collections
+                    </a>
+                    <a href="blog-page.html" class="nav-link text-sm font-medium hover:text-primary transition-colors">
+                        Blog
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Product Collections</h1>
+                <p class="text-xl text-muted-foreground">
+                    Curated collections designed for your lifestyle
+                </p>
+            </div>
+
+            <!-- Coming Soon Message -->
+            <div class="text-center py-20">
+                <div class="max-w-md mx-auto">
+                    <div class="text-6xl mb-6">🎨</div>
+                    <h2 class="text-2xl font-bold mb-4">Collections Coming Soon</h2>
+                    <p class="text-muted-foreground mb-8">
+                        We're curating amazing product collections just for you.
+                        Stay tuned for themed collections, seasonal specials, and exclusive bundles!
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3 text-left">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-primary text-sm">🎯</span>
+                            </div>
+                            <div>
+                                <div class="font-medium">Themed Collections</div>
+                                <div class="text-sm text-muted-foreground">Products grouped by lifestyle and interests</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-left">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-primary text-sm">🗓️</span>
+                            </div>
+                            <div>
+                                <div class="font-medium">Seasonal Specials</div>
+                                <div class="text-sm text-muted-foreground">Limited-time collections for holidays and seasons</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-left">
+                            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-primary text-sm">🤖</span>
+                            </div>
+                            <div>
+                                <div class="font-medium">AI-Curated Bundles</div>
+                                <div class="text-sm text-muted-foreground">Smart product combinations based on your preferences</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="products-page.html" class="btn btn-primary">
+                            Browse All Products
+                        </a>
+                        <a href="full-website-replica.html" class="btn btn-outline">
+                            Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Collections Grid -->
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold text-center mb-8">Coming Soon</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Collection Preview 1 -->
+                    <div class="collection-card p-6">
+                        <div class="collection-gradient p-4 rounded-lg mb-4">
+                            <div class="text-4xl mb-2">🏃‍♂️</div>
+                            <h3 class="font-semibold">Fitness & Wellness</h3>
+                        </div>
+                        <p class="text-sm text-muted-foreground">Gear up for your active lifestyle with our fitness collection.</p>
+                        <div class="badge bg-yellow-500 text-white mt-3">Coming Soon</div>
+                    </div>
+
+                    <!-- Collection Preview 2 -->
+                    <div class="collection-card p-6">
+                        <div class="collection-gradient p-4 rounded-lg mb-4">
+                            <div class="text-4xl mb-2">🏠</div>
+                            <h3 class="font-semibold">Smart Home Essentials</h3>
+                        </div>
+                        <p class="text-sm text-muted-foreground">Transform your home with intelligent automation.</p>
+                        <div class="badge bg-yellow-500 text-white mt-3">Coming Soon</div>
+                    </div>
+
+                    <!-- Collection Preview 3 -->
+                    <div class="collection-card p-6">
+                        <div class="collection-gradient p-4 rounded-lg mb-4">
+                            <div class="text-4xl mb-2">🎨</div>
+                            <h3 class="font-semibold">Creative Workspace</h3>
+                        </div>
+                        <p class="text-sm text-muted-foreground">Everything you need for productivity and creativity.</p>
+                        <div class="badge bg-yellow-500 text-white mt-3">Coming Soon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-muted/30 border-t mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">Λ</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="logo-text text-lg">ΛRΛMΛC</span>
+                        <span class="logo-subtitle">Store</span>
+                    </div>
+                </div>
+                <p class="text-muted-foreground mb-4">
+                    Experience the future of e-commerce with ΛRΛMΛC Store
+                </p>
+                <div class="text-sm text-muted-foreground">
+                    © 2024 ΛRΛMΛC Store. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu -->
+    <script>
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuToggle.querySelector('svg');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            }
+        });
+    </script>
+</body>
+</html>

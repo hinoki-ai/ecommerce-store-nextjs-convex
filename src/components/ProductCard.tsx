@@ -83,11 +83,11 @@ export function ProductCard({ product, priority = false, showQuickActions = true
 
   if (viewMode === "list") {
     return (
-      <Card className="product-card-list group relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+      <Card className="product-card-list group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
         <Link href={`/products/${product.slug}`} className="flex flex-col sm:flex-row gap-4 w-full">
           <div className="relative flex-shrink-0">
             {/* Product Image */}
-            <div className="product-image aspect-square w-32 sm:w-24 overflow-hidden bg-gray-100 rounded-lg">
+            <div className="product-image aspect-square w-32 sm:w-24 overflow-hidden bg-muted rounded-lg">
               {mainImage ? (
                 <Image
                   src={mainImage.url}
@@ -98,8 +98,8 @@ export function ProductCard({ product, priority = false, showQuickActions = true
                   sizes="(max-width: 768px) 128px, 96px"
                 />
               ) : (
-                <div className="flex h-full items-center justify-center bg-gray-200 rounded-lg">
-                  <span className="text-gray-400 text-xs">{t('productCard.noImage')}</span>
+                <div className="flex h-full items-center justify-center bg-muted rounded-lg">
+                  <span className="text-muted-foreground text-xs">{t('productCard.noImage')}</span>
                 </div>
               )}
             </div>
@@ -163,7 +163,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
             <div className="flex items-center gap-1">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="h-3 w-3 fill-warning text-warning" />
                 ))}
               </div>
               <span className="text-xs text-muted-foreground">(0)</span>
@@ -184,7 +184,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
             {product.seoScore !== undefined && (
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>{t('productCard.seoScore')}</span>
-                <span className={`font-medium ${product.seoScore > 80 ? 'text-green-600' : product.seoScore > 60 ? 'text-yellow-600' : 'text-red-600'}`}>
+                <span className={`font-medium ${product.seoScore > 80 ? 'text-success' : product.seoScore > 60 ? 'text-warning' : 'text-destructive'}`}>
                   {product.seoScore}%
                 </span>
               </div>
@@ -221,13 +221,12 @@ export function ProductCard({ product, priority = false, showQuickActions = true
   // Grid View (original layout)
   return (
     <Card
-      className="product-card group relative overflow-hidden transition-all duration-300 hover:shadow-lg"
-
+      className="product-card group relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
     >
       <Link href={`/products/${product.slug}`} className="block">
         <div className="relative">
           {/* Product Image */}
-          <div className="product-image aspect-square overflow-hidden bg-gray-100">
+          <div className="product-image aspect-square overflow-hidden bg-muted">
             {mainImage ? (
               <Image
                 src={mainImage.url}
@@ -238,8 +237,8 @@ export function ProductCard({ product, priority = false, showQuickActions = true
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (
-              <div className="flex h-full items-center justify-center bg-gray-200">
-                <span className="text-gray-400">{t('productCard.noImage')}</span>
+              <div className="flex h-full items-center justify-center bg-muted">
+                <span className="text-muted-foreground">{t('productCard.noImage')}</span>
               </div>
             )}
 
@@ -299,7 +298,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
           )}
         </div>
 
-        <CardContent className="p-4">
+        <CardContent className="p-4 sm:p-6">
           {/* Product Info */}
           <div className="space-y-2">
             <h3 className="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors">
@@ -328,7 +327,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
             <div className="flex items-center gap-1">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="h-3 w-3 fill-warning text-warning" />
                 ))}
               </div>
               <span className="text-xs text-muted-foreground">(0)</span>
@@ -349,7 +348,7 @@ export function ProductCard({ product, priority = false, showQuickActions = true
             {product.seoScore !== undefined && (
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>{t('productCard.seoScore')}</span>
-                <span className={`font-medium ${product.seoScore > 80 ? 'text-green-600' : product.seoScore > 60 ? 'text-yellow-600' : 'text-red-600'}`}>
+                <span className={`font-medium ${product.seoScore > 80 ? 'text-success' : product.seoScore > 60 ? 'text-warning' : 'text-destructive'}`}>
                   {product.seoScore}%
                 </span>
               </div>

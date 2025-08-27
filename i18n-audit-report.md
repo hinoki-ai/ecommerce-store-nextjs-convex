@@ -1,13 +1,13 @@
 # i18n Implementation Audit Report
 
-Generated on: 2025-08-26T04:17:39.664Z
+Generated on: 2025-08-26T04:24:51.385Z
 
 ## 📊 Summary
 
 - **Total Files Analyzed**: 195
 - **Fully Implemented**: 17 (9%)
-- **Partially Implemented**: 40 (21%)
-- **Not Implemented**: 138 (71%)
+- **Partially Implemented**: 41 (21%)
+- **Not Implemented**: 137 (70%)
 
 ## 📋 Files Needing Work
 
@@ -292,6 +292,10 @@ Generated on: 2025-08-26T04:17:39.664Z
   - Translation Keys: 1
   - Missing Keys: stripe-signature
 
+- **/home/kuromatsu/Documents/ΛRΛMΛC/Websites/Store/src/app/checkout/page.tsx**
+  - Translation Keys: 0
+  - Hardcoded Text: 25 items
+
 - **/home/kuromatsu/Documents/ΛRΛMΛC/Websites/Store/src/app/orders/page.tsx**
   - Translation Keys: 1
   - Missing Keys: user@example.com
@@ -460,9 +464,6 @@ Generated on: 2025-08-26T04:17:39.664Z
 
 - **/home/kuromatsu/Documents/ΛRΛMΛC/Websites/Store/src/app/categories/page.tsx**
   - Hardcoded Text: 9 items
-
-- **/home/kuromatsu/Documents/ΛRΛMΛC/Websites/Store/src/app/checkout/page.tsx**
-  - Hardcoded Text: 44 items
 
 - **/home/kuromatsu/Documents/ΛRΛMΛC/Websites/Store/src/app/checkout/success/page.tsx**
   - Hardcoded Text: 40 items

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Pages Index - ΛRΛMΛC Store</title>
+    <meta name="description" content="Complete index of all HTML page replicas for ΛRΛMΛC Store website.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'selector'
+        }
+    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* Custom styles for ΛRΛMΛC Store */
+        :root {
+            --primary: oklch(0.55 0.15 240);
+            --primary-foreground: oklch(0.99 0 0);
+            --background: oklch(1 0 0);
+            --foreground: oklch(0.145 0 0);
+            --muted: oklch(0.97 0 0);
+            --muted-foreground: oklch(0.32 0 0);
+            --accent: oklch(0.97 0 0);
+            --accent-foreground: oklch(0.14 0 0);
+            --border: oklch(0.922 0 0);
+            --input: oklch(0.922 0 0);
+            --ring: oklch(0.708 0 0);
+            --card: oklch(1 0 0);
+            --card-foreground: oklch(0.145 0 0);
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            background-color: transparent;
+            color: var(--foreground);
+            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent);
+        }
+
+        /* Logo styles */
+        .logo-text {
+            font-weight: 700;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--foreground);
+        }
+
+        .logo-subtitle {
+            font-size: 1rem;
+            line-height: 1;
+            color: var(--muted-foreground);
+        }
+
+        /* Card styles */
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        /* Status badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            height: 1.5rem;
+        }
+
+        /* Page card styles */
+        .page-card {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .page-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Feature list styles */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .feature-icon {
+            width: 1rem;
+            height: 1rem;
+            color: var(--primary);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--muted);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), hsl(var(--primary) / 0.8));
+            border-radius: 4px;
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-['Inter']">
+    <!-- Header -->
+    <header class="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-6">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="h-12 w-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">Λ</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="logo-text">ΛRΛMΛC</span>
+                        <span class="logo-subtitle">Store</span>
+                    </div>
+                </div>
+                <h1 class="text-4xl font-bold mb-2">Complete Website Replica</h1>
+                <p class="text-xl text-muted-foreground">All HTML page replicas in one place</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Progress Overview -->
+        <div class="max-w-4xl mx-auto mb-12">
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="text-2xl font-bold mb-4">Progress Overview</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-primary mb-2">4</div>
+                            <div class="text-sm text-muted-foreground">Pages Created</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-primary mb-2">10+</div>
+                            <div class="text-sm text-muted-foreground">Pages Planned</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-primary mb-2">40%</div>
+                            <div class="text-sm text-muted-foreground">Complete</div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <div class="flex justify-between text-sm text-muted-foreground mb-2">
+                            <span>Overall Progress</span>
+                            <span>4 of 10 pages</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Created Pages Section -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">✅ Created Pages</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+
+                <!-- Full Website Replica -->
+                <div class="page-card card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">🏠 Full Website Replica</h3>
+                            <span class="badge bg-green-500 text-white">Complete</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Complete homepage with all sections: hero, products, AI recommendations, footer, and more.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>10 homepage sections</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>AI-powered features</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Product recommendations</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>SEO statistics</span>
+                            </div>
+                        </div>
+                        <a href="full-website-replica.html" class="btn btn-primary w-full">
+                            Open Full Website
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Products Page -->
+                <div class="page-card card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">📦 Products Page</h3>
+                            <span class="badge bg-green-500 text-white">Complete</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Advanced product catalog with search, filtering, sorting, and responsive grid/list views.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Advanced filtering</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Search functionality</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Grid & list views</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Sorting options</span>
+                            </div>
+                        </div>
+                        <a href="products-page.html" class="btn btn-primary w-full">
+                            Open Products Page
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Categories Page -->
+                <div class="page-card card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">📂 Categories Page</h3>
+                            <span class="badge bg-green-500 text-white">Complete</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Category overview with search, statistics, and grid/list view toggle.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Category search</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Product statistics</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Price ranges</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Color indicators</span>
+                            </div>
+                        </div>
+                        <a href="categories-page.html" class="btn btn-primary w-full">
+                            Open Categories Page
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Shopping Cart Page -->
+                <div class="page-card card">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">🛒 Shopping Cart</h3>
+                            <span class="badge bg-green-500 text-white">Complete</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Full shopping cart with quantity controls, promo codes, and order summary.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Quantity controls</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Promo code system</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Order calculations</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Remove items</span>
+                            </div>
+                        </div>
+                        <a href="cart-page.html" class="btn btn-primary w-full">
+                            Open Cart Page
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planned Pages Section -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">🚧 Planned Pages</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+                <!-- Checkout Page -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">💳 Checkout Page</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Complete checkout flow with forms, payment options, and order confirmation.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Shipping form</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Payment integration</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Order summary</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Guest checkout</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Authentication Pages -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">🔐 Auth Pages</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Sign in and sign up pages with form validation and social login options.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Form validation</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Social login</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Password reset</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Remember me</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Orders Page -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">📋 Orders Page</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Order history with tracking, status updates, and detailed order information.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Order tracking</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Status updates</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Order details</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Reorder options</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wishlist Page -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">❤️ Wishlist Page</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Saved items with collection management and sharing capabilities.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Save items</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Collections</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Share lists</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Add to cart</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search Results Page -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">🔍 Search Results</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Advanced search results with filters, sorting, and no-results handling.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Search filters</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Sort options</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Search suggestions</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Recent searches</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Collections Page -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">🎨 Collections Page</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Curated product collections with themes, seasons, and special promotions.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Themed collections</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Seasonal themes</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Collection filters</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>AI-curated</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Blog Page -->
+                <div class="page-card card opacity-75">
+                    <div class="card-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">📝 Blog Page</h3>
+                            <span class="badge bg-yellow-500 text-white">Planned</span>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Blog articles with categories, search, and AI-generated content features.
+                        </p>
+                        <div class="feature-list mb-4">
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Article listings</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Categories</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>Search articles</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="w-4 h-4 rounded-full bg-muted-foreground/20"></span>
+                                <span>AI-generated</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline w-full opacity-50 cursor-not-allowed" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="text-center">
+            <h2 class="text-2xl font-bold mb-6">Quick Actions</h2>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="full-website-replica.html" class="btn btn-primary">
+                    🏠 Open Full Website
+                </a>
+                <button onclick="openNavigationDemo()" class="btn btn-outline">
+                    🧭 Test Complete Navigation Flow
+                </button>
+                <button onclick="openAllPages()" class="btn btn-outline">
+                    📂 Open All Created Pages
+                </button>
+                <button onclick="downloadAllPages()" class="btn btn-outline">
+                    ⬇️ Download All Files
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-muted/30 border-t mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="h-8 w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">Λ</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="logo-text text-lg">ΛRΛMΛC</span>
+                        <span class="logo-subtitle">Store</span>
+                    </div>
+                </div>
+                <p class="text-muted-foreground mb-4">
+                    Complete HTML replicas of all website pages for development and demonstration.
+                </p>
+                <div class="text-sm text-muted-foreground">
+                    © 2024 ΛRΛMΛC Store - Website Replica Project
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function openAllPages() {
+            const pages = [
+                'full-website-replica.html',
+                'products-page.html',
+                'categories-page.html',
+                'cart-page.html'
+            ];
+
+            pages.forEach(page => {
+                window.open(page, '_blank');
+            });
+        }
+
+        function openNavigationDemo() {
+            // Open pages in sequence to demonstrate complete navigation flow
+            const pages = [
+                { url: 'full-website-replica.html', delay: 0, name: 'Home Page' },
+                { url: 'products-page.html', delay: 3000, name: 'Products Page' },
+                { url: 'categories-page.html', delay: 6000, name: 'Categories Page' },
+                { url: 'cart-page.html', delay: 9000, name: 'Shopping Cart' },
+                { url: 'collections-page.html', delay: 12000, name: 'Collections Page' },
+                { url: 'blog-page.html', delay: 15000, name: 'Blog Page' },
+                { url: 'wishlist-page.html', delay: 18000, name: 'Wishlist Page' }
+            ];
+
+            let currentIndex = 0;
+
+            pages.forEach(page => {
+                setTimeout(() => {
+                    window.open(page.url, '_blank');
+                    currentIndex++;
+                    if (currentIndex === pages.length) {
+                        setTimeout(() => {
+                            alert('🎉 Complete navigation tour finished!\n\nAll pages are now connected and ready for seamless navigation between:\n• Home ↔ Products ↔ Categories ↔ Cart\n• Collections ↔ Blog ↔ Wishlist\n\nTry clicking any navigation link to move between pages!');
+                        }, 1000);
+                    }
+                }, page.delay);
+            });
+
+            alert('🚀 Complete Navigation Demo Started!\n\nWatch as all connected pages open in sequence:\n\n1. Home Page\n2. Products Page (with search & filters)\n3. Categories Page (with grid/list views)\n4. Shopping Cart (with quantity controls)\n5. Collections Page\n6. Blog Page\n7. Wishlist Page\n\nEach page has working navigation links!');
+        }
+
+        function downloadAllPages() {
+            // In a real implementation, this would create a ZIP file
+            // For now, just show a message
+            alert('Download functionality would create a ZIP file with all HTML pages and assets.');
+        }
+
+        // Add some interactive features
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add hover effects to page cards
+            const pageCards = document.querySelectorAll('.page-card');
+            pageCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px)';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

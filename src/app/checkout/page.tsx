@@ -70,7 +70,7 @@ interface CheckoutFormData {
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t } = useLanguage()
   // const { userId, isSignedIn } = useAuth()
   const userId = "mock-user-id"
   const isSignedIn = true
@@ -78,6 +78,7 @@ export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isProcessing, setIsProcessing] = useState(false)
   const [isGuestCheckout, setIsGuestCheckout] = useState(!isSignedIn)
+  const [translations, setTranslations] = useState<Record<string, string>>({})
 
   // Convex mutations
   const createOrderFromCart = useMutation(api.orders.createOrderFromCart)
@@ -100,6 +101,31 @@ export default function CheckoutPage() {
     savePayment: false,
     marketingEmails: false
   })
+
+  // Load translations on component mount
+  useEffect(() => {
+    const loadTranslations = async () => {
+      const keys = [
+        "checkout.title", "checkout.shippingAddress", "checkout.shipping", "checkout.paymentMethod",
+        "checkout.firstName", "checkout.lastName", "checkout.email", "checkout.phone",
+        "checkout.address", "checkout.apartment", "checkout.city", "checkout.state",
+        "checkout.zipCode", "checkout.country", "checkout.placeOrder", "checkout.processing",
+        "checkout.orderPlaced", "checkout.continueShopping", "checkout.cartEmpty",
+        "checkout.guestCheckout", "checkout.signIn", "checkout.createAccount",
+        "common.back", "common.confirm", "errors.inventory", "errors.paymentError"
+      ]
+      try {
+        const result = await t.batchT(keys)
+        setTranslations(result)
+      } catch (error) {
+        console.error("Failed to load translations:", error)
+      }
+    }
+    loadTranslations()
+  }, [t])
+
+  // Helper function to get translated text
+  const getT = (key: string) => translations[key] || key
 
   // Fetch user data if logged in
   const user = useQuery(
@@ -214,11 +240,11 @@ export default function CheckoutPage() {
       // Redirect to success page with order details
       router.push(`/checkout/success?order=${order.orderNumber}`)
 
-      toast.success(t("checkout.orderPlaced"))
+      toast.success(getT("checkout.orderPlaced"))
 
     } catch (error) {
       console.error("Error placing order:", error)
-      toast.error(t("checkout.paymentError"))
+      toast.error(getT("checkout.paymentError"))
     } finally {
       setIsProcessing(false)
     }
@@ -253,12 +279,12 @@ export default function CheckoutPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🛒</div>
-            <h1 className="text-2xl font-bold mb-4">{t("checkout.cartEmpty")}</h1>
+            <h1 className="text-2xl font-bold mb-4">{getT("checkout.cartEmpty")}</h1>
             <p className="text-muted-foreground mb-8">
-              {t("errors.inventory")}
+              {getT("errors.inventory")}
             </p>
             <Button asChild>
-              <Link href="/products">{t("checkout.continueShopping")}</Link>
+              <Link href="/products">{getT("checkout.continueShopping")}</Link>
             </Button>
           </div>
         </div>
@@ -267,9 +293,9 @@ export default function CheckoutPage() {
   }
 
   const steps = [
-    { id: 1, name: t("checkout.shipping"), icon: Truck },
-    { id: 2, name: t("checkout.paymentMethod"), icon: CreditCard },
-    { id: 3, name: t("common.confirm"), icon: Check }
+    { id: 1, name: getT("checkout.shipping"), icon: Truck },
+    { id: 2, name: getT("checkout.paymentMethod"), icon: CreditCard },
+    { id: 3, name: getT("common.confirm"), icon: Check }
   ]
 
   return (
@@ -281,13 +307,13 @@ export default function CheckoutPage() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/cart">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                {t("common.back")}
+                {getT("common.back")}
               </Link>
             </Button>
             <div>
-              <h1 className="text-3xl font-bold">{t("checkout.title")}</h1>
+              <h1 className="text-3xl font-bold">{getT("checkout.title")}</h1>
               <p className="text-muted-foreground">
-                {t("checkout.placeOrder")}
+                {getT("checkout.placeOrder")}
               </p>
             </div>
           </div>
@@ -299,9 +325,9 @@ export default function CheckoutPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="text-center space-y-4">
-                  <h3 className="text-lg font-semibold">{t("checkout.title")}</h3>
+                  <h3 className="text-lg font-semibold">{getT("checkout.title")}</h3>
                   <p className="text-muted-foreground">
-                    {t("checkout.signIn")}
+                    {getT("checkout.signIn")}
                   </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
@@ -312,13 +338,13 @@ export default function CheckoutPage() {
                         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                           <User className="h-6 w-6 text-primary" />
                         </div>
-                        <h4 className="font-medium">{t("nav.signIn")}</h4>
+                        <h4 className="font-medium">{getT("nav.signIn")}</h4>
                         <p className="text-sm text-muted-foreground">
-                          {t("checkout.signIn")}
+                          {getT("checkout.signIn")}
                         </p>
                         <SignInButton mode="modal">
                           <Button variant={!isGuestCheckout ? "default" : "outline"} className="w-full">
-                            {t("nav.signIn")}
+                            {getT("nav.signIn")}
                           </Button>
                         </SignInButton>
                       </div>
@@ -331,16 +357,16 @@ export default function CheckoutPage() {
                         <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                           <ShoppingBag className="h-6 w-6 text-primary" />
                         </div>
-                        <h4 className="font-medium">{t("checkout.guestCheckout")}</h4>
+                        <h4 className="font-medium">{getT("checkout.guestCheckout")}</h4>
                         <p className="text-sm text-muted-foreground">
-                          {t("checkout.guestCheckout")}
+                          {getT("checkout.guestCheckout")}
                         </p>
                         <Button
                           variant={isGuestCheckout ? "default" : "outline"}
                           onClick={() => setIsGuestCheckout(true)}
                           className="w-full"
                         >
-                          {t("checkout.continueShopping")}
+                          {getT("checkout.continueShopping")}
                         </Button>
                       </div>
                     </div>
@@ -348,7 +374,7 @@ export default function CheckoutPage() {
 
                   <div className="mt-6 pt-4 border-t">
                     <p className="text-sm text-muted-foreground">
-                      {t("checkout.createAccount")} <SignUpButton mode="modal" className="text-primary hover:underline">{t("checkout.createAccount")}</SignUpButton> {t("checkout.signIn")}
+                      {getT("checkout.createAccount")} <SignUpButton mode="modal" className="text-primary hover:underline">{getT("checkout.createAccount")}</SignUpButton> {getT("checkout.signIn")}
                     </p>
                   </div>
                 </div>
@@ -408,7 +434,7 @@ export default function CheckoutPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <MapPin className="h-5 w-5" />
-                    {t("checkout.shippingAddress")}
+                    {getT("checkout.shippingAddress")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -423,107 +449,107 @@ export default function CheckoutPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">{t("checkout.firstName")} *</Label>
+                      <Label htmlFor="firstName">{getT("checkout.firstName")} *</Label>
                       <Input
                         id="firstName"
                         value={formData.firstName}
                         onChange={(e) => handleInputChange("firstName", e.target.value)}
-                        placeholder={t("checkout.firstName")}
+                        placeholder={getT("checkout.firstName")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">{t("checkout.lastName")} *</Label>
+                      <Label htmlFor="lastName">{getT("checkout.lastName")} *</Label>
                       <Input
                         id="lastName"
                         value={formData.lastName}
                         onChange={(e) => handleInputChange("lastName", e.target.value)}
-                        placeholder={t("checkout.lastName")}
+                        placeholder={getT("checkout.lastName")}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">{t("checkout.email")} *</Label>
+                    <Label htmlFor="email">{getT("checkout.email")} *</Label>
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      placeholder={t("checkout.email")}
+                      placeholder={getT("checkout.email")}
                     />
                     {isGuestCheckout && (
                       <p className="text-xs text-muted-foreground">
-                        {t("checkout.email")}
+                        {getT("checkout.email")}
                       </p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">{t("checkout.phone")} *</Label>
+                    <Label htmlFor="phone">{getT("checkout.phone")} *</Label>
                     <Input
                       id="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
-                      placeholder={t("checkout.phone")}
+                      placeholder={getT("checkout.phone")}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="address">{t("checkout.address")} *</Label>
+                    <Label htmlFor="address">{getT("checkout.address")} *</Label>
                     <Input
                       id="address"
                       value={formData.address}
                       onChange={(e) => handleInputChange("address", e.target.value)}
-                      placeholder={t("checkout.address")}
+                      placeholder={getT("checkout.address")}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="apartment">{t("checkout.apartment")}</Label>
+                    <Label htmlFor="apartment">{getT("checkout.apartment")}</Label>
                     <Input
                       id="apartment"
                       value={formData.apartment}
                       onChange={(e) => handleInputChange("apartment", e.target.value)}
-                      placeholder={t("checkout.apartment")}
+                      placeholder={getT("checkout.apartment")}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="city">{t("checkout.city")} *</Label>
+                      <Label htmlFor="city">{getT("checkout.city")} *</Label>
                       <Input
                         id="city"
                         value={formData.city}
                         onChange={(e) => handleInputChange("city", e.target.value)}
-                        placeholder={t("checkout.city")}
+                        placeholder={getT("checkout.city")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="state">{t("checkout.state")} *</Label>
+                      <Label htmlFor="state">{getT("checkout.state")} *</Label>
                       <Input
                         id="state"
                         value={formData.state}
                         onChange={(e) => handleInputChange("state", e.target.value)}
-                        placeholder={t("checkout.state")}
+                        placeholder={getT("checkout.state")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="zipCode">{t("checkout.zipCode")} *</Label>
+                      <Label htmlFor="zipCode">{getT("checkout.zipCode")} *</Label>
                       <Input
                         id="zipCode"
                         value={formData.zipCode}
                         onChange={(e) => handleInputChange("zipCode", e.target.value)}
-                        placeholder={t("checkout.zipCode")}
+                        placeholder={getT("checkout.zipCode")}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="country">{t("checkout.country")} *</Label>
+                    <Label htmlFor="country">{getT("checkout.country")} *</Label>
                     <Select value={formData.country} onValueChange={(value) => handleInputChange("country", value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("checkout.country")} />
+                        <SelectValue placeholder={getT("checkout.country")} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="US">United States</SelectItem>

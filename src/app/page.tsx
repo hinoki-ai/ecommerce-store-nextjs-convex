@@ -89,16 +89,16 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary/10 to-secondary/10 py-20 lg:py-32">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-gradient-to-r from-primary/10 to-secondary/10 py-20 lg:py-32 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <Badge variant="new" className="mb-4">
               {t('home.heroBadge')}
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               {t('home.heroTitle')}
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
               {t('home.heroSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -118,8 +118,8 @@ export default function Home() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-12 bg-card">
-        <div className="container mx-auto px-4">
+      <section className="py-12 bg-card border-y border-border/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <Truck className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -142,7 +142,7 @@ export default function Home() {
 
       {/* Calendar Widget Section */}
       <section className="py-12 bg-card">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <CompactCalendarWidget />
           </div>
@@ -150,11 +150,11 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                       <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t('home.categoriesTitle')}</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4">{t('home.categoriesTitle')}</h2>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
               {t('home.categoriesSubtitle')}
             </p>
           </div>
@@ -176,12 +176,12 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-12">
             <div>
-              <h2 className="text-3xl font-bold mb-4">{t('home.featuredProducts')}</h2>
-              <p className="text-muted-foreground">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-4">{t('home.featuredProducts')}</h2>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 {t('home.featuredProductsDesc')}
               </p>
             </div>
@@ -201,7 +201,7 @@ export default function Home() {
 
       {/* AI-Powered Recommendations */}
       <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <ProductRecommendations
             limit={8}
             title={t('home.aiRecommendations')}
@@ -213,7 +213,7 @@ export default function Home() {
 
       {/* AI SEO Stats */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">{t('home.aiOptimizationTitle')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
