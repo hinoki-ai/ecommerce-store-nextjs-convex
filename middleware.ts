@@ -153,11 +153,13 @@ async function middlewareHandler(auth: () => Promise<{ userId: string | null }>,
     return NextResponse.json('Too Many Requests', { status: 429 })
   }
 
-  // PERFORMANCE: Handle language routing first
-  // const languageResponse = handleLanguageRouting(req)
-  // if (languageResponse.status !== 200) {
-  //   return languageResponse
-  // }
+  // PERFORMANCE: Handle language routing first (but not for auth routes)
+  if (!isProtectedRoute(req) && !isAdminRoute(req)) {
+    const languageResponse = handleLanguageRouting(req)
+    if (languageResponse && languageResponse.status !== 200) {
+      return languageResponse
+    }
+  }
 
   // SECURITY: Force HTTPS in production behind proxies/CDN
   const isSecure =
@@ -233,7 +235,7 @@ async function middlewareHandler(auth: () => Promise<{ userId: string | null }>,
   }
 
   // SECURITY: Add security headers to response
-  const response = languageResponse.status === 200 ? NextResponse.next() : languageResponse
+  const response = NextResponse.next()
   
   // Apply security headers
   Object.entries(securityHeaders).forEach(([key, value]) => {

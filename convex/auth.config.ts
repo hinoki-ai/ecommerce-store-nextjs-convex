@@ -10,7 +10,7 @@
 const authConfig = {
   providers: [
     {
-      domain: "https://gentle-snake-85.clerk.accounts.dev",
+      domain: process.env.NEXT_PUBLIC_CLERK_FRONTEND_API_URL || "https://gentle-snake-85.clerk.accounts.dev",
       applicationID: "convex",
     },
   ],

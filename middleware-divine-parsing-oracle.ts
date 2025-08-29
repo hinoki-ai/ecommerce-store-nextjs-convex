@@ -30,7 +30,15 @@ const bypassLanguageRoutes = [
   '/dashboard',
   '/admin',
   '/api/auth',
-  '/api/webhooks'
+  '/api/webhooks',
+  '/cart',
+  '/checkout',
+  '/account',
+  '/orders',
+  '/wishlist',
+  '/billing',
+  '/subscription',
+  '/payments'
 ];
 
 // Supported language codes
