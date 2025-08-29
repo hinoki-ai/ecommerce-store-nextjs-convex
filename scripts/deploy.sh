@@ -167,14 +167,17 @@ deploy_convex() {
 main() {
     if [[ "$ENVIRONMENT" == "production" ]]; then
         DOMAIN="store.aramac.dev"
+        DEPLOY_TYPE="Production Build"
     else
-        DOMAIN="localhost:3000 (development)"
+        DOMAIN="localhost:3000"
+        DEPLOY_TYPE="Local Development Build"
     fi
 
     echo "
 ╔══════════════════════════════════════════════════════════════╗
 ║                    🏪 Store Deployment                       ║
-║                   $DOMAIN                                   ║
+║                   $DEPLOY_TYPE                              ║
+║                   Target: $DOMAIN                           ║
 ╚══════════════════════════════════════════════════════════════╝
 "
     
