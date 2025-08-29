@@ -1263,8 +1263,7 @@ export default defineSchema({
         v.literal("active"),
         v.literal("canceled"),
         v.literal("past_due"),
-        v.literal("incomplete"),
-        v.literal("trialing")
+        v.literal("incomplete")
       ),
       currentPeriodStart: v.number(),
       currentPeriodEnd: v.number(),
