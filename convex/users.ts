@@ -1,5 +1,6 @@
-import { mutation, query } from "./_generated/server";
+import { mutation, query, internalMutation } from "./_generated/server";
 import { v } from "convex/values";
+import { UserJSON } from "@clerk/backend";
 
 // Get current user or create if doesn't exist
 export const getOrCreateUser = mutation({
@@ -174,5 +175,61 @@ export const updateUser = mutation({
 
     await ctx.db.patch(user._id, updates);
     return await ctx.db.get(user._id);
+  },
+});
+
+// Internal mutations for Clerk webhooks
+export const upsertFromClerk = internalMutation({
+  args: { data: v.any() as any }, // no runtime validation, trust Clerk
+  handler: async (ctx, { data }: { data: UserJSON }) => {
+    const userAttributes = {
+      name: `${data.first_name} ${data.last_name}`,
+      email: data.email_addresses?.[0]?.email_address || "",
+      phone: data.phone_numbers?.[0]?.phone_number || "",
+      externalId: data.id,
+      isEmailVerified: data.email_addresses?.[0]?.verification?.status === "verified",
+      isPhoneVerified: data.phone_numbers?.[0]?.verification?.status === "verified",
+      emailVerifiedAt: data.email_addresses?.[0]?.verification?.status === "verified" ? Date.now() : undefined,
+      phoneVerifiedAt: data.phone_numbers?.[0]?.verification?.status === "verified" ? Date.now() : undefined,
+      lastLoginAt: Date.now(),
+      updatedAt: Date.now(),
+    };
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("byExternalId", (q) => q.eq("externalId", data.id))
+      .first();
+
+    if (user === null) {
+      await ctx.db.insert("users", {
+        ...userAttributes,
+        role: "customer",
+        createdAt: Date.now(),
+      });
+    } else {
+      await ctx.db.patch(user._id, userAttributes);
+    }
+  },
+});
+
+export const deleteFromClerk = internalMutation({
+  args: { clerkUserId: v.string() },
+  handler: async (ctx, { clerkUserId }) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("byExternalId", (q) => q.eq("externalId", clerkUserId))
+      .first();
+
+    if (user !== null) {
+      // Instead of deleting, mark as inactive to maintain data integrity
+      await ctx.db.patch(user._id, {
+        isActive: false,
+        updatedAt: Date.now(),
+      });
+    } else {
+      console.warn(
+        `Can't delete user, there is none for Clerk user ID: ${clerkUserId}`,
+      );
+    }
   },
 });

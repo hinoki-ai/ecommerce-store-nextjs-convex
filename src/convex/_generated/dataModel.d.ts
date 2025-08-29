@@ -1,16 +1,58 @@
-// Mock TypeScript definitions for Convex data model
-// This file provides type definitions when using mock data
+/* eslint-disable */
+// Generated Convex Data Model Types
 
 export interface Doc {
   _id: string;
   _creationTime: number;
 }
 
-// Mock Id type for Convex
 export type Id<T extends string = string> = string & { __tableName: T };
 
+// Users table (from Clerk integration)
+export interface User extends Doc {
+  name: string;
+  externalId: string;
+  email?: string;
+  phone?: string;
+  role?: "super_admin" | "admin" | "moderator" | "affiliate" | "customer" | "viewer";
+  permissions?: string[];
+  isActive?: boolean;
+  isEmailVerified?: boolean;
+  isPhoneVerified?: boolean;
+  emailVerifiedAt?: number;
+  phoneVerifiedAt?: number;
+  lastLoginAt?: number;
+  lastActiveAt?: number;
+  loginCount?: number;
+  failedLoginAttempts?: number;
+  lastFailedLoginAt?: number;
+  affiliateData?: {
+    referralCode: string;
+    commissionRate: number;
+    totalEarnings: number;
+    payoutMethod: "paypal" | "bank" | "stripe";
+    isActive: boolean;
+  };
+  metadata?: {
+    timezone?: string;
+    deviceInfo?: {
+      lastDevice: string;
+      lastIpAddress: string;
+      lastUserAgent: string;
+    };
+    marketingOptIn?: boolean;
+    privacySettings?: {
+      shareData: boolean;
+      allowTracking: boolean;
+      allowPersonalization: boolean;
+    };
+  };
+  createdAt?: number;
+  updatedAt?: number;
+}
+
+// Products table
 export interface Product extends Doc {
-  id: string;
   name: string;
   description: string;
   price: number;
@@ -22,35 +64,39 @@ export interface Product extends Doc {
   tags: string[];
   rating: number;
   reviews: number;
+  slug?: string;
+  seoScore?: number;
+  excerpt?: string;
+  imageUrl?: string;
+  published: boolean;
+  createdAt?: number;
+  updatedAt?: number;
 }
 
+// Categories table
 export interface Category extends Doc {
-  id: string;
   name: string;
+  nameJA?: string;
   slug: string;
-  description: string;
-  image: string;
-  productCount: number;
+  description?: string;
+  parentId?: Id<"categories">;
+  sortOrder: number;
+  isActive: boolean;
+  icon?: string;
+  color?: string;
+  createdAt?: number;
+  updatedAt?: number;
 }
 
-export interface User extends Doc {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  fullName: string;
-  imageUrl: string;
-}
-
+// Carts table
 export interface Cart extends Doc {
-  id: string;
   userId?: string;
   sessionId?: string;
   items: CartItem[];
   pricing: {
-    subtotal: { amount: number; currency: string };
-    tax: { amount: number; currency: string };
-    total: { amount: number; currency: string };
+    subtotal: Money;
+    tax: Money;
+    total: Money;
     currency: string;
   };
   audit: {
@@ -63,10 +109,7 @@ export interface CartItem {
   id: string;
   productId: Id<"products">;
   quantity: number;
-  price: {
-    amount: number;
-    currency: string;
-  };
+  price: Money;
   addedAt: number;
   variantSelections?: Record<string, string>;
   metadata?: {
@@ -75,37 +118,114 @@ export interface CartItem {
   };
 }
 
+// Orders table
 export interface Order extends Doc {
-  id: string;
+  orderNumber: string;
   userId: string;
+  status: OrderStatus;
+  paymentStatus: PaymentStatus;
   items: OrderItem[];
-  status: string;
-  total: number;
-  currency: string;
-  createdAt: Date;
+  pricing: {
+    subtotal: Money;
+    tax: Money;
+    shipping: Money;
+    total: Money;
+    currency: string;
+  };
+  customerInfo: {
+    name: string;
+    email: string;
+    phone?: string;
+  };
+  shippingAddress: Address;
+  billingAddress?: Address;
+  shippingMethod?: string;
+  paymentMethod?: string;
+  trackingNumber?: string;
+  notes?: string;
+  createdAt: number;
+  updatedAt: number;
 }
 
 export interface OrderItem {
   id: string;
-  productId: string;
+  productId: Id<"products">;
+  productName: string;
+  productImage: string;
   quantity: number;
-  price: number;
-  product: Product;
+  price: Money;
+  total: Money;
+  variantSelections?: Record<string, string>;
 }
 
-export interface Review extends Doc {
-  id: string;
-  productId: string;
+// Billing/Subscriptions
+export interface Subscription extends Doc {
   userId: string;
-  rating: number;
-  comment: string;
-  createdAt: Date;
+  planId: string;
+  status: SubscriptionStatus;
+  currentPeriodStart: number;
+  currentPeriodEnd: number;
+  cancelAtPeriodEnd: boolean;
+  stripeSubscriptionId?: string;
+  stripeCustomerId?: string;
+  metadata?: any;
 }
 
-// Mock table definitions
-export const products = null as any;
-export const categories = null as any;
-export const users = null as any;
-export const carts = null as any;
-export const orders = null as any;
-export const reviews = null as any;
+// Notifications
+export interface Notification extends Doc {
+  userId: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  data?: any;
+  isRead: boolean;
+  expiresAt?: number;
+  createdAt: number;
+}
+
+// Supporting types
+export interface Money {
+  amount: number;
+  currency: string;
+}
+
+export interface Address {
+  street: string;
+  city: string;
+  region: string;
+  postalCode: string;
+  country: string;
+}
+
+export type OrderStatus =
+  | "pending"
+  | "paid"
+  | "processing"
+  | "shipped"
+  | "delivered"
+  | "cancelled"
+  | "refunded"
+  | "returned";
+
+export type PaymentStatus =
+  | "pending"
+  | "processing"
+  | "paid"
+  | "failed"
+  | "cancelled"
+  | "refunded";
+
+export type SubscriptionStatus =
+  | "active"
+  | "canceled"
+  | "past_due"
+  | "incomplete"
+  | "trialing";
+
+export type NotificationType =
+  | "wishlist_price_drop"
+  | "wishlist_back_in_stock"
+  | "wishlist_sale_alert"
+  | "order_update"
+  | "review_approved"
+  | "low_stock_alert";

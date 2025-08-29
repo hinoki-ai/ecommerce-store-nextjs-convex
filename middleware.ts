@@ -154,10 +154,10 @@ async function middlewareHandler(auth: () => Promise<{ userId: string | null }>,
   }
 
   // PERFORMANCE: Handle language routing first
-  const languageResponse = handleLanguageRouting(req)
-  if (languageResponse.status !== 200) {
-    return languageResponse
-  }
+  // const languageResponse = handleLanguageRouting(req)
+  // if (languageResponse.status !== 200) {
+  //   return languageResponse
+  // }
 
   // SECURITY: Force HTTPS in production behind proxies/CDN
   const isSecure =

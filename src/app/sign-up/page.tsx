@@ -11,7 +11,7 @@ export default function SignUpPage() {
             Create your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Join Minimarket & Hardware Store
+            Join ΛRΛMΛC Store
           </p>
         </div>
         <div className="bg-white py-8 px-6 shadow-lg rounded-lg">
@@ -20,14 +20,6 @@ export default function SignUpPage() {
             routing="path"
             signInUrl="/sign-in"
             redirectUrl="/dashboard"
-            appearance={{
-              elements: {
-                formButtonPrimary: 'bg-blue-600 hover:bg-blue-700',
-                card: 'shadow-none',
-                headerTitle: 'hidden',
-                headerSubtitle: 'hidden'
-              }
-            }}
           />
         </div>
         <div className="text-center">

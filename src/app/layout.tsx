@@ -46,7 +46,7 @@ export default function RootLayout({
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         >
           <ConvexClientProvider>
-            <CartProvider>
+            {/* <CartProvider> */}
               <ThemeProvider
                 attribute="class"
                 defaultTheme="system"
@@ -61,7 +61,7 @@ export default function RootLayout({
                   </CurrencyProvider>
                 </LanguageProvider>
               </ThemeProvider>
-            </CartProvider>
+            {/* </CartProvider> */}
           </ConvexClientProvider>
         </ClerkProvider>
       </body>

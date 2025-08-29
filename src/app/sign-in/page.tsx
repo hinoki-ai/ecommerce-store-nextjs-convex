@@ -1,8 +1,6 @@
 'use client'
 
 import { SignIn } from '@clerk/nextjs'
-import { LanguageProvider } from '@/components/LanguageProvider'
-import { LanguageAttributes } from '@/components/LanguageAttributes'
 
 export default function SignInPage() {
   return (
@@ -13,7 +11,7 @@ export default function SignInPage() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Welcome to Minimarket & Hardware Store
+            Welcome to ΛRΛMΛC Store
           </p>
         </div>
         <div className="bg-white py-8 px-6 shadow-lg rounded-lg">
@@ -22,14 +20,6 @@ export default function SignInPage() {
             routing="path"
             signUpUrl="/sign-up"
             redirectUrl="/dashboard"
-            appearance={{
-              elements: {
-                formButtonPrimary: 'bg-blue-600 hover:bg-blue-700',
-                card: 'shadow-none',
-                headerTitle: 'hidden',
-                headerSubtitle: 'hidden'
-              }
-            }}
           />
         </div>
         <div className="text-center">
