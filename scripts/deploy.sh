@@ -58,16 +58,16 @@ check_dependencies() {
 # Validate environment variables
 validate_env() {
     log_info "Validating environment variables..."
-    
+
     if [[ "$ENVIRONMENT" == "production" ]]; then
-        ENV_FILE=".env.production"
+        ENV_FILE=".env.prod"
     else
-        ENV_FILE=".env.local"
+        ENV_FILE=".env.dev"
     fi
-    
+
     if [[ ! -f "$ENV_FILE" ]]; then
         log_error "Environment file $ENV_FILE not found"
-        log_info "Please create $ENV_FILE based on .env.example"
+        log_info "Available environment files: .env.dev (dev), .env.prod (prod)"
         exit 1
     fi
     
@@ -115,15 +115,17 @@ lint_check() {
 # Build the application
 build_app() {
     log_info "Building application..."
-    
+
     if [[ "$ENVIRONMENT" == "production" ]]; then
         # Use production environment
-        cp .env.production .env.local
+        cp .env.prod .env.local
         NODE_ENV=production npm run build
     else
-        npm run build
+        # Use development environment
+        cp .env.dev .env.local
+        NODE_ENV=development npm run build
     fi
-    
+
     log_success "Build completed"
 }
 
@@ -163,10 +165,16 @@ deploy_convex() {
 
 # Main deployment function
 main() {
+    if [[ "$ENVIRONMENT" == "production" ]]; then
+        DOMAIN="store.aramac.dev"
+    else
+        DOMAIN="localhost:3000 (development)"
+    fi
+
     echo "
 ╔══════════════════════════════════════════════════════════════╗
 ║                    🏪 Store Deployment                       ║
-║                   store.aramac.dev                           ║
+║                   $DOMAIN                                   ║
 ╚══════════════════════════════════════════════════════════════╝
 "
     

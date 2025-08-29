@@ -149,3 +149,11 @@ dist/
 !*.mjs
 !*.cjs
 .vercel
+
+# Branch-specific environment files
+.env.dev
+.env.prod
+
+# Never commit actual production secrets
+.env.production.real
+.env.production.secrets

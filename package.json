@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/load-env.js && next dev",
     "prebuild": "node -e \"const fs = require('fs'); if (!fs.existsSync('.env.production') && process.env.NODE_ENV === 'production') { console.error('❌ Error: .env.production file not found'); process.exit(1); } console.log('✅ Production environment validation passed');\"",
     "build": "npx prisma generate && next build",
     "start": "npm run validate:env && next start",
     "start:standalone": "node .next/standalone/server.js",
     "lint": "eslint",
     "validate:env": "node scripts/validate-env.js",
-    "postinstall": "npm run validate:env"
+    "postinstall": "npm run validate:env",
+    "deploy:dev": "./scripts/deploy.sh development",
+    "deploy:prod": "./scripts/deploy.sh production",
+    "deploy:test": "./scripts/deploy-testing.sh"
   },
   "dependencies": {
     "@clerk/backend": "^2.10.1",

@@ -11,6 +11,242 @@
 **📋 IMPLEMENTATION PATTERNS**: AI-powered TypeScript patterns, SEO optimization
 **🧪 VALIDATION PROCEDURES**: AI content validation, SEO score testing
 
+## 🚨 CRITICAL BRANCHING & ENVIRONMENT RULES (MANDATORY)
+
+### 🔒 Git Branching Strategy (TWO BRANCHES ONLY)
+
+**🚫 CRITICAL RULE**: We maintain EXACTLY TWO branches: `prod` and `dev`
+
+- **prod** branch: Production-ready code, deployed to live site
+- **dev** branch: Development branch for all feature work and testing
+
+**🚫 NEVER CREATE ADDITIONAL BRANCHES** - This creates confusion and deployment complexity
+
+#### 📋 Complete Development Workflow
+
+```bash
+# 🔄 START: Always begin on dev branch
+git checkout dev
+git pull origin dev --rebase
+git status
+
+# 🔧 DEVELOPMENT: Make your changes with proper commits
+git add .
+git commit -m "feat: [brief description of changes]"
+git push origin dev
+
+# 🧪 TESTING: Test thoroughly before production
+npm run build
+npm run test
+# Manual testing in browser
+# Check all critical functionality
+
+# 🚀 PRODUCTION DEPLOYMENT
+git checkout prod
+git merge dev --no-ff -m "deploy: merge dev to prod [date]"
+git push origin prod
+
+# 🔙 RETURN TO DEVELOPMENT
+git checkout dev
+```
+
+#### 🚨 Emergency Procedures
+
+**🔥 Hotfix Required**:
+```bash
+# If production is broken and needs immediate fix
+git checkout prod
+git cherry-pick [specific-commit-hash]  # Only cherry-pick tested commits
+git push origin prod
+# Immediately merge hotfix back to dev
+git checkout dev
+git merge prod
+git push origin dev
+```
+
+**⏪ Rollback Procedure**:
+```bash
+# If deployment breaks production
+git checkout prod
+git reset --hard HEAD~1  # Rollback to previous commit
+git push origin prod --force
+# Investigate issue on dev branch
+```
+
+### 🔑 Environment File Management (STRICT RULES)
+
+**🚫 CRITICAL SECURITY RULES**:
+
+1. **NEVER CREATE MORE ENV FILES** - We use `.env.local` ONLY
+2. **NEVER RENAME ENV FILES** - Keep `.env.local` as is
+3. **NEVER MODIFY LAYOUT WITHOUT APPROVAL** - Layout changes require explicit approval
+4. **BE EXTREMELY CAREFUL WITH KEYS** - All API keys, secrets, and sensitive data
+5. **NEVER COMMIT ENV FILES** - They must remain local only
+
+#### 📁 Environment File Structure (MANDATORY)
+
+```
+.env.local                    # ONLY env file - DO NOT CREATE OTHERS
+├── # Database Configuration
+├── DATABASE_URL="postgresql://..."
+├── DIRECT_URL="postgresql://..."
+├──
+├── # Authentication Keys
+├── NEXTAUTH_SECRET="your-secret-key"
+├── NEXTAUTH_URL="https://yourdomain.com"
+├──
+├── # External API Keys
+├── OPENAI_API_KEY="sk-..."
+├── STRIPE_SECRET_KEY="sk_..."
+├── STRIPE_PUBLISHABLE_KEY="pk_..."
+├──
+├── # Service URLs
+├── CONVEX_URL="https://..."
+├── CLERK_SECRET_KEY="sk_..."
+├──
+├── # Development Settings
+├── NODE_ENV="development"
+└── NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
+
+#### 🔐 Security Best Practices
+
+**✅ BEFORE Adding New Environment Variables**:
+- [ ] Document the purpose and usage
+- [ ] Verify it's actually needed
+- [ ] Check if it can be derived from existing vars
+- [ ] Test locally before committing code that uses it
+
+**✅ WHEN Modifying Existing Keys**:
+- [ ] Backup current working keys
+- [ ] Test new keys in development first
+- [ ] Have rollback plan ready
+- [ ] Notify team of changes
+
+**🚫 FORBIDDEN ACTIONS**:
+- ❌ Creating `.env.production`, `.env.staging`, `.env.dev`
+- ❌ Creating `.env.local.backup` or similar
+- ❌ Renaming `.env.local` to anything else
+- ❌ Modifying layout files without approval
+- ❌ Committing any `.env*` files to git
+- ❌ Sharing environment files via email/chat
+- ❌ Using production keys in development
+
+**✅ APPROVED ACTIONS**:
+- ✅ Update `.env.local` with new required variables (document first)
+- ✅ Modify existing keys (with extreme caution and backup)
+- ✅ Request approval for layout changes before implementing
+- ✅ Use environment variables for all sensitive data
+
+### ⚠️ Approval & Communication Requirements
+
+#### 📝 Pre-Implementation Requirements
+
+**Layout Modifications**:
+- [ ] Written approval from project lead
+- [ ] Document impact on existing functionality
+- [ ] Provide before/after mockups or diagrams
+- [ ] Test on dev environment first
+
+**Environment Changes**:
+- [ ] Document all key additions/modifications
+- [ ] Provide justification for new variables
+- [ ] Include security review checklist
+- [ ] Test deployment process
+
+**Production Deployments**:
+- [ ] Test thoroughly on dev branch
+- [ ] Verify all critical functionality
+- [ ] Check performance metrics
+- [ ] Have rollback plan ready
+
+#### 📢 Communication Protocol
+
+**Before Major Changes**:
+```
+Subject: [PROJECT] Requesting Approval: [Change Description]
+
+Details:
+- What: [Specific changes]
+- Why: [Business justification]
+- Impact: [Affected systems/features]
+- Testing: [Test plan]
+- Rollback: [Recovery plan]
+
+@team-lead Please approve/disapprove
+```
+
+**After Deployment**:
+```
+✅ DEPLOYMENT COMPLETE: [Project Name]
+- Changes: [Brief summary]
+- Status: All systems operational
+- Monitoring: [24h watch period]
+- Next steps: [Follow-up actions]
+```
+
+### 🚨 Emergency Response Procedures
+
+#### 🔥 Critical Production Issues
+
+1. **IMMEDIATE RESPONSE**:
+   - Assess severity and impact
+   - Notify team immediately
+   - Begin rollback if necessary
+
+2. **INVESTIGATION**:
+   - Check error logs and monitoring
+   - Identify root cause
+   - Document findings
+
+3. **RESOLUTION**:
+   - Implement fix on dev branch
+   - Test thoroughly
+   - Deploy to production
+   - Monitor for 24 hours
+
+#### 📊 Monitoring & Alerting
+
+**Required Monitoring**:
+- Application uptime and response times
+- Error rates and logs
+- Database performance
+- API key usage and limits
+- Security alerts
+
+**Alert Thresholds**:
+- Response time > 3 seconds
+- Error rate > 5%
+- Database connection failures
+- API key exhaustion warnings
+
+### 🛡️ Security Checklist (MANDATORY)
+
+#### 🔐 Pre-Deployment Security Review
+
+- [ ] All sensitive data uses environment variables
+- [ ] No hardcoded secrets in codebase
+- [ ] Environment files are gitignored
+- [ ] API keys have appropriate permissions
+- [ ] Database credentials are encrypted
+- [ ] CORS settings are production-appropriate
+- [ ] HTTPS is enforced
+- [ ] Security headers are configured
+
+#### 🔍 Code Security Scan
+
+```bash
+# Run before every deployment
+npm audit
+npm run security-check
+# Check for exposed secrets
+grep -r "password\|secret\|key" src/ --exclude-dir=node_modules
+```
+
+---
+
+**🚨 ENFORCEMENT**: These rules are MANDATORY and must be followed by ALL team members. Violations will result in immediate code rollback and security review.
+
 ## 🚀 AI EXECUTION WORKFLOWS (REQUIRED)
 
 ### 1. AI Development Environment Setup

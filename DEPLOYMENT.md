@@ -1,8 +1,18 @@
-# Deployment Guide for store.aramac.dev
+# 🚀 Deployment Guide for store.aramac.dev
+
+## ⚠️ CRITICAL: Branch Strategy (DEV/PROD SEPARATION)
+
+```bash
+dev  → Development environment (localhost:3000)
+prod → Production environment (store.aramac.dev)  
+main → Integration branch (no direct deployments)
+```
+
+**NEVER MIX BRANCHES:** Dev and Prod branches must remain completely isolated.
 
 ## Overview
 
-This guide covers the deployment process for the AI-Powered E-Commerce SEO System to the production subdomain `store.aramac.dev`.
+This guide covers the deployment process for the AI-Powered E-Commerce SEO System with proper dev/prod separation.
 
 ## Prerequisites
 
