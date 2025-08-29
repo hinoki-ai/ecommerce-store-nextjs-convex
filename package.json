@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/load-env.js && next dev",
     "prebuild": "node -e \"const fs = require('fs'); if (!fs.existsSync('.env.production') && process.env.NODE_ENV === 'production') { console.error('❌ Error: .env.production file not found'); process.exit(1); } console.log('✅ Production environment validation passed');\"",
     "build": "npx prisma generate && next build",
     "start": "npm run validate:env && next start",
