@@ -10,7 +10,10 @@
     "start:standalone": "node .next/standalone/server.js",
     "lint": "eslint",
     "validate:env": "node scripts/validate-env.js",
-    "postinstall": "npm run validate:env"
+    "postinstall": "npm run validate:env",
+    "deploy:dev": "./scripts/deploy.sh development",
+    "deploy:prod": "./scripts/deploy.sh production",
+    "deploy:test": "./scripts/deploy-testing.sh"
   },
   "dependencies": {
     "@clerk/backend": "^2.10.1",
